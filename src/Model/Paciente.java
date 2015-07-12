@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,6 +46,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Paciente.findByPlano", query = "SELECT p FROM Paciente p WHERE p.plano = :plano"),
     @NamedQuery(name = "Paciente.findByNumCarteira", query = "SELECT p FROM Paciente p WHERE p.numCarteira = :numCarteira")})
 public class Paciente implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
+    private List<Atendimento> atendimentoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,7 +78,7 @@ public class Paciente implements Serializable {
     private String plano;
     @Column(name = "NUM_CARTEIRA")
     private Integer numCarteira;
-    @OneToMany(mappedBy = "codcliente")
+    @OneToMany(mappedBy = "codpaciente")
     private List<Telefone> telefoneList;
     @OneToMany(mappedBy = "codcliente")
     private List<Endereco> enderecoList;
@@ -261,6 +264,15 @@ public class Paciente implements Serializable {
     @Override
     public String toString() {
         return "Model.Paciente[ codpaciente=" + codpaciente + " ]";
+    }
+
+    @XmlTransient
+    public List<Atendimento> getAtendimentoList() {
+        return atendimentoList;
+    }
+
+    public void setAtendimentoList(List<Atendimento> atendimentoList) {
+        this.atendimentoList = atendimentoList;
     }
     
 }

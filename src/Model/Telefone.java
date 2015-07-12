@@ -29,8 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Telefone.findAll", query = "SELECT t FROM Telefone t"),
     @NamedQuery(name = "Telefone.findByCodtelefone", query = "SELECT t FROM Telefone t WHERE t.codtelefone = :codtelefone"),
+    @NamedQuery(name = "Telefone.findByPaciente", query = "SELECT t FROM Telefone t WHERE t.codpaciente = :codpaciente"),
     @NamedQuery(name = "Telefone.findByNumero", query = "SELECT t FROM Telefone t WHERE t.numero = :numero")})
 public class Telefone implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,9 +45,9 @@ public class Telefone implements Serializable {
     @JoinColumn(name = "CODTIPO_TELEFONE", referencedColumnName = "CODTIPO_TELEFONE")
     @ManyToOne(optional = false)
     private TipoTelefone codtipoTelefone;
-    @JoinColumn(name = "CODCLIENTE", referencedColumnName = "CODPACIENTE")
+    @JoinColumn(name = "CODPACIENTE", referencedColumnName = "CODPACIENTE")
     @ManyToOne
-    private Paciente codcliente;
+    private Paciente codpaciente;
     @JoinColumn(name = "CODFORNECEDOR", referencedColumnName = "CODFORNECEDOR")
     @ManyToOne
     private Fornecedor codfornecedor;
@@ -86,12 +88,12 @@ public class Telefone implements Serializable {
         this.codtipoTelefone = codtipoTelefone;
     }
 
-    public Paciente getCodcliente() {
-        return codcliente;
+    public Paciente getCodpaciente() {
+        return codpaciente;
     }
 
-    public void setCodcliente(Paciente codcliente) {
-        this.codcliente = codcliente;
+    public void setCodpaciente(Paciente codpaciente) {
+        this.codpaciente = codpaciente;
     }
 
     public Fornecedor getCodfornecedor() {
@@ -126,5 +128,5 @@ public class Telefone implements Serializable {
     public String toString() {
         return "Model.Telefone[ codtelefone=" + codtelefone + " ]";
     }
-    
+
 }

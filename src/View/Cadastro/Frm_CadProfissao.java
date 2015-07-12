@@ -16,6 +16,7 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
      */
     public Frm_CadProfissao() {
         initComponents();
+        setVisible(true);
     }
 
     /**

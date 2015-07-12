@@ -8,6 +8,6 @@ import javax.persistence.Query;
 
 public class Manager {
     protected Query query;
-    protected EntityManagerFactory emf= Persistence.createEntityManagerFactory("Support_ManagerPU");
+    protected EntityManagerFactory emf= Persistence.createEntityManagerFactory("OftalSISPU");
     protected EntityManager em= emf.createEntityManager();
 }

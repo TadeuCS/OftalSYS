@@ -1,14 +1,55 @@
 package View.Cadastro;
 
+import Controller.AtendimentoDAO;
+import Controller.CidadeDAO;
+import Controller.ConvenioDAO;
+import Controller.CorDAO;
+import Controller.EstadoCivilDAO;
+import Controller.EstadoDAO;
+import Controller.PacienteDAO;
+import Controller.ProfissaoDAO;
+import Controller.TelefoneDAO;
+import Controller.TipoTelefoneDAO;
+import Model.Atendimento;
+import Model.Cidade;
+import Model.Convenio;
+import Model.Cor;
+import Model.Endereco;
+import Model.EstadoCivil;
+import Model.Paciente;
+import Model.Profissao;
+import Model.Telefone;
+import Model.TipoTelefone;
+import Model.Uf;
+import Util.Classes.Data;
 import Util.Classes.TableConfig;
+import java.awt.Event;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Frm_CadPaciente extends javax.swing.JFrame {
 
-    TableConfig tbc;
+    Data data;
+    EstadoCivilDAO estadoCivilDAO;
+    CorDAO corDAO;
+    ConvenioDAO convenioDAO;
+    ProfissaoDAO profissaoDAO;
+    EstadoDAO estadoDAO;
+    CidadeDAO cidadeDAO;
+    TipoTelefoneDAO tipoTelefoneDAO;
+    TelefoneDAO telefoneDAO;
+    PacienteDAO pacienteDAO;
+    AtendimentoDAO atendimentoDAO;
+    
+    Paciente paciente;
+    Endereco endereco;
+    Telefone telefone;
+    List<Telefone> telefones;
 
     public Frm_CadPaciente() {
         initComponents();
+        setVisible(true);
         start();
     }
 
@@ -61,11 +102,14 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         cbx_convenio = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
         txt_naturalidade = new javax.swing.JTextField();
+        btn_cadConvenio = new javax.swing.JButton();
+        btn_cadProfissao = new javax.swing.JButton();
+        btn_cadCor = new javax.swing.JButton();
         pnl_endereco = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txt_cep = new javax.swing.JFormattedTextField();
         jLabel16 = new javax.swing.JLabel();
-        txt_rua = new javax.swing.JTextField();
+        txt_logradouro = new javax.swing.JTextField();
         txt_numero = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -242,7 +286,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Paciente");
         setResizable(false);
 
@@ -251,6 +295,12 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         jLabel1.setText("Código:");
 
         txt_codigo.setEnabled(false);
+
+        txt_nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_nomeActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nome *:");
 
@@ -262,6 +312,14 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txt_dataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_dataNascimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_dataNascimentoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_dataNascimentoKeyReleased(evt);
+            }
+        });
 
         jLabel4.setText("CPF *:");
 
@@ -284,7 +342,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         jLabel9.setText("Email:");
 
-        jLabel10.setText("Cor:");
+        jLabel10.setText("Cor *:");
 
         cbx_profissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,6 +360,27 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         jLabel15.setText("Naturalidade:");
 
+        btn_cadConvenio.setText("...");
+        btn_cadConvenio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadConvenioActionPerformed(evt);
+            }
+        });
+
+        btn_cadProfissao.setText("...");
+        btn_cadProfissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadProfissaoActionPerformed(evt);
+            }
+        });
+
+        btn_cadCor.setText("...");
+        btn_cadCor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadCorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_dadosPessoaisLayout = new javax.swing.GroupLayout(pnl_dadosPessoais);
         pnl_dadosPessoais.setLayout(pnl_dadosPessoaisLayout);
         pnl_dadosPessoaisLayout.setHorizontalGroup(
@@ -317,62 +396,63 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                        .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel5))
-                                    .addComponent(txt_plano, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txt_numCarteira, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(23, 23, 23)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txt_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rbt_masculino)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rbt_feminino))))
-                            .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_nome))))
+                        .addComponent(cbx_profissao, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_cadProfissao)
+                        .addGap(267, 267, 267)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_naturalidade))
                     .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                        .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cbx_profissao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbx_estadoCivil, 0, 202, Short.MAX_VALUE))
+                        .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_nome))
+                    .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
                         .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbx_convenio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
+                                .addComponent(txt_plano)
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_numCarteira, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
+                                .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11)
+                        .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
                                 .addComponent(cbx_cor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel15)
+                                .addComponent(btn_cadCor)
                                 .addGap(18, 18, 18)
-                                .addComponent(txt_naturalidade)))))
-                .addGap(374, 374, 374))
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbt_masculino)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbt_feminino))
+                            .addComponent(txt_email)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_dadosPessoaisLayout.createSequentialGroup()
+                        .addComponent(cbx_estadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbx_convenio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_cadConvenio)))
+                .addGap(11, 11, 11))
         );
         pnl_dadosPessoaisLayout.setVerticalGroup(
             pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,38 +469,39 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txt_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_cor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(btn_cadCor)
                     .addComponent(jLabel6)
                     .addComponent(rbt_masculino)
-                    .addComponent(rbt_feminino)
-                    .addComponent(jLabel3)
-                    .addComponent(txt_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbt_feminino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9))
-                    .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(txt_plano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14)
-                        .addComponent(txt_numCarteira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txt_plano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(txt_numCarteira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cbx_estadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(cbx_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbx_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cadConvenio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbx_profissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11))
                     .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbx_cor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10)
                         .addComponent(jLabel15)
-                        .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                        .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_cadProfissao)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         abas.addTab("Dados Pessoais", pnl_dadosPessoais);
@@ -434,7 +515,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         }
         txt_cep.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel16.setText("Rua *:");
+        jLabel16.setText("Logradouro *:");
 
         jLabel17.setText("Número *:");
 
@@ -443,6 +524,28 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         jLabel21.setText("Bairro *:");
 
         jLabel22.setText("Cidade *:");
+
+        cbx_cidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbx_cidadeFocusGained(evt);
+            }
+        });
+        cbx_cidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_cidadeActionPerformed(evt);
+            }
+        });
+
+        cbx_estado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbx_estadoFocusLost(evt);
+            }
+        });
+        cbx_estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_estadoActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("Estado *:");
 
@@ -456,11 +559,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addGroup(pnl_enderecoLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_cep, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_cep, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_rua)
+                        .addComponent(txt_logradouro)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -469,11 +572,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_bairro, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                        .addComponent(txt_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
                     .addGroup(pnl_enderecoLayout.createSequentialGroup()
                         .addComponent(jLabel23)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -492,7 +595,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txt_cep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
-                    .addComponent(txt_rua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(txt_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -501,7 +604,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addComponent(txt_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
                     .addComponent(txt_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,16 +623,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 "TIPO", "TELEFONE"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -539,6 +635,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tb_telefones);
 
         btn_inserirTelefone.setText("Inserir");
+        btn_inserirTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_inserirTelefoneActionPerformed(evt);
+            }
+        });
 
         btn_removerTelefone.setText("Remover");
 
@@ -589,7 +690,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addGroup(pnl_telefonesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnl_telefonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnl_telefonesLayout.createSequentialGroup()
                         .addComponent(btn_removerTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -622,7 +723,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -661,7 +762,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_reimprimir)
@@ -673,7 +774,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_detalhar)
@@ -689,8 +790,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_dadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(abas, javax.swing.GroupLayout.PREFERRED_SIZE, 977, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(abas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnl_dadosLayout.setVerticalGroup(
             pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -703,6 +804,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         pnl_botoes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btn_novo.setText("Novo");
+        btn_novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_novoActionPerformed(evt);
+            }
+        });
 
         btn_editar.setText("Editar");
 
@@ -711,8 +817,18 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_buscar.setText("Buscar");
 
         btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_botoesLayout = new javax.swing.GroupLayout(pnl_botoes);
         pnl_botoes.setLayout(pnl_botoesLayout);
@@ -727,7 +843,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 .addComponent(btn_apagar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -782,11 +898,77 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbx_profissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_profissaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbx_profissaoActionPerformed
+
+    private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_nomeActionPerformed
+
+    private void btn_cadCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadCorActionPerformed
+        Frm_CadCor f = new Frm_CadCor();
+    }//GEN-LAST:event_btn_cadCorActionPerformed
+
+    private void btn_cadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadConvenioActionPerformed
+        Frm_CadConvenio f = new Frm_CadConvenio();
+    }//GEN-LAST:event_btn_cadConvenioActionPerformed
+
+    private void btn_cadProfissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadProfissaoActionPerformed
+        Frm_CadProfissao f = new Frm_CadProfissao();
+    }//GEN-LAST:event_btn_cadProfissaoActionPerformed
+
+    private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
+        limpaCampos();
+        setEnabledButtons(false);
+        setEnableFields(true);
+        txt_nome.requestFocus();
+        paciente=new Paciente();
+        endereco=new Endereco();
+        telefones=new ArrayList<>();
+    }//GEN-LAST:event_btn_novoActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        limpaCampos();
+        setEnabledButtons(true);
+        setEnableFields(false);
+    }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void cbx_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_estadoActionPerformed
+
+    }//GEN-LAST:event_cbx_estadoActionPerformed
+
+    private void cbx_estadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_estadoFocusLost
+    }//GEN-LAST:event_cbx_estadoFocusLost
+
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        validaCampos();
+    }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void txt_dataNascimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dataNascimentoKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            data = new Data();
+            txt_dataNascimento.setText(data.completaData(txt_dataNascimento.getText(), "dd/MM/yyyy"));
+        }
+    }//GEN-LAST:event_txt_dataNascimentoKeyPressed
+
+    private void txt_dataNascimentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dataNascimentoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_dataNascimentoKeyReleased
+
+    private void cbx_cidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_cidadeActionPerformed
+    }//GEN-LAST:event_cbx_cidadeActionPerformed
+
+    private void cbx_cidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_cidadeFocusGained
+        carregaCidades();
+    }//GEN-LAST:event_cbx_cidadeFocusGained
+
+    private void btn_inserirTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inserirTelefoneActionPerformed
+        insereTelefone();
+    }//GEN-LAST:event_btn_inserirTelefoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -829,6 +1011,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JTabbedPane abas;
     private javax.swing.JButton btn_apagar;
     private javax.swing.JButton btn_buscar;
+    private javax.swing.JButton btn_cadConvenio;
+    private javax.swing.JButton btn_cadCor;
+    private javax.swing.JButton btn_cadProfissao;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_detalhar;
     private javax.swing.JButton btn_editar;
@@ -899,13 +1084,13 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txt_dataNascimento;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_filtro;
+    private javax.swing.JTextField txt_logradouro;
     private javax.swing.JTextField txt_naturalidade;
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_numCarteira;
     private javax.swing.JTextField txt_numero;
     private javax.swing.JTextField txt_plano;
     private javax.swing.JTextField txt_rg;
-    private javax.swing.JTextField txt_rua;
     private javax.swing.JFormattedTextField txt_telefone;
     // End of variables declaration//GEN-END:variables
 
@@ -916,16 +1101,15 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_cpf.setText(null);
         txt_rg.setText(null);
         txt_dataNascimento.setText(null);
-        rbt_masculino.setSelected(false);
-        rbt_feminino.setSelected(false);
         txt_plano.setText(null);
         txt_numCarteira.setText(null);
         txt_email.setText(null);
         txt_naturalidade.setText(null);
+        rbt_masculino.setSelected(true);
 
         //endereco
         txt_cep.setText(null);
-        txt_rua.setText(null);
+        txt_logradouro.setText(null);
         txt_numero.setText(null);
         txt_bairro.setText(null);
         txt_complemento.setText(null);
@@ -934,21 +1118,20 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_telefone.setText(null);
 
         //limpa as tabelas
-        tbc.limpaTabela(tb_telefones);
-        tbc.limpaTabela(tb_atendimentos);
-        tbc.limpaTabela(tb_pacientes);
-        tbc.limpaTabela(tb_telefonesPesquisa);
+        TableConfig.limpaTabela(tb_telefones);
+        TableConfig.limpaTabela(tb_atendimentos);
+        TableConfig.limpaTabela(tb_pacientes);
+        TableConfig.limpaTabela(tb_telefonesPesquisa);
     }
-    
+
     private void setEnableFields(boolean tipo) {
         //dados iniciais
-        txt_codigo.setEnabled(tipo);
         txt_nome.setEnabled(tipo);
         txt_cpf.setEnabled(tipo);
         txt_rg.setEnabled(tipo);
         txt_dataNascimento.setEnabled(tipo);
-        rbt_masculino.setSelected(false);
-        rbt_feminino.setSelected(false);
+        rbt_masculino.setEnabled(tipo);
+        rbt_feminino.setEnabled(tipo);
         txt_plano.setEnabled(tipo);
         txt_numCarteira.setEnabled(tipo);
         txt_email.setEnabled(tipo);
@@ -957,10 +1140,13 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         cbx_convenio.setEnabled(tipo);
         cbx_profissao.setEnabled(tipo);
         cbx_cor.setEnabled(tipo);
+        btn_cadConvenio.setEnabled(tipo);
+        btn_cadCor.setEnabled(tipo);
+        btn_cadProfissao.setEnabled(tipo);
 
         //endereco
         txt_cep.setEnabled(tipo);
-        txt_rua.setEnabled(tipo);
+        txt_logradouro.setEnabled(tipo);
         txt_numero.setEnabled(tipo);
         txt_bairro.setEnabled(tipo);
         txt_complemento.setEnabled(tipo);
@@ -972,7 +1158,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         cbx_tipoTelefone.setEnabled(tipo);
         btn_inserirTelefone.setEnabled(tipo);
         btn_removerTelefone.setEnabled(tipo);
-        
+
         tb_atendimentos.setEnabled(tipo);
         tb_pacientes.setEnabled(tipo);
     }
@@ -987,17 +1173,326 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     }
 
     private void start() {
+        grupoSexo.add(rbt_masculino);
+        grupoSexo.add(rbt_feminino);
+        abas.setEnabledAt(3, false);
         limpaCampos();
         setEnabledButtons(true);
         setEnableFields(false);
-        carregaEstadoCivil();
+        carregaEstadoCivis();
+        carregaCores();
+        carregaConvenios();
+        carregaProfissoes();
+        carregaEstados();
+        carregaTipoTelefones();
     }
 
-    private void carregaEstadoCivil() {
+    private void carregaEstadoCivis() {
         try {
-            
+            cbx_estadoCivil.removeAllItems();
+            estadoCivilDAO = new EstadoCivilDAO();
+            for (EstadoCivil estadoCivis : estadoCivilDAO.listar()) {
+                cbx_estadoCivil.addItem(estadoCivis.getDescricao());
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Carregar os estados Civis!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao Carregar os estados Civis!\n" + e.getMessage());
         }
     }
+
+    private void carregaCores() {
+        try {
+            cbx_cor.removeAllItems();
+            corDAO = new CorDAO();
+            for (Cor cores : corDAO.listar()) {
+                cbx_cor.addItem(cores.getDescricao());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Carregar as Cores!\n" + e.getMessage());
+        }
+    }
+
+    private void carregaConvenios() {
+        try {
+            cbx_convenio.removeAllItems();
+            convenioDAO = new ConvenioDAO();
+            for (Convenio convenios : convenioDAO.listar()) {
+                cbx_convenio.addItem(convenios.getDescricao());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Carregar os Convenios!\n" + e.getMessage());
+        }
+    }
+
+    private void carregaProfissoes() {
+        try {
+            cbx_profissao.removeAllItems();
+            profissaoDAO = new ProfissaoDAO();
+            for (Profissao profissoes : profissaoDAO.listar()) {
+                cbx_profissao.addItem(profissoes.getDescricao());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Carregar as Profissoes!\n" + e.getMessage());
+        }
+    }
+
+    private void carregaEstados() {
+        try {
+            cbx_estado.removeAllItems();
+            estadoDAO = new EstadoDAO();
+            for (Uf estados : estadoDAO.listar()) {
+                cbx_estado.addItem(estados.getSigla());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Carregar os estados!\n" + e.getMessage());
+        }
+    }
+
+    private void carregaCidades() {
+        try {
+            cbx_cidade.removeAllItems();
+            cidadeDAO = new CidadeDAO();
+            estadoDAO = new EstadoDAO();
+            List<Cidade> cidades = new ArrayList<>();
+            cidades = cidadeDAO.listarByEstado(estadoDAO.buscar(cbx_estado.getSelectedItem().toString()));
+            for (Cidade listaCidades : cidades) {
+                cbx_cidade.addItem(listaCidades.getDescricao());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Carregar as cidades!\n" + e.getMessage());
+        }
+    }
+
+    private void carregaTipoTelefones() {
+        try {
+            cbx_tipoTelefone.removeAllItems();
+            tipoTelefoneDAO = new TipoTelefoneDAO();
+            for (TipoTelefone tiposTelefone : tipoTelefoneDAO.listar()) {
+                cbx_tipoTelefone.addItem(tiposTelefone.getDescricao());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Carregar os tipos de Telefone!\n" + e.getMessage());
+        }
+    }
+
+    private void listaTelefones() {
+        try {
+            TableConfig.limpaTabela(tb_telefones);
+            telefoneDAO = new TelefoneDAO();
+            pacienteDAO = new PacienteDAO();
+            List<Telefone> lista = telefoneDAO.listarbyPaciente(pacienteDAO.buscar(Integer.parseInt(txt_codigo.getText())));
+            for (Telefone telefones : lista) {
+                String[] linha = new String[]{telefones.getCodtipoTelefone().getDescricao(), telefones.getNumero()};
+                TableConfig.getModel(tb_telefones).addRow(linha);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar os Telefones!\n" + e.getMessage());
+        }
+    }
+
+    private void listarAtendimentos() {
+        try {
+            TableConfig.limpaTabela(tb_atendimentos);
+            atendimentoDAO = new AtendimentoDAO();
+            pacienteDAO = new PacienteDAO();
+            List<Atendimento> lista = atendimentoDAO.listarByPaciente(pacienteDAO.buscar(Integer.parseInt(txt_codigo.getText())));
+            for (Atendimento atendimentos : lista) {
+                String[] linha = new String[]{
+                    atendimentos.getCodatendimento().toString(),
+                    Data.getDataByDate(atendimentos.getDtAtendimento(), "dd/MM/yyyy"),
+                    Data.getDataByDate(atendimentos.getDtAtendimento(), "HH:mm"),
+                    atendimentos.getQueixa()};
+                TableConfig.getModel(tb_atendimentos).addRow(linha);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar os Telefones!\n" + e.getMessage());
+        }
+    }
+
+    private void validaCampos() {
+        try {
+            if (txt_nome.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Nome inválido!");
+                abas.setSelectedIndex(0);
+                txt_nome.requestFocus();
+            } else {
+
+                if (txt_dataNascimento.getText().replace("/", "").trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Data de Nascimento inválida!");
+                    abas.setSelectedIndex(0);
+                    txt_dataNascimento.requestFocus();
+                } else {
+
+                    if (grupoSexo.getSelection() == null) {
+                        JOptionPane.showMessageDialog(null, "Sexo inválido!");
+                        abas.setSelectedIndex(0);
+                        rbt_masculino.requestFocus();
+                    } else {
+
+                        if (cbx_estadoCivil.getSelectedItem() == null) {
+                            JOptionPane.showMessageDialog(null, "Estado Civil inválido!");
+                            abas.setSelectedIndex(0);
+                            cbx_estadoCivil.requestFocus();
+                        } else {
+                            if (cbx_profissao.getSelectedItem() == null) {
+                                JOptionPane.showMessageDialog(null, "Profissão inválida!");
+                                abas.setSelectedIndex(0);
+                                cbx_profissao.requestFocus();
+                            } else {
+                                if (txt_cep.getText().replace("-", "").trim().isEmpty()) {
+                                    JOptionPane.showMessageDialog(null, "CEP inválido!");
+                                    abas.setSelectedIndex(1);
+                                    txt_cep.requestFocus();
+                                } else {
+                                    if (txt_logradouro.getText().isEmpty()) {
+                                        JOptionPane.showMessageDialog(null, "Logradouro inválido!");
+                                        abas.setSelectedIndex(1);
+                                        txt_logradouro.requestFocus();
+                                    } else {
+                                        if (txt_numero.getText().isEmpty()) {
+                                            JOptionPane.showMessageDialog(null, "Número inválido!");
+                                            abas.setSelectedIndex(1);
+                                            txt_numero.requestFocus();
+                                        } else {
+                                            if (txt_bairro.getText().isEmpty()) {
+                                                JOptionPane.showMessageDialog(null, "Bairro inválido!");
+                                                abas.setSelectedIndex(1);
+                                                txt_bairro.requestFocus();
+                                            } else {
+                                                if (cbx_estado.getSelectedItem() == null) {
+                                                    JOptionPane.showMessageDialog(null, "Estado inválido!");
+                                                    abas.setSelectedIndex(1);
+                                                    cbx_estado.requestFocus();
+                                                } else {
+                                                    if (cbx_cidade.getSelectedItem() == null) {
+                                                        JOptionPane.showMessageDialog(null, "Cidade inválida!");
+                                                        abas.setSelectedIndex(1);
+                                                        cbx_cidade.requestFocus();
+                                                    } else {
+                                                        if (cbx_tipoTelefone.getSelectedItem() == null) {
+                                                            JOptionPane.showMessageDialog(null, "Tipo de Telefone Inválido!");
+                                                            abas.setSelectedIndex(2);
+                                                            cbx_tipoTelefone.requestFocus();
+                                                        } else {
+                                                            if (txt_telefone.getText().replace("(", "").replace(")", "").replace("-", "").trim().isEmpty()) {
+                                                                JOptionPane.showMessageDialog(null, "Telefone Inválido!");
+                                                                abas.setSelectedIndex(2);
+                                                                txt_telefone.requestFocus();
+                                                            } else {
+                                                                if (tb_telefones.getRowCount() == 0) {
+                                                                    JOptionPane.showMessageDialog(null, "Insira pelo menos 1 TELEFONE de contato na lista!");
+                                                                    abas.setSelectedIndex(2);
+                                                                    txt_telefone.requestFocus();
+                                                                } else {
+                                                                    salvar();
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+//            if (ValidarCGCCPF.validaCPF(txt_cpf.getText()) == false) {
+//                                    JOptionPane.showMessageDialog(null, "CPF inválido!");
+//                                    txt_cpf.requestFocus();
+//                                } else {
+//                                    if (txt_rg.getText().isEmpty()) {
+//                                        JOptionPane.showMessageDialog(null, "RG inválido!");
+//                                        txt_rg.requestFocus();
+//                                    } else {
+//                                        if (txt_naturalidade.getText().isEmpty()) {
+//                                            JOptionPane.showMessageDialog(null, "Naturalidade inválida!");
+//                                            txt_naturalidade.requestFocus();
+//                                        } else {
+//                                            if (cbx_cor.getSelectedItem() == null) {
+//                                                JOptionPane.showMessageDialog(null, "Cor inválida!");
+//                                                cbx_cor.requestFocus();
+//                                            } else {
+//                                                if (txt_plano.getText().isEmpty()) {
+//                                                    JOptionPane.showMessageDialog(null, "Plano inválido!");
+//                                                    txt_plano.requestFocus();
+//                                                } else {
+//                                                    if (txt_numCarteira.getText().isEmpty()) {
+//                                                        JOptionPane.showMessageDialog(null, "Número da carteira inválido!");
+//                                                        txt_numCarteira.requestFocus();
+//                                                    } else {
+//                                                        if (ValidaEmail.validarEmail(txt_email.getText()) == false) {
+//                                                            JOptionPane.showMessageDialog(null, "Email inválido!");
+//                                                            txt_email.requestFocus();
+//                                                        } else {
+//                                                            if (cbx_convenio.getSelectedItem() == null) {
+//                                                                JOptionPane.showMessageDialog(null, "Convênio inválido!");
+//                                                                cbx_convenio.requestFocus();
+//                                                            } else {
+
+//                                                            }
+//                                                        }
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Validar os campos!\n" + e.getMessage());
+        }
+    }
+
+    private void salvar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void insereTelefone() {
+        try {
+            if(validaTelefoneExisteNoBanco(txt_telefone.getText())==null){
+                JOptionPane.showMessageDialog(null, "Telefone utilizado por outro paciente!");
+            }else{
+                if(validaTelefoneExiteNalista(txt_telefone.getText())==true){
+                    JOptionPane.showMessageDialog(null, "Telefone já existe na Lista abaixo!");
+                }else{
+                    telefone=new Telefone();
+                    tipoTelefoneDAO=new TipoTelefoneDAO();
+                    telefone.setNumero(txt_telefone.getText());
+                    telefone.setCodtipoTelefone(tipoTelefoneDAO.buscar(cbx_tipoTelefone.getSelectedItem().toString()));
+                    telefones.add(telefone);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Inserir o Telefone " + txt_telefone.getText() + "!\n" + e.getMessage());
+        }
+    }
+
+    private Telefone validaTelefoneExisteNoBanco(String telefone) {
+        Telefone tel= new Telefone();
+        try {
+            telefoneDAO=new TelefoneDAO();
+            tel=telefoneDAO.buscar(telefone);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar o telefone +"+telefone+"!\n"+e.getMessage());
+        }finally{
+            return tel;
+        }
+    }
+
+    private boolean validaTelefoneExiteNalista(String telefone) {
+        boolean tel=false;
+        try {
+            for(int i=0; i<tb_telefones.getRowCount();i++){
+                if(telefone.equals(tb_telefones.getValueAt(i, 1))==true){
+                    tel=true;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar o telefone +"+telefone+"!\n"+e.getMessage());
+        }finally{
+            return tel;
+        }
+    }
+
 }

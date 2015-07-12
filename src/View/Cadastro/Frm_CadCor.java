@@ -16,6 +16,7 @@ public class Frm_CadCor extends javax.swing.JFrame {
      */
     public Frm_CadCor() {
         initComponents();
+        setVisible(true);
     }
 
     /**

@@ -16,6 +16,7 @@ public class Frm_CadConvenio extends javax.swing.JFrame {
      */
     public Frm_CadConvenio() {
         initComponents();
+        setVisible(true);
     }
 
     /**
