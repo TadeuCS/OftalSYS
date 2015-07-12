@@ -469,7 +469,7 @@
                                   <Component id="cbx_convenio" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btn_cadConvenio" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="cbx_profissao" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -481,7 +481,7 @@
                                       <Component id="btn_cadProfissao" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="47" max="32767" attributes="0"/>
+                              <EmptySpace pref="11" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -526,7 +526,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel4">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="CPF *:"/>
+                        <Property name="text" type="java.lang.String" value="CPF:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="txt_cpf">
@@ -541,7 +541,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel5">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="RG *:"/>
+                        <Property name="text" type="java.lang.String" value="RG :"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel6">
@@ -575,7 +575,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel8">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Estado Civil *:"/>
+                        <Property name="text" type="java.lang.String" value="Estado Civil:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt_email">
@@ -587,7 +587,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel10">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Cor *:"/>
+                        <Property name="text" type="java.lang.String" value="Cor:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="cbx_profissao">
@@ -602,12 +602,12 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel11">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Profiss&#xe3;o *:"/>
+                        <Property name="text" type="java.lang.String" value="Profiss&#xe3;o:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel12">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Conv&#xea;nio *:"/>
+                        <Property name="text" type="java.lang.String" value="Conv&#xea;nio:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txt_plano">
@@ -760,6 +760,9 @@
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_cepKeyPressed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel16">
                       <Properties>
@@ -861,8 +864,8 @@
                                   <Component id="btn_removerTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="77" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="98" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -916,6 +919,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Remover"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_removerTelefoneActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JPanel" name="jPanel5">
                       <Properties>
@@ -1018,7 +1024,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" pref="150" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" pref="155" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btn_detalhar" alignment="3" min="-2" max="-2" attributes="0"/>

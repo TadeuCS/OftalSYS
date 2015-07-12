@@ -15,6 +15,17 @@ import java.util.List;
  */
 public class PacienteDAO extends Manager {
 
+    public void salvar(Paciente paciente){
+        em.getTransaction().begin();
+        em.merge(paciente);
+        em.getTransaction().commit();
+    }
+    public void remover(Paciente paciente){
+        em.getTransaction().begin();
+        em.remove(paciente);
+        em.getTransaction().commit();
+    }
+    
     public List<Paciente> listar() {
         em.getTransaction().begin();
         query = em.createNamedQuery("Paciente.findAll");

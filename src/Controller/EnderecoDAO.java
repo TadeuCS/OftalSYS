@@ -5,8 +5,8 @@
  */
 package Controller;
 
-import Model.Cidade;
-import Model.Uf;
+import Model.Cep;
+import Model.Endereco;
 import Util.Classes.Manager;
 import java.util.List;
 
@@ -14,19 +14,19 @@ import java.util.List;
  *
  * @author Tadeu
  */
-public class CidadeDAO extends Manager {
+public class EnderecoDAO extends Manager {
 
-    public List<Cidade> listarByEstado(Uf estado) {
+    public List<Endereco> listar() {
         em.getTransaction().begin();
-        query = em.createNamedQuery("Cidade.findByCodEstado").setParameter("codestado", estado);
+        query = em.createNamedQuery("Endereco.findAll");
         em.getTransaction().commit();
         return query.getResultList();
     }
-
-    public Cidade buscar(String descricao) {
+    public Cep findByCEP(String descricao) {
         em.getTransaction().begin();
-        query=em.createNamedQuery("Cidade.findByDescricao").setParameter("descricao", descricao);
+        query = em.createNamedQuery("Cep.findByCep").setParameter("cep", descricao);
         em.getTransaction().commit();
-        return (Cidade) query.getSingleResult();
+        return (Cep) query.getSingleResult();
     }
+
 }

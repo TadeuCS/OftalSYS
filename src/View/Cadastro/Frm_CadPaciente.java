@@ -4,6 +4,7 @@ import Controller.AtendimentoDAO;
 import Controller.CidadeDAO;
 import Controller.ConvenioDAO;
 import Controller.CorDAO;
+import Controller.EnderecoDAO;
 import Controller.EstadoCivilDAO;
 import Controller.EstadoDAO;
 import Controller.PacienteDAO;
@@ -11,6 +12,7 @@ import Controller.ProfissaoDAO;
 import Controller.TelefoneDAO;
 import Controller.TipoTelefoneDAO;
 import Model.Atendimento;
+import Model.Cep;
 import Model.Cidade;
 import Model.Convenio;
 import Model.Cor;
@@ -23,9 +25,12 @@ import Model.TipoTelefone;
 import Model.Uf;
 import Util.Classes.Data;
 import Util.Classes.TableConfig;
+import Util.Classes.ValidaEmail;
+import Util.Classes.ValidarCGCCPF;
 import java.awt.Event;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
 
 public class Frm_CadPaciente extends javax.swing.JFrame {
@@ -41,10 +46,12 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     TelefoneDAO telefoneDAO;
     PacienteDAO pacienteDAO;
     AtendimentoDAO atendimentoDAO;
-    
+    EnderecoDAO enderecoDAO;
+
     Paciente paciente;
     Endereco endereco;
     Telefone telefone;
+    Cep cep;
     List<Telefone> telefones;
 
     public Frm_CadPaciente() {
@@ -321,7 +328,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("CPF *:");
+        jLabel4.setText("CPF:");
 
         try {
             txt_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -330,7 +337,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         }
         txt_cpf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel5.setText("RG *:");
+        jLabel5.setText("RG :");
 
         jLabel6.setText("Sexo *:");
 
@@ -338,11 +345,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         rbt_feminino.setText("Feminino");
 
-        jLabel8.setText("Estado Civil *:");
+        jLabel8.setText("Estado Civil:");
 
         jLabel9.setText("Email:");
 
-        jLabel10.setText("Cor *:");
+        jLabel10.setText("Cor:");
 
         cbx_profissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,9 +357,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Profissão *:");
+        jLabel11.setText("Profissão:");
 
-        jLabel12.setText("Convênio *:");
+        jLabel12.setText("Convênio:");
 
         jLabel13.setText("Plano:");
 
@@ -492,7 +499,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(cbx_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cadConvenio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbx_profissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -501,7 +508,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_cadProfissao)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         abas.addTab("Dados Pessoais", pnl_dadosPessoais);
@@ -514,6 +521,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txt_cep.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_cep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_cepKeyPressed(evt);
+            }
+        });
 
         jLabel16.setText("Logradouro *:");
 
@@ -642,6 +654,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         });
 
         btn_removerTelefone.setText("Remover");
+        btn_removerTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removerTelefoneActionPerformed(evt);
+            }
+        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -708,8 +725,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addComponent(btn_inserirTelefone)
                     .addComponent(btn_removerTelefone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         abas.addTab("Telefone", pnl_telefones);
@@ -774,7 +791,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_detalhar)
@@ -926,9 +943,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         setEnabledButtons(false);
         setEnableFields(true);
         txt_nome.requestFocus();
-        paciente=new Paciente();
-        endereco=new Endereco();
-        telefones=new ArrayList<>();
+        paciente = new Paciente();
+        endereco = new Endereco();
+        telefones = new ArrayList<>();
     }//GEN-LAST:event_btn_novoActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
@@ -967,8 +984,38 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_cbx_cidadeFocusGained
 
     private void btn_inserirTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inserirTelefoneActionPerformed
-        insereTelefone();
+        try {
+            if (validaTelefoneExisteNoBanco(txt_telefone.getText()) != null) {
+                JOptionPane.showMessageDialog(null, "Telefone utilizado por outro paciente!");
+            } else {
+                if (validaTelefoneExiteNalista(txt_telefone.getText()) == true) {
+                    JOptionPane.showMessageDialog(null, "Telefone já existe na Lista abaixo!");
+                } else {
+                    insereTelefone(txt_telefone.getText());
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Inserir o Telefone " + txt_telefone.getText() + "!\n" + e.getMessage());
+        }
     }//GEN-LAST:event_btn_inserirTelefoneActionPerformed
+
+    private void btn_removerTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerTelefoneActionPerformed
+        if (tb_telefones.getSelectedRowCount() == 1) {
+            removerTelefone(tb_telefones.getValueAt(tb_telefones.getSelectedRow(), 1).toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione 1 telefone na lista para remover!");
+        }
+    }//GEN-LAST:event_btn_removerTelefoneActionPerformed
+
+    private void txt_cepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cepKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            if (txt_cep.getText().replaceAll("-", "").trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "CEP Inválido!");
+            } else {
+                buscaCEP(txt_cep.getText());
+            }
+        }
+    }//GEN-LAST:event_txt_cepKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1202,6 +1249,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void carregaCores() {
         try {
             cbx_cor.removeAllItems();
+            cbx_cor.addItem("Selecione uma COR");
             corDAO = new CorDAO();
             for (Cor cores : corDAO.listar()) {
                 cbx_cor.addItem(cores.getDescricao());
@@ -1214,6 +1262,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void carregaConvenios() {
         try {
             cbx_convenio.removeAllItems();
+            cbx_convenio.addItem("Selecione um Convênio");
             convenioDAO = new ConvenioDAO();
             for (Convenio convenios : convenioDAO.listar()) {
                 cbx_convenio.addItem(convenios.getDescricao());
@@ -1226,6 +1275,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void carregaProfissoes() {
         try {
             cbx_profissao.removeAllItems();
+            cbx_profissao.addItem("Selecione uma Profissão");
             profissaoDAO = new ProfissaoDAO();
             for (Profissao profissoes : profissaoDAO.listar()) {
                 cbx_profissao.addItem(profissoes.getDescricao());
@@ -1321,13 +1371,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     abas.setSelectedIndex(0);
                     txt_dataNascimento.requestFocus();
                 } else {
-
                     if (grupoSexo.getSelection() == null) {
                         JOptionPane.showMessageDialog(null, "Sexo inválido!");
                         abas.setSelectedIndex(0);
                         rbt_masculino.requestFocus();
                     } else {
-
                         if (cbx_estadoCivil.getSelectedItem() == null) {
                             JOptionPane.showMessageDialog(null, "Estado Civil inválido!");
                             abas.setSelectedIndex(0);
@@ -1338,53 +1386,47 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                                 abas.setSelectedIndex(0);
                                 cbx_profissao.requestFocus();
                             } else {
-                                if (txt_cep.getText().replace("-", "").trim().isEmpty()) {
-                                    JOptionPane.showMessageDialog(null, "CEP inválido!");
+                                if (txt_logradouro.getText().isEmpty()) {
+                                    JOptionPane.showMessageDialog(null, "Logradouro inválido!");
                                     abas.setSelectedIndex(1);
-                                    txt_cep.requestFocus();
+                                    txt_logradouro.requestFocus();
                                 } else {
-                                    if (txt_logradouro.getText().isEmpty()) {
-                                        JOptionPane.showMessageDialog(null, "Logradouro inválido!");
+                                    if (txt_numero.getText().isEmpty()) {
+                                        JOptionPane.showMessageDialog(null, "Número inválido!");
                                         abas.setSelectedIndex(1);
-                                        txt_logradouro.requestFocus();
+                                        txt_numero.requestFocus();
                                     } else {
-                                        if (txt_numero.getText().isEmpty()) {
-                                            JOptionPane.showMessageDialog(null, "Número inválido!");
+                                        if (txt_bairro.getText().isEmpty()) {
+                                            JOptionPane.showMessageDialog(null, "Bairro inválido!");
                                             abas.setSelectedIndex(1);
-                                            txt_numero.requestFocus();
+                                            txt_bairro.requestFocus();
                                         } else {
-                                            if (txt_bairro.getText().isEmpty()) {
-                                                JOptionPane.showMessageDialog(null, "Bairro inválido!");
+                                            if (cbx_estado.getSelectedItem() == null) {
+                                                JOptionPane.showMessageDialog(null, "Estado inválido!");
                                                 abas.setSelectedIndex(1);
-                                                txt_bairro.requestFocus();
+                                                cbx_estado.requestFocus();
                                             } else {
-                                                if (cbx_estado.getSelectedItem() == null) {
-                                                    JOptionPane.showMessageDialog(null, "Estado inválido!");
+                                                if (cbx_cidade.getSelectedItem() == null) {
+                                                    JOptionPane.showMessageDialog(null, "Cidade inválida!");
                                                     abas.setSelectedIndex(1);
-                                                    cbx_estado.requestFocus();
+                                                    cbx_cidade.requestFocus();
                                                 } else {
-                                                    if (cbx_cidade.getSelectedItem() == null) {
-                                                        JOptionPane.showMessageDialog(null, "Cidade inválida!");
-                                                        abas.setSelectedIndex(1);
-                                                        cbx_cidade.requestFocus();
+                                                    if (cbx_tipoTelefone.getSelectedItem() == null) {
+                                                        JOptionPane.showMessageDialog(null, "Tipo de Telefone Inválido!");
+                                                        abas.setSelectedIndex(2);
+                                                        cbx_tipoTelefone.requestFocus();
                                                     } else {
-                                                        if (cbx_tipoTelefone.getSelectedItem() == null) {
-                                                            JOptionPane.showMessageDialog(null, "Tipo de Telefone Inválido!");
+                                                        if (txt_telefone.getText().replace("(", "").replace(")", "").replace("-", "").trim().isEmpty()) {
+                                                            JOptionPane.showMessageDialog(null, "Telefone Inválido!");
                                                             abas.setSelectedIndex(2);
-                                                            cbx_tipoTelefone.requestFocus();
+                                                            txt_telefone.requestFocus();
                                                         } else {
-                                                            if (txt_telefone.getText().replace("(", "").replace(")", "").replace("-", "").trim().isEmpty()) {
-                                                                JOptionPane.showMessageDialog(null, "Telefone Inválido!");
+                                                            if (tb_telefones.getRowCount() == 0) {
+                                                                JOptionPane.showMessageDialog(null, "Insira pelo menos 1 TELEFONE de contato na lista!");
                                                                 abas.setSelectedIndex(2);
                                                                 txt_telefone.requestFocus();
                                                             } else {
-                                                                if (tb_telefones.getRowCount() == 0) {
-                                                                    JOptionPane.showMessageDialog(null, "Insira pelo menos 1 TELEFONE de contato na lista!");
-                                                                    abas.setSelectedIndex(2);
-                                                                    txt_telefone.requestFocus();
-                                                                } else {
-                                                                    salvar();
-                                                                }
+                                                                salvar();
                                                             }
                                                         }
                                                     }
@@ -1398,100 +1440,151 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     }
                 }
             }
-//            if (ValidarCGCCPF.validaCPF(txt_cpf.getText()) == false) {
-//                                    JOptionPane.showMessageDialog(null, "CPF inválido!");
-//                                    txt_cpf.requestFocus();
-//                                } else {
-//                                    if (txt_rg.getText().isEmpty()) {
-//                                        JOptionPane.showMessageDialog(null, "RG inválido!");
-//                                        txt_rg.requestFocus();
-//                                    } else {
-//                                        if (txt_naturalidade.getText().isEmpty()) {
-//                                            JOptionPane.showMessageDialog(null, "Naturalidade inválida!");
-//                                            txt_naturalidade.requestFocus();
-//                                        } else {
-//                                            if (cbx_cor.getSelectedItem() == null) {
-//                                                JOptionPane.showMessageDialog(null, "Cor inválida!");
-//                                                cbx_cor.requestFocus();
-//                                            } else {
-//                                                if (txt_plano.getText().isEmpty()) {
-//                                                    JOptionPane.showMessageDialog(null, "Plano inválido!");
-//                                                    txt_plano.requestFocus();
-//                                                } else {
-//                                                    if (txt_numCarteira.getText().isEmpty()) {
-//                                                        JOptionPane.showMessageDialog(null, "Número da carteira inválido!");
-//                                                        txt_numCarteira.requestFocus();
-//                                                    } else {
-//                                                        if (ValidaEmail.validarEmail(txt_email.getText()) == false) {
-//                                                            JOptionPane.showMessageDialog(null, "Email inválido!");
-//                                                            txt_email.requestFocus();
-//                                                        } else {
-//                                                            if (cbx_convenio.getSelectedItem() == null) {
-//                                                                JOptionPane.showMessageDialog(null, "Convênio inválido!");
-//                                                                cbx_convenio.requestFocus();
-//                                                            } else {
-
-//                                                            }
-//                                                        }
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao Validar os campos!\n" + e.getMessage());
         }
     }
 
     private void salvar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void insereTelefone() {
         try {
-            if(validaTelefoneExisteNoBanco(txt_telefone.getText())==null){
-                JOptionPane.showMessageDialog(null, "Telefone utilizado por outro paciente!");
-            }else{
-                if(validaTelefoneExiteNalista(txt_telefone.getText())==true){
-                    JOptionPane.showMessageDialog(null, "Telefone já existe na Lista abaixo!");
-                }else{
-                    telefone=new Telefone();
-                    tipoTelefoneDAO=new TipoTelefoneDAO();
-                    telefone.setNumero(txt_telefone.getText());
-                    telefone.setCodtipoTelefone(tipoTelefoneDAO.buscar(cbx_tipoTelefone.getSelectedItem().toString()));
-                    telefones.add(telefone);
+            corDAO = new CorDAO();
+            estadoCivilDAO = new EstadoCivilDAO();
+            convenioDAO=new ConvenioDAO();
+            profissaoDAO=new ProfissaoDAO();
+            enderecoDAO=new EnderecoDAO();
+            if (txt_codigo.getText().isEmpty()) {
+                //dados iniciais
+                paciente.setNome(txt_nome.getText());
+                if (!txt_cpf.getText().replace(".", "").replace("-", "").trim().isEmpty() && ValidarCGCCPF.validaCPF(txt_cpf.getText()) == true) {
+                    paciente.setCpf(txt_cpf.getText());
+                } else {
+                    JOptionPane.showMessageDialog(null, "CPF inválido!");
+                    txt_cpf.requestFocus();
                 }
+                if (!txt_rg.getText().isEmpty()) {
+                    paciente.setRg(txt_rg.getText());
+                }
+                paciente.setDtNascimento(Data.getDataByTexto(txt_dataNascimento.getText(), "dd/MM/yyyy"));
+                if (cbx_cor.getSelectedIndex() != 0) {
+                    paciente.setCodcor(corDAO.buscar(cbx_cor.getSelectedItem().toString()));
+                }
+                if (rbt_masculino.getSelectedObjects() != null) {
+                    paciente.setSexo('M');
+                } else {
+                    paciente.setSexo('F');
+                }
+                if (!txt_plano.getText().isEmpty()) {
+                    paciente.setPlano(txt_plano.getText());
+                }
+                if (!txt_numCarteira.getText().isEmpty()) {
+                    paciente.setNumCarteira(Integer.parseInt(txt_numCarteira.getText()));
+                }
+                if (!txt_email.getText().isEmpty() && ValidaEmail.validarEmail(txt_email.getText()) == true) {
+                    paciente.setEmail(txt_email.getText());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Email inválido!");
+                    txt_email.requestFocus();
+                }
+                paciente.setCodestadoCivil(estadoCivilDAO.buscar(cbx_estadoCivil.getSelectedItem().toString()));
+                if (cbx_convenio.getSelectedIndex() != 0) {
+                    paciente.setCodconvenio(convenioDAO.buscar(cbx_convenio.getSelectedItem().toString()));
+                }
+                if (cbx_profissao.getSelectedIndex() != 0) {
+                    paciente.setCodprofissao(profissaoDAO.buscar(cbx_profissao.getSelectedItem().toString()));
+                }
+                if (!txt_naturalidade.getText().isEmpty()) {
+                    paciente.setNaturalidade(txt_naturalidade.getText());
+                }
+
+                //endereco
+                if (!txt_cep.getText().isEmpty()) {
+                    endereco.setCep(txt_cep.getText());
+                }
+                endereco.setLogradouro(txt_logradouro.getText());
+                endereco.setNumero(Integer.parseInt(txt_numero.getText()));
+                if (!txt_complemento.getText().isEmpty()) {
+                    endereco.setComplemento(txt_complemento.getText());
+                }
+                endereco.setBairro(txt_bairro.getText());
+                endereco.setCodcidade(cidadeDAO.buscar(cbx_cidade.getSelectedItem().toString()));
+                paciente.getEnderecoList().add(endereco);
+                paciente.setTelefoneList(telefones);
+                pacienteDAO=new PacienteDAO();
+                pacienteDAO.salvar(paciente);
+                JOptionPane.showMessageDialog(null, "Paciente Salvo com Sucesso!");
+            } else {
+                
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Inserir o Telefone " + txt_telefone.getText() + "!\n" + e.getMessage());
+            JOptionPane.showConfirmDialog(null, "Erro ao gravar o Paciente!\n" + e.getMessage());
+        }
+    }
+
+    private void insereTelefone(String numero) {
+        try {
+            telefone = new Telefone();
+            tipoTelefoneDAO = new TipoTelefoneDAO();
+            telefone.setNumero(txt_telefone.getText());
+            telefone.setCodtipoTelefone(tipoTelefoneDAO.buscar(cbx_tipoTelefone.getSelectedItem().toString()));
+            telefones.add(telefone);
+            String[] linha = new String[]{telefone.getCodtipoTelefone().getDescricao(), telefone.getNumero()};
+            TableConfig.getModel(tb_telefones).addRow(linha);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao inserir o telefone " + numero + " na lista!" + e.getMessage());
         }
     }
 
     private Telefone validaTelefoneExisteNoBanco(String telefone) {
-        Telefone tel= new Telefone();
         try {
-            telefoneDAO=new TelefoneDAO();
-            tel=telefoneDAO.buscar(telefone);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar o telefone +"+telefone+"!\n"+e.getMessage());
-        }finally{
-            return tel;
+            telefoneDAO = new TelefoneDAO();
+            return telefoneDAO.buscar(telefone);
+        } catch (NoResultException e) {
+            return null;
         }
     }
 
     private boolean validaTelefoneExiteNalista(String telefone) {
-        boolean tel=false;
+        boolean tel = false;
         try {
-            for(int i=0; i<tb_telefones.getRowCount();i++){
-                if(telefone.equals(tb_telefones.getValueAt(i, 1))==true){
-                    tel=true;
+            for (int i = 0; i < tb_telefones.getRowCount(); i++) {
+                if (telefone.equals(tb_telefones.getValueAt(i, 1)) == true) {
+                    tel = true;
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar o telefone +"+telefone+"!\n"+e.getMessage());
-        }finally{
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar o telefone " + telefone + "!\n" + e.getMessage());
+        } finally {
             return tel;
+        }
+    }
+
+    private void removerTelefone(String numero) {
+        try {
+            telefoneDAO = new TelefoneDAO();
+            telefones.remove(telefoneDAO.buscar(numero));
+            TableConfig.getModel(tb_telefones).removeRow(tb_telefones.getSelectedRow());
+        } catch (NoResultException e) {
+            TableConfig.getModel(tb_telefones).removeRow(tb_telefones.getSelectedRow());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao remover o telefone " + numero + " da lista!\n" + e.getMessage());
+        }
+    }
+
+    private void buscaCEP(String cep) {
+        enderecoDAO = new EnderecoDAO();
+        this.cep = new Cep();
+        try {
+            this.cep = enderecoDAO.findByCEP(cep);
+            if (endereco.getCep() != null) {
+                txt_logradouro.setText(this.cep.getRua());
+                txt_bairro.setText(this.cep.getBairro());
+                cbx_cidade.setSelectedItem(this.cep.getCodcidade().getDescricao());
+                cbx_estado.setSelectedItem(this.cep.getCodcidade().getCodestado().getSigla());
+                txt_numero.requestFocus();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "CEP não Encontrado, Preencha os campos obrigatórios!");
+            txt_logradouro.requestFocus();
         }
     }
 
