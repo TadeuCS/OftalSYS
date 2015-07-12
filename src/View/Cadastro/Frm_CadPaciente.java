@@ -27,10 +27,12 @@ import Util.Classes.Data;
 import Util.Classes.TableConfig;
 import Util.Classes.ValidaEmail;
 import Util.Classes.ValidarCGCCPF;
+import View.Consulta.Frm_ConsPaciente;
 import java.awt.Event;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.NoResultException;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 public class Frm_CadPaciente extends javax.swing.JFrame {
@@ -53,6 +55,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     Telefone telefone;
     Cep cep;
     List<Telefone> telefones;
+    List<Endereco> enderecos;
 
     public Frm_CadPaciente() {
         initComponents();
@@ -65,17 +68,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void initComponents() {
 
         grupoSexo = new javax.swing.ButtonGroup();
-        Frm_ConsCliente = new javax.swing.JInternalFrame();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        txt_filtro = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tb_pacientes = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tb_telefonesPesquisa = new javax.swing.JTable();
-        pnl_botoes1 = new javax.swing.JPanel();
-        btn_selecionar = new javax.swing.JButton();
-        btn_fechar = new javax.swing.JButton();
         fundo = new javax.swing.JPanel();
         pnl_dados = new javax.swing.JPanel();
         abas = new javax.swing.JTabbedPane();
@@ -149,149 +141,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_buscar = new javax.swing.JButton();
         btn_salvar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
-
-        Frm_ConsCliente.setTitle("Consulta de Paciente");
-        Frm_ConsCliente.setVisible(true);
-
-        jLabel24.setText("Filtro:");
-
-        tb_pacientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Nome", "CPF", "Logradouro", "Numero", "Bairro", "Cidade", "UF"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tb_pacientes.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tb_pacientes);
-        if (tb_pacientes.getColumnModel().getColumnCount() > 0) {
-            tb_pacientes.getColumnModel().getColumn(0).setMinWidth(65);
-            tb_pacientes.getColumnModel().getColumn(0).setPreferredWidth(65);
-            tb_pacientes.getColumnModel().getColumn(0).setMaxWidth(65);
-            tb_pacientes.getColumnModel().getColumn(2).setMinWidth(110);
-            tb_pacientes.getColumnModel().getColumn(2).setPreferredWidth(110);
-            tb_pacientes.getColumnModel().getColumn(2).setMaxWidth(110);
-            tb_pacientes.getColumnModel().getColumn(4).setMinWidth(80);
-            tb_pacientes.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tb_pacientes.getColumnModel().getColumn(4).setMaxWidth(80);
-            tb_pacientes.getColumnModel().getColumn(7).setMinWidth(40);
-            tb_pacientes.getColumnModel().getColumn(7).setPreferredWidth(40);
-            tb_pacientes.getColumnModel().getColumn(7).setMaxWidth(40);
-        }
-
-        tb_telefonesPesquisa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "TIPO", "TELEFONE"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tb_telefonesPesquisa.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tb_telefonesPesquisa);
-
-        pnl_botoes1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        btn_selecionar.setText("Selecionar");
-
-        btn_fechar.setText("Fechar");
-
-        javax.swing.GroupLayout pnl_botoes1Layout = new javax.swing.GroupLayout(pnl_botoes1);
-        pnl_botoes1.setLayout(pnl_botoes1Layout);
-        pnl_botoes1Layout.setHorizontalGroup(
-            pnl_botoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_botoes1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_fechar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_selecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
-        );
-        pnl_botoes1Layout.setVerticalGroup(
-            pnl_botoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_botoes1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(pnl_botoes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_selecionar)
-                    .addComponent(btn_fechar))
-                .addGap(6, 6, 6))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_filtro))
-                    .addComponent(pnl_botoes1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_botoes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout Frm_ConsClienteLayout = new javax.swing.GroupLayout(Frm_ConsCliente.getContentPane());
-        Frm_ConsCliente.getContentPane().setLayout(Frm_ConsClienteLayout);
-        Frm_ConsClienteLayout.setHorizontalGroup(
-            Frm_ConsClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        Frm_ConsClienteLayout.setVerticalGroup(
-            Frm_ConsClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Paciente");
@@ -815,7 +664,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addGroup(pnl_dadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(abas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pnl_botoes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -832,6 +681,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_apagar.setText("Apagar");
 
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         btn_salvar.setText("Salvar");
         btn_salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -943,8 +797,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         setEnabledButtons(false);
         setEnableFields(true);
         txt_nome.requestFocus();
-        paciente = new Paciente();
-        endereco = new Endereco();
+        paciente=new Paciente();
+        endereco=new Endereco();
         telefones = new ArrayList<>();
     }//GEN-LAST:event_btn_novoActionPerformed
 
@@ -1017,6 +871,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txt_cepKeyPressed
 
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        Frm_ConsPaciente f= new Frm_ConsPaciente();
+        this.dispose();
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1054,7 +913,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame Frm_ConsCliente;
     private javax.swing.JTabbedPane abas;
     private javax.swing.JButton btn_apagar;
     private javax.swing.JButton btn_buscar;
@@ -1064,13 +922,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_detalhar;
     private javax.swing.JButton btn_editar;
-    private javax.swing.JButton btn_fechar;
     private javax.swing.JButton btn_inserirTelefone;
     private javax.swing.JButton btn_novo;
     private javax.swing.JButton btn_reimprimir;
     private javax.swing.JButton btn_removerTelefone;
     private javax.swing.JButton btn_salvar;
-    private javax.swing.JButton btn_selecionar;
     private javax.swing.JComboBox cbx_cidade;
     private javax.swing.JComboBox cbx_convenio;
     private javax.swing.JComboBox cbx_cor;
@@ -1096,7 +952,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1104,15 +959,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel pnl_botoes;
-    private javax.swing.JPanel pnl_botoes1;
     private javax.swing.JPanel pnl_dados;
     private javax.swing.JPanel pnl_dadosPessoais;
     private javax.swing.JPanel pnl_endereco;
@@ -1120,9 +971,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbt_feminino;
     private javax.swing.JRadioButton rbt_masculino;
     private javax.swing.JTable tb_atendimentos;
-    private javax.swing.JTable tb_pacientes;
     private javax.swing.JTable tb_telefones;
-    private javax.swing.JTable tb_telefonesPesquisa;
     private javax.swing.JTextField txt_bairro;
     private javax.swing.JFormattedTextField txt_cep;
     private javax.swing.JTextField txt_codigo;
@@ -1130,7 +979,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txt_cpf;
     private javax.swing.JFormattedTextField txt_dataNascimento;
     private javax.swing.JTextField txt_email;
-    private javax.swing.JTextField txt_filtro;
     private javax.swing.JTextField txt_logradouro;
     private javax.swing.JTextField txt_naturalidade;
     private javax.swing.JTextField txt_nome;
@@ -1167,8 +1015,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         //limpa as tabelas
         TableConfig.limpaTabela(tb_telefones);
         TableConfig.limpaTabela(tb_atendimentos);
-        TableConfig.limpaTabela(tb_pacientes);
-        TableConfig.limpaTabela(tb_telefonesPesquisa);
     }
 
     private void setEnableFields(boolean tipo) {
@@ -1207,7 +1053,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_removerTelefone.setEnabled(tipo);
 
         tb_atendimentos.setEnabled(tipo);
-        tb_pacientes.setEnabled(tipo);
     }
 
     private void setEnabledButtons(boolean valor) {
@@ -1426,7 +1271,22 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                                                                 abas.setSelectedIndex(2);
                                                                 txt_telefone.requestFocus();
                                                             } else {
-                                                                salvar();
+                                                                //opcionais
+                                                                if (!txt_cpf.getText().replace(".", "").replace("-", "").trim().isEmpty()
+                                                                        && ValidarCGCCPF.validaCPF(txt_cpf.getText()) == false) {
+                                                                    abas.setSelectedIndex(0);
+                                                                    JOptionPane.showMessageDialog(null, "CPF Inválido!");
+                                                                    txt_cpf.requestFocus();
+                                                                } else {
+                                                                    if (!txt_email.getText().isEmpty()
+                                                                            && ValidaEmail.validarEmail(txt_email.getText()) == true) {
+                                                                        abas.setSelectedIndex(0);
+                                                                        JOptionPane.showMessageDialog(null, "Email Inválido!");
+                                                                        txt_email.requestFocus();
+                                                                    }else{
+                                                                        salvar();
+                                                                    }
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -1449,17 +1309,17 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         try {
             corDAO = new CorDAO();
             estadoCivilDAO = new EstadoCivilDAO();
-            convenioDAO=new ConvenioDAO();
-            profissaoDAO=new ProfissaoDAO();
-            enderecoDAO=new EnderecoDAO();
+            convenioDAO = new ConvenioDAO();
+            profissaoDAO = new ProfissaoDAO();
+            enderecoDAO = new EnderecoDAO();
+            cidadeDAO=new CidadeDAO();
+            pacienteDAO=new PacienteDAO();
+            
             if (txt_codigo.getText().isEmpty()) {
                 //dados iniciais
                 paciente.setNome(txt_nome.getText());
-                if (!txt_cpf.getText().replace(".", "").replace("-", "").trim().isEmpty() && ValidarCGCCPF.validaCPF(txt_cpf.getText()) == true) {
+                if (!txt_cpf.getText().replace(".", "").replace("-", "").trim().isEmpty()) {
                     paciente.setCpf(txt_cpf.getText());
-                } else {
-                    JOptionPane.showMessageDialog(null, "CPF inválido!");
-                    txt_cpf.requestFocus();
                 }
                 if (!txt_rg.getText().isEmpty()) {
                     paciente.setRg(txt_rg.getText());
@@ -1479,11 +1339,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 if (!txt_numCarteira.getText().isEmpty()) {
                     paciente.setNumCarteira(Integer.parseInt(txt_numCarteira.getText()));
                 }
-                if (!txt_email.getText().isEmpty() && ValidaEmail.validarEmail(txt_email.getText()) == true) {
+                if (!txt_email.getText().isEmpty()) {
                     paciente.setEmail(txt_email.getText());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Email inválido!");
-                    txt_email.requestFocus();
                 }
                 paciente.setCodestadoCivil(estadoCivilDAO.buscar(cbx_estadoCivil.getSelectedItem().toString()));
                 if (cbx_convenio.getSelectedIndex() != 0) {
@@ -1500,6 +1357,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 if (!txt_cep.getText().isEmpty()) {
                     endereco.setCep(txt_cep.getText());
                 }
+                endereco.setCodpaciente(paciente);
                 endereco.setLogradouro(txt_logradouro.getText());
                 endereco.setNumero(Integer.parseInt(txt_numero.getText()));
                 if (!txt_complemento.getText().isEmpty()) {
@@ -1509,14 +1367,16 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 endereco.setCodcidade(cidadeDAO.buscar(cbx_cidade.getSelectedItem().toString()));
                 paciente.getEnderecoList().add(endereco);
                 paciente.setTelefoneList(telefones);
-                pacienteDAO=new PacienteDAO();
+                pacienteDAO = new PacienteDAO();
                 pacienteDAO.salvar(paciente);
                 JOptionPane.showMessageDialog(null, "Paciente Salvo com Sucesso!");
+                abas.setSelectedIndex(0);
+                limpaCampos();
             } else {
                 
             }
         } catch (Exception e) {
-            JOptionPane.showConfirmDialog(null, "Erro ao gravar o Paciente!\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao gravar o Paciente!\n" + e.getMessage());
         }
     }
 
@@ -1524,6 +1384,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         try {
             telefone = new Telefone();
             tipoTelefoneDAO = new TipoTelefoneDAO();
+            telefone.setCodpaciente(paciente);
             telefone.setNumero(txt_telefone.getText());
             telefone.setCodtipoTelefone(tipoTelefoneDAO.buscar(cbx_tipoTelefone.getSelectedItem().toString()));
             telefones.add(telefone);
@@ -1576,7 +1437,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         try {
             this.cep = enderecoDAO.findByCEP(cep);
             if (endereco.getCep() != null) {
-                txt_logradouro.setText(this.cep.getRua());
+                txt_logradouro.setText(this.cep.getLogradouro());
                 txt_bairro.setText(this.cep.getBairro());
                 cbx_cidade.setSelectedItem(this.cep.getCodcidade().getDescricao());
                 cbx_estado.setSelectedItem(this.cep.getCodcidade().getCodestado().getSigla());
