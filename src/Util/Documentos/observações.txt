@@ -1,0 +1,7 @@
+colocar icones nos botões
+
+carregar scripts de cidades e ceps
+
+testar aplicação em rede
+
+testar backup e restauração com aplicativo.
