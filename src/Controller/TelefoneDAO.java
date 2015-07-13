@@ -16,6 +16,11 @@ import java.util.List;
  */
 public class TelefoneDAO extends Manager {
 
+    public void remover(Telefone telefone){
+        em.getTransaction().begin();
+        em.remove(telefone);
+        em.getTransaction().commit();
+    }
     public List<Telefone> listar() {
         em.getTransaction().begin();
         query = em.createNamedQuery("Telefone.findAll");

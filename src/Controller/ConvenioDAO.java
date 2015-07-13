@@ -15,6 +15,12 @@ import java.util.List;
  */
 public class ConvenioDAO extends Manager {
 
+    public void salvar(Convenio convenio) {
+        em.getTransaction().begin();
+        em.merge(convenio);
+        em.getTransaction().commit();
+    }
+
     public List<Convenio> listar() {
         em.getTransaction().begin();
         query = em.createNamedQuery("Convenio.findAll");
@@ -24,7 +30,7 @@ public class ConvenioDAO extends Manager {
 
     public Convenio buscar(String descricao) {
         em.getTransaction().begin();
-        query=em.createNamedQuery("Convenio.findByDescricao").setParameter("descricao", descricao);
+        query = em.createNamedQuery("Convenio.findByDescricao").setParameter("descricao", descricao);
         em.getTransaction().commit();
         return (Convenio) query.getSingleResult();
     }

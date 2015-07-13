@@ -10,6 +10,7 @@ import Controller.TelefoneDAO;
 import Model.Paciente;
 import Model.Telefone;
 import Util.Classes.TableConfig;
+import View.Cadastro.Frm_CadPaciente;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,6 +47,12 @@ public class Frm_ConsPaciente extends javax.swing.JFrame {
         setTitle("Pesquisa de Pacientes");
 
         jLabel24.setText("Filtro:");
+
+        txt_filtro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_filtroKeyReleased(evt);
+            }
+        });
 
         tb_pacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,6 +205,7 @@ public class Frm_ConsPaciente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fecharActionPerformed
@@ -206,7 +214,14 @@ public class Frm_ConsPaciente extends javax.swing.JFrame {
 
     private void btn_selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selecionarActionPerformed
         if (tb_pacientes.getSelectedRowCount() == 1) {
-
+            try {
+                Frm_CadPaciente f = new Frm_CadPaciente();
+                pacienteDAO=new PacienteDAO();
+                f.getDadosPaciente(pacienteDAO.buscar(Integer.parseInt(tb_pacientes.getValueAt(tb_pacientes.getSelectedRow(), 0).toString())));
+                dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao buscar paciente!\n" + e.getMessage());
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione apenas um paciente!\n");
         }
@@ -215,16 +230,20 @@ public class Frm_ConsPaciente extends javax.swing.JFrame {
     private void tb_pacientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_pacientesMousePressed
         if (tb_pacientes.getSelectedRowCount() == 1) {
             TableConfig.limpaTabela(tb_telefonesPesquisa);
-            telefoneDAO=new TelefoneDAO();
-            pacienteDAO=new PacienteDAO();
+            telefoneDAO = new TelefoneDAO();
+            pacienteDAO = new PacienteDAO();
             for (Telefone telefones : telefoneDAO.listarbyPaciente(pacienteDAO.buscar(
                     Integer.parseInt(tb_pacientes.getValueAt(tb_pacientes.getSelectedRow(), 0).toString()
                     )))) {
-                String[] linha = new String[]{telefones.getCodtipoTelefone().getDescricao(),telefones.getNumero()};
+                String[] linha = new String[]{telefones.getCodtipoTelefone().getDescricao(), telefones.getNumero()};
                 TableConfig.getModel(tb_telefonesPesquisa).addRow(linha);
             }
         }
     }//GEN-LAST:event_tb_pacientesMousePressed
+
+    private void txt_filtroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_filtroKeyReleased
+        TableConfig.filtrar(tb_pacientes, txt_filtro);
+    }//GEN-LAST:event_txt_filtroKeyReleased
 
     /**
      * @param args the command line arguments

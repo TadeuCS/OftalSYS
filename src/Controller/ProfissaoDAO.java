@@ -15,6 +15,12 @@ import java.util.List;
  */
 public class ProfissaoDAO extends Manager {
 
+    public void salvar(Profissao profissao) {
+        em.getTransaction().begin();
+        em.merge(profissao);
+        em.getTransaction().commit();
+    }
+
     public List<Profissao> listar() {
         em.getTransaction().begin();
         query = em.createNamedQuery("Profissao.findAll");
@@ -24,7 +30,7 @@ public class ProfissaoDAO extends Manager {
 
     public Profissao buscar(String descricao) {
         em.getTransaction().begin();
-        query=em.createNamedQuery("Profissao.findByDescricao").setParameter("descricao", descricao);
+        query = em.createNamedQuery("Profissao.findByDescricao").setParameter("descricao", descricao);
         em.getTransaction().commit();
         return (Profissao) query.getSingleResult();
     }

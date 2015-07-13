@@ -5,18 +5,22 @@
  */
 package View.Cadastro;
 
+import Controller.ProfissaoDAO;
+import Model.Profissao;
+import Util.Classes.FixedLengthDocument;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Tadeu
  */
 public class Frm_CadProfissao extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Frm_Cartao
-     */
+    ProfissaoDAO profissaoDAO;
     public Frm_CadProfissao() {
         initComponents();
         setVisible(true);
+        txt_profissao.setDocument(new FixedLengthDocument(255));
     }
 
     /**
@@ -63,6 +67,11 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
         );
 
         btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         btn_cancelar.setText("Cancelar");
 
@@ -106,6 +115,14 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        if(txt_profissao.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Profissão inválida!");
+        }else{
+            salvar(txt_profissao.getText());
+        }
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,4 +182,15 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txt_profissao;
     // End of variables declaration//GEN-END:variables
+
+    private void salvar(String text) {
+         try {
+             Profissao p= new Profissao();
+            profissaoDAO=new ProfissaoDAO();
+            p.setDescricao(text);
+            profissaoDAO.salvar(p);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar a cor!\n"+e.getMessage());
+        }
+    }
 }

@@ -15,6 +15,11 @@ import java.util.List;
  */
 public class CorDAO extends Manager {
 
+    public void salvar(Cor cor){
+        em.getTransaction().begin();
+        em.merge(cor);
+        em.getTransaction().commit();
+    }
     public List<Cor> listar() {
         em.getTransaction().begin();
         query = em.createNamedQuery("Cor.findAll");

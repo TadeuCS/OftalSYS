@@ -5,18 +5,23 @@
  */
 package View.Cadastro;
 
+import Controller.CorDAO;
+import Model.Cor;
+import Util.Classes.FixedLengthDocument;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Tadeu
  */
 public class Frm_CadCor extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Frm_Cartao
-     */
+    CorDAO corDAO;
+
     public Frm_CadCor() {
         initComponents();
         setVisible(true);
+        txt_cor.setDocument(new FixedLengthDocument(255));
     }
 
     /**
@@ -63,6 +68,11 @@ public class Frm_CadCor extends javax.swing.JFrame {
         );
 
         btn_salvar.setText("Salvar");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         btn_cancelar.setText("Cancelar");
 
@@ -106,6 +116,15 @@ public class Frm_CadCor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        if (txt_cor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Cor inválida!");
+            txt_cor.requestFocus();
+        } else {
+            salvar(txt_cor.getText());
+        }
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,4 +176,15 @@ public class Frm_CadCor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txt_cor;
     // End of variables declaration//GEN-END:variables
+
+    private void salvar(String cor) {
+        try {
+            Cor c = new Cor();
+            corDAO = new CorDAO();
+            c.setDescricao(cor);
+            corDAO.salvar(c);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar a cor!\n"+e.getMessage());
+        }
+    }
 }
