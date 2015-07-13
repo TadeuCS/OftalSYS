@@ -1,7 +1,13 @@
-colocar icones nos botões
+colocar icones nos botÃµes
 
 carregar scripts de cidades e ceps
 
-testar aplicação em rede
+testar aplicaÃ§Ã£o em rede
 
-testar backup e restauração com aplicativo.
+testar backup e restauraÃ§Ã£o com aplicativo.
+
+criar tela principal;
+
+criar tela de login;
+
+criar cadastro de usuÃ¡rio;
