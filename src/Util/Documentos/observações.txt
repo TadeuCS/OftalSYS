@@ -1,3 +1,5 @@
+﻿na tela de cadastro de paciente configurar pra salvar se esta ativo ou inativo, e o campo observação.
+
 colocar icones nos botões
 
 carregar scripts de cidades e ceps
@@ -6,8 +8,28 @@ testar aplicação em rede
 
 testar backup e restauração com aplicativo.
 
-criar tela principal;
+criar tela principal
 
-criar tela de login;
+criar tela de login
 
-criar cadastro de usuário;
+criar cadastro de usuário
+
+configurar caminho de banco dinamico.
+
+configurar diretório fixo para salvar as imagens de acordo com o caminho do banco de dados.
+
+configurar a tela de upload de imagens para possibilitar upar n imagens e permitir navegar entre elas.
+
+na tela de cadastro de paciente na aba histórioco deve compor a ultima coluna da tabela por S ou N de acordo com a quantidade de anexos.
+
+colocar a tela de abertura de atendimento para se houver importação de imagens, já lançar o atendimento com status fechado.
+
+estudar forma de fazer backup das imagens tambem.
+
+criar auto complete no cbx paciente na abertura de atendimento.
+
+criar calculo de idade de acordo com o paciente selecionado.
+
+na tela de abertura de atendimento deve aparecer comente os pacientes ativos.
+
+

@@ -107,6 +107,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_cadConvenio = new javax.swing.JButton();
         btn_cadProfissao = new javax.swing.JButton();
         btn_cadCor = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        txt_naturalidade1 = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
         pnl_endereco = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txt_cep = new javax.swing.JFormattedTextField();
@@ -242,6 +245,10 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox1.setText("Ativo");
+
+        jLabel24.setText("Observação:");
+
         javax.swing.GroupLayout pnl_dadosPessoaisLayout = new javax.swing.GroupLayout(pnl_dadosPessoais);
         pnl_dadosPessoais.setLayout(pnl_dadosPessoaisLayout);
         pnl_dadosPessoaisLayout.setHorizontalGroup(
@@ -260,10 +267,16 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                         .addComponent(cbx_profissao, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_cadProfissao)
-                        .addGap(267, 267, 267)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_naturalidade))
+                        .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_naturalidade1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox1))
                     .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
                         .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -273,7 +286,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
                         .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                .addComponent(txt_plano)
+                                .addComponent(txt_plano, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                                 .addGap(11, 11, 11)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -361,8 +374,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
                         .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_cadProfissao)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                        .addComponent(btn_cadProfissao)
+                        .addComponent(jCheckBox1)
+                        .addComponent(txt_naturalidade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel24)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         abas.addTab("Dados Pessoais", pnl_dadosPessoais);
@@ -423,34 +439,36 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_enderecoLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_cep, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_logradouro)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnl_enderecoLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
-                    .addGroup(pnl_enderecoLayout.createSequentialGroup()
                         .addComponent(jLabel23)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbx_cidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(cbx_cidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnl_enderecoLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnl_enderecoLayout.createSequentialGroup()
+                                .addComponent(txt_cep, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_logradouro)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnl_enderecoLayout.createSequentialGroup()
+                                .addComponent(txt_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         pnl_enderecoLayout.setVerticalGroup(
@@ -561,7 +579,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addGroup(pnl_telefonesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnl_telefonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnl_telefonesLayout.createSequentialGroup()
                         .addComponent(btn_removerTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -590,14 +608,14 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Atendimento", "Data", "Hora", "Queixa"
+                "Atendimento", "Data", "Hora", "Queixa", "Anexo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -620,6 +638,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             tb_atendimentos.getColumnModel().getColumn(2).setMinWidth(90);
             tb_atendimentos.getColumnModel().getColumn(2).setPreferredWidth(90);
             tb_atendimentos.getColumnModel().getColumn(2).setMaxWidth(90);
+            tb_atendimentos.getColumnModel().getColumn(4).setMinWidth(60);
+            tb_atendimentos.getColumnModel().getColumn(4).setPreferredWidth(60);
+            tb_atendimentos.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
         btn_detalhar.setText("Detalhar");
@@ -633,7 +654,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_reimprimir)
@@ -669,7 +690,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addGroup(pnl_dadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(abas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnl_botoes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -992,6 +1013,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JComboBox cbx_tipoTelefone;
     private javax.swing.JPanel fundo;
     private javax.swing.ButtonGroup grupoSexo;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1008,6 +1030,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1037,6 +1060,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_logradouro;
     private javax.swing.JTextField txt_naturalidade;
+    private javax.swing.JTextField txt_naturalidade1;
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_numCarteira;
     private javax.swing.JTextField txt_numero;
