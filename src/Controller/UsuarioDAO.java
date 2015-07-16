@@ -41,4 +41,8 @@ public class UsuarioDAO extends Manager{
         em.getTransaction().commit();
         return (Usuario) query.getSingleResult();
     }
+
+    public Object findByUsuarioAndSenha(String nome, String senha) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
