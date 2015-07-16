@@ -13,6 +13,7 @@ import Model.Paciente;
 import Model.TipoAtendimento;
 import Model.Usuario;
 import Util.Classes.Data;
+import java.awt.Event;
 import javax.swing.JOptionPane;
 
 /**
@@ -268,6 +269,11 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txt_dataAtendimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_dataAtendimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_dataAtendimentoKeyPressed(evt);
+            }
+        });
 
         jLabel4.setText("Doutor*:");
 
@@ -287,6 +293,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         txt_idade.setFont(new java.awt.Font("Adobe Caslon Pro", 1, 36)); // NOI18N
         txt_idade.setForeground(new java.awt.Color(0, 0, 153));
         txt_idade.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_idade.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -356,6 +363,11 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         btn_salvar.setText("Salvar");
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
 
         btn_anexar.setText("Anexar");
         btn_anexar.addActionListener(new java.awt.event.ActionListener() {
@@ -430,6 +442,17 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     private void cbx_pacienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_pacienteFocusLost
         calculaIdade();
     }//GEN-LAST:event_cbx_pacienteFocusLost
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        limpaCampos();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void txt_dataAtendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dataAtendimentoKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            Data data= new Data();
+            txt_dataAtendimento.setText(data.completaData(txt_dataAtendimento.getText(), "dd/MM/yyyy"));
+        }
+    }//GEN-LAST:event_txt_dataAtendimentoKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -545,6 +568,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         carregaPacientes();
         carregaDoutores();
         carregaTipoAtendimentos();
+        calculaIdade();
     }
 
     private void calculaIdade() {
@@ -554,5 +578,13 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao calcular a idade!\n"+e.getMessage());
         }
+    }
+
+    private void limpaCampos() {
+        cbx_paciente.setSelectedIndex(0);
+        cbx_doutor.setSelectedIndex(0);
+        cbx_tipoAtendimento.setSelectedIndex(0);
+        txt_queixa.setText(null);
+        txt_dataAtendimento.setText(null);
     }
 }

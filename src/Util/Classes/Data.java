@@ -13,13 +13,14 @@ public class Data {
     private int dia;
     private int mes;
     private int ano;
+    SimpleDateFormat format;
 
     public static String getIdade(Date dataNascimento) {
         GregorianCalendar hj = new GregorianCalendar();
         GregorianCalendar nascimento = new GregorianCalendar();
         nascimento.setTime(dataNascimento);
-        int idade=hj.get(Calendar.YEAR)-nascimento.get(Calendar.YEAR);
-        return idade+"";
+        int idade = hj.get(Calendar.YEAR) - nascimento.get(Calendar.YEAR);
+        return idade + "";
     }
 
     public static Date getDataByTexto(String data, String formato) {
@@ -91,7 +92,6 @@ public class Data {
         return dataTemp;
     }
 
-//Checa mes verificando se é maior que zero e menor que 12
     public int checaMes(int mesTemp) {
 
         if (mesTemp > 0 && mesTemp <= 12) {
@@ -101,10 +101,6 @@ public class Data {
         }
     }
 
-    /**
-     * Checa dia tendo uma variavel inteira como arrayc "ultimoDiaMes" com os
-     * valores do ultimo dia de cada mes. Verifica também se o ano é Bissexto
-     */
     public int checaDia(int diaTemp) {
         int ultimoDiaMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         if (diaTemp > 0 && diaTemp <= ultimoDiaMes[mes]) {
@@ -114,5 +110,32 @@ public class Data {
         } else {
             return -1;
         }
+    }
+
+    public Date getMenorData(Date data) {
+        try {
+            format = new SimpleDateFormat("dd/MM/yyyy");
+            Date agora = new Date();
+            if (agora.before(data)) {
+                return agora;
+            } else {
+                return data;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao comparar as datas!\n" + e.getMessage());
+            return null;
+        }
+    }
+
+    public String addDayOfDate(Date data, int dias) {
+        Calendar c = Calendar.getInstance();
+        format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            c.setTime(data);
+            c.add(Calendar.DATE, +dias);
+        } catch (Exception e) {
+            System.out.println("Erro ao adicionar " + dias + " a data de valide: " + e.getMessage());
+        }
+        return format.format(c.getTime());
     }
 }

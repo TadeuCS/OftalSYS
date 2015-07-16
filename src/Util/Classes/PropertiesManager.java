@@ -8,9 +8,9 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 
 public class PropertiesManager {
-    
+
     //altere de acordo com o nome do arquivo properties criado
-    public static String file;
+    static String file = "config.properties";
     FileOutputStream fos;
     FileInputStream fis;
     Properties properties = new Properties();
@@ -18,15 +18,12 @@ public class PropertiesManager {
     public PropertiesManager() {
         cria();
     }
-    public Properties getProperties(){
-        return properties;
-    }
+
     private String getCaminho() {
         File file = new File(this.file);
         //altere de acordo com o diretorio do seu arquivo properties
-        System.out.println(file.getAbsolutePath().replaceAll(this.file, "").concat("src\\Util\\Email\\"));
-        return file.getAbsolutePath().replaceAll(this.file, "").concat("src\\Util\\Email\\");
-//        return file.getAbsolutePath().replaceAll(this.file, "").concat("src\\Util\\Classes\\");
+        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").replaceAll("/store", "").concat("src\\Util\\"); //caminho para construir
+//        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").concat("src\\Util\\"); //caminho para compilar
     }
 
     private void cria() {
@@ -36,7 +33,7 @@ public class PropertiesManager {
             fis = new FileInputStream(getCaminho()+file);
             properties.load(fis);
         } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro ao localizar o arquivo.\n" + ex.getMessage());
         }
     }
 
@@ -49,7 +46,7 @@ public class PropertiesManager {
             properties.store(fos, campo);
             fos.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao Escrever no arquivo." + e.getMessage());
         }
     }
 
@@ -57,8 +54,9 @@ public class PropertiesManager {
         try {
             //método load faz a leitura através do objeto fis
             properties.load(fis);
+
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao Ler o arquivo." + e.getMessage());
         }
 
         //Captura o valor da propriedade, através do nome da propriedade(Key)
