@@ -150,7 +150,7 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="txt_plano" pref="306" max="32767" attributes="0"/>
+                                              <Component id="txt_plano" pref="318" max="32767" attributes="0"/>
                                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -260,7 +260,7 @@
                                       <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="47" max="32767" attributes="0"/>
+                              <EmptySpace pref="56" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -420,7 +420,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_cadConvenio">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="..."/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Util/Img/cadastro.png"/>
+                        </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cadConvenioActionPerformed"/>
@@ -428,7 +430,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_cadProfissao">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="..."/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Util/Img/cadastro.png"/>
+                        </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cadProfissaoActionPerformed"/>
@@ -436,7 +440,9 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_cadCor">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="..."/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Util/Img/cadastro.png"/>
+                        </Property>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cadCorActionPerformed"/>
@@ -505,7 +511,7 @@
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="txt_complemento" pref="428" max="32767" attributes="0"/>
+                                              <Component id="txt_complemento" pref="444" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -639,7 +645,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" pref="1058" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" pref="1074" max="32767" attributes="0"/>
                                   <Component id="jPanel5" alignment="1" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="btn_removerTelefone" min="-2" pref="80" max="-2" attributes="0"/>
@@ -662,7 +668,7 @@
                                   <Component id="btn_removerTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" pref="98" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="113" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -806,7 +812,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane4" pref="1058" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" pref="1074" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Component id="btn_reimprimir" min="-2" max="-2" attributes="0"/>
@@ -822,7 +828,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" pref="155" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" pref="168" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btn_detalhar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -890,6 +896,9 @@
                     </Container>
                     <Component class="javax.swing.JButton" name="btn_detalhar">
                       <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/Util/Img/detalhe.png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Detalhar"/>
                       </Properties>
                     </Component>
@@ -918,20 +927,20 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Component id="btn_novo" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="btn_novo" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btn_editar" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="btn_editar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btn_apagar" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="btn_apagar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btn_buscar" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="btn_buscar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txt_operacao" min="-2" pref="529" max="-2" attributes="0"/>
+                      <Component id="txt_operacao" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btn_cancelar" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="btn_cancelar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btn_salvar" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Component id="btn_salvar" min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -939,15 +948,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="btn_novo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btn_editar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btn_apagar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btn_buscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_operacao" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btn_novo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_editar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_apagar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_buscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_operacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
                               <Component id="btn_salvar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btn_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -960,6 +967,9 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btn_novo">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Util/Img/adicionar.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Novo"/>
               </Properties>
               <Events>
@@ -968,6 +978,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_editar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Util/Img/alterar.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
               </Properties>
               <Events>
@@ -976,6 +989,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_apagar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Util/Img/excluir.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Apagar"/>
               </Properties>
               <Events>
@@ -984,6 +1000,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_buscar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Util/Img/buscar.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
               <Events>
@@ -992,6 +1011,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_salvar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Util/Img/salvar.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
@@ -1000,6 +1022,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_cancelar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Util/Img/cancelar.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
               <Events>
