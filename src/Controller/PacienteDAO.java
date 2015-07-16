@@ -33,6 +33,13 @@ public class PacienteDAO extends Manager {
         return query.getResultList();
     }
 
+    
+    public Paciente findByNome(String nome) {
+        em.getTransaction().begin();
+        query=em.createNamedQuery("Paciente.findByNome").setParameter("nome", nome);
+        em.getTransaction().commit();
+        return (Paciente) query.getSingleResult();
+    }
     public Paciente buscar(int codigo) {
         em.getTransaction().begin();
         query=em.createNamedQuery("Paciente.findByCodpaciente").setParameter("codpaciente", codigo);

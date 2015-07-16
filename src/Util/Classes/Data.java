@@ -2,7 +2,9 @@ package Util.Classes;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 public class Data {
@@ -12,10 +14,14 @@ public class Data {
     private int mes;
     private int ano;
 
-    /**
-     * Coverta "data" para inteiro E valida Mês e Dia verificando o retorno de
-     * cada metodo
-     */
+    public static String getIdade(Date dataNascimento) {
+        GregorianCalendar hj = new GregorianCalendar();
+        GregorianCalendar nascimento = new GregorianCalendar();
+        nascimento.setTime(dataNascimento);
+        int idade=hj.get(Calendar.YEAR)-nascimento.get(Calendar.YEAR);
+        return idade+"";
+    }
+
     public static Date getDataByTexto(String data, String formato) {
         try {
             Date date = null;
@@ -27,7 +33,7 @@ public class Data {
         }
     }
 
-    public static  String getData(String formato) {
+    public static String getData(String formato) {
         SimpleDateFormat sdf = new SimpleDateFormat(formato);
         Date data = new Date();
         return sdf.format(data);

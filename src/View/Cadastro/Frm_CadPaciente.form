@@ -136,9 +136,9 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txt_naturalidade1" max="32767" attributes="0"/>
+                                      <Component id="txt_observacao" max="32767" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chx_ativo" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="txt_codigo" min="-2" pref="51" max="-2" attributes="0"/>
@@ -255,8 +255,8 @@
                                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt_naturalidade" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn_cadProfissao" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txt_naturalidade1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chx_ativo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt_observacao" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -442,12 +442,13 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cadCorActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+                    <Component class="javax.swing.JCheckBox" name="chx_ativo">
                       <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Ativo"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txt_naturalidade1">
+                    <Component class="javax.swing.JTextField" name="txt_observacao">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel24">
                       <Properties>

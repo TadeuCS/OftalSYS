@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Atendimento.findAll", query = "SELECT a FROM Atendimento a"),
     @NamedQuery(name = "Atendimento.findByCodatendimento", query = "SELECT a FROM Atendimento a WHERE a.codatendimento = :codatendimento"),
     @NamedQuery(name = "Atendimento.findByDtAtendimento", query = "SELECT a FROM Atendimento a WHERE a.dtAtendimento = :dtAtendimento"),
+    @NamedQuery(name = "Atendimento.findByHoraInicio", query = "SELECT a FROM Atendimento a WHERE a.horaInicio = :horaInicio"),
+    @NamedQuery(name = "Atendimento.findByHoraFim", query = "SELECT a FROM Atendimento a WHERE a.horaFim = :horaFim"),
     @NamedQuery(name = "Atendimento.findByDtRetorno", query = "SELECT a FROM Atendimento a WHERE a.dtRetorno = :dtRetorno"),
     @NamedQuery(name = "Atendimento.findByQueixa", query = "SELECT a FROM Atendimento a WHERE a.queixa = :queixa")})
 public class Atendimento implements Serializable {
@@ -44,8 +46,14 @@ public class Atendimento implements Serializable {
     private Integer codatendimento;
     @Basic(optional = false)
     @Column(name = "DT_ATENDIMENTO")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dtAtendimento;
+    @Column(name = "HORA_INICIO")
+    @Temporal(TemporalType.TIME)
+    private Date horaInicio;
+    @Column(name = "HORA_FIM")
+    @Temporal(TemporalType.TIME)
+    private Date horaFim;
     @Column(name = "DT_RETORNO")
     @Temporal(TemporalType.DATE)
     private Date dtRetorno;
@@ -93,6 +101,22 @@ public class Atendimento implements Serializable {
 
     public void setDtAtendimento(Date dtAtendimento) {
         this.dtAtendimento = dtAtendimento;
+    }
+
+    public Date getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(Date horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public Date getHoraFim() {
+        return horaFim;
+    }
+
+    public void setHoraFim(Date horaFim) {
+        this.horaFim = horaFim;
     }
 
     public Date getDtRetorno() {

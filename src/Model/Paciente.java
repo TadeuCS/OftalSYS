@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "paciente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
+    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p ORDER BY p.nome"),
     @NamedQuery(name = "Paciente.findByCodpaciente", query = "SELECT p FROM Paciente p WHERE p.codpaciente = :codpaciente"),
     @NamedQuery(name = "Paciente.findByNome", query = "SELECT p FROM Paciente p WHERE p.nome = :nome"),
     @NamedQuery(name = "Paciente.findByDtNascimento", query = "SELECT p FROM Paciente p WHERE p.dtNascimento = :dtNascimento"),
@@ -45,7 +45,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Paciente.findByEmail", query = "SELECT p FROM Paciente p WHERE p.email = :email"),
     @NamedQuery(name = "Paciente.findByNaturalidade", query = "SELECT p FROM Paciente p WHERE p.naturalidade = :naturalidade"),
     @NamedQuery(name = "Paciente.findByPlano", query = "SELECT p FROM Paciente p WHERE p.plano = :plano"),
-    @NamedQuery(name = "Paciente.findByNumCarteira", query = "SELECT p FROM Paciente p WHERE p.numCarteira = :numCarteira")})
+    @NamedQuery(name = "Paciente.findByNumCarteira", query = "SELECT p FROM Paciente p WHERE p.numCarteira = :numCarteira"),
+    @NamedQuery(name = "Paciente.findByObservacao", query = "SELECT p FROM Paciente p WHERE p.observacao = :observacao"),
+    @NamedQuery(name = "Paciente.findByAtivo", query = "SELECT p FROM Paciente p WHERE p.ativo = :ativo")})
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,12 +77,11 @@ public class Paciente implements Serializable {
     private String plano;
     @Column(name = "NUM_CARTEIRA")
     private Integer numCarteira;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
-    private List<Telefone> telefoneList= new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
-    private List<Endereco> enderecoList= new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
-    private List<Atendimento> atendimentoList;
+    @Column(name = "OBSERVACAO")
+    private String observacao;
+    @Basic(optional = false)
+    @Column(name = "ATIVO")
+    private Character ativo;
     @JoinColumn(name = "CODCONVENIO", referencedColumnName = "CODCONVENIO")
     @ManyToOne
     private Convenio codconvenio;
@@ -93,6 +94,12 @@ public class Paciente implements Serializable {
     @JoinColumn(name = "CODESTADO_CIVIL", referencedColumnName = "CODESTADO_CIVIL")
     @ManyToOne(optional = false)
     private EstadoCivil codestadoCivil;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
+    private List<Atendimento> atendimentoList=new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
+    private List<Endereco> enderecoList=new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
+    private List<Telefone> telefoneList=new ArrayList<>();
 
     public Paciente() {
     }
@@ -101,11 +108,28 @@ public class Paciente implements Serializable {
         this.codpaciente = codpaciente;
     }
 
-    public Paciente(Integer codpaciente, String nome, Date dtNascimento, Character sexo) {
+    public Paciente(Integer codpaciente, String nome, Date dtNascimento, Character sexo, Character ativo) {
         this.codpaciente = codpaciente;
         this.nome = nome;
         this.dtNascimento = dtNascimento;
         this.sexo = sexo;
+        this.ativo = ativo;
+    }
+
+    public List<Endereco> getEnderecoList() {
+        return enderecoList;
+    }
+
+    public void setEnderecoList(List<Endereco> enderecoList) {
+        this.enderecoList = enderecoList;
+    }
+
+    public List<Telefone> getTelefoneList() {
+        return telefoneList;
+    }
+
+    public void setTelefoneList(List<Telefone> telefoneList) {
+        this.telefoneList = telefoneList;
     }
 
     public Integer getCodpaciente() {
@@ -188,31 +212,20 @@ public class Paciente implements Serializable {
         this.numCarteira = numCarteira;
     }
 
-    @XmlTransient
-    public List<Telefone> getTelefoneList() {
-        return telefoneList;
+    public String getObservacao() {
+        return observacao;
     }
 
-    public void setTelefoneList(List<Telefone> telefoneList) {
-        this.telefoneList = telefoneList;
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
-    @XmlTransient
-    public List<Endereco> getEnderecoList() {
-        return enderecoList;
+    public Character getAtivo() {
+        return ativo;
     }
 
-    public void setEnderecoList(List<Endereco> enderecoList) {
-        this.enderecoList = enderecoList;
-    }
-
-    @XmlTransient
-    public List<Atendimento> getAtendimentoList() {
-        return atendimentoList;
-    }
-
-    public void setAtendimentoList(List<Atendimento> atendimentoList) {
-        this.atendimentoList = atendimentoList;
+    public void setAtivo(Character ativo) {
+        this.ativo = ativo;
     }
 
     public Convenio getCodconvenio() {
@@ -245,6 +258,15 @@ public class Paciente implements Serializable {
 
     public void setCodestadoCivil(EstadoCivil codestadoCivil) {
         this.codestadoCivil = codestadoCivil;
+    }
+
+    @XmlTransient
+    public List<Atendimento> getAtendimentoList() {
+        return atendimentoList;
+    }
+
+    public void setAtendimentoList(List<Atendimento> atendimentoList) {
+        this.atendimentoList = atendimentoList;
     }
 
     @Override

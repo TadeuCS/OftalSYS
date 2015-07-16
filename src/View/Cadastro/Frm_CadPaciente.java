@@ -107,8 +107,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_cadConvenio = new javax.swing.JButton();
         btn_cadProfissao = new javax.swing.JButton();
         btn_cadCor = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        txt_naturalidade1 = new javax.swing.JTextField();
+        chx_ativo = new javax.swing.JCheckBox();
+        txt_observacao = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         pnl_endereco = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -245,7 +245,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setText("Ativo");
+        chx_ativo.setSelected(true);
+        chx_ativo.setText("Ativo");
 
         jLabel24.setText("Observação:");
 
@@ -274,9 +275,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_naturalidade1)
+                        .addComponent(txt_observacao)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox1))
+                        .addComponent(chx_ativo))
                     .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
                         .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -375,8 +376,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_cadProfissao)
-                        .addComponent(jCheckBox1)
-                        .addComponent(txt_naturalidade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(chx_ativo)
+                        .addComponent(txt_observacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel24)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
@@ -1011,9 +1012,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JComboBox cbx_estadoCivil;
     private javax.swing.JComboBox cbx_profissao;
     private javax.swing.JComboBox cbx_tipoTelefone;
+    private javax.swing.JCheckBox chx_ativo;
     private javax.swing.JPanel fundo;
     private javax.swing.ButtonGroup grupoSexo;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1060,10 +1061,10 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_logradouro;
     private javax.swing.JTextField txt_naturalidade;
-    private javax.swing.JTextField txt_naturalidade1;
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_numCarteira;
     private javax.swing.JTextField txt_numero;
+    private javax.swing.JTextField txt_observacao;
     private javax.swing.JTextField txt_operacao;
     private javax.swing.JTextField txt_plano;
     private javax.swing.JTextField txt_rg;
@@ -1118,7 +1119,10 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_cadConvenio.setEnabled(tipo);
         btn_cadCor.setEnabled(tipo);
         btn_cadProfissao.setEnabled(tipo);
+        txt_observacao.setEnabled(tipo);
+        chx_ativo.setEnabled(tipo);
         txt_nome.requestFocus();
+        
 
         //endereco
         txt_cep.setEnabled(tipo);
@@ -1394,85 +1398,93 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             pacienteDAO = new PacienteDAO();
 
             if (!txt_codigo.getText().isEmpty()) {
-                endereco=new Endereco();
-                endereco=paciente.getEnderecoList().get(0);
-                
-            }
-                //dados iniciais
-                paciente.setNome(txt_nome.getText());
-                if (!txt_cpf.getText().replace(".", "").replace("-", "").trim().isEmpty()) {
-                    paciente.setCpf(txt_cpf.getText());
-                }
-                if (!txt_rg.getText().isEmpty()) {
-                    paciente.setRg(txt_rg.getText());
-                }
-                paciente.setDtNascimento(Data.getDataByTexto(txt_dataNascimento.getText(), "dd/MM/yyyy"));
-                if (cbx_cor.getSelectedIndex() != 0) {
-                    paciente.setCodcor(corDAO.buscar(cbx_cor.getSelectedItem().toString()));
-                }else{
-                    paciente.setCodcor(null);
-                }
-                if (rbt_masculino.getSelectedObjects() != null) {
-                    paciente.setSexo('M');
-                } else {
-                    paciente.setSexo('F');
-                }
-                if (!txt_plano.getText().isEmpty()) {
-                    paciente.setPlano(txt_plano.getText());
-                }
-                if (!txt_numCarteira.getText().isEmpty()) {
-                    paciente.setNumCarteira(Integer.parseInt(txt_numCarteira.getText()));
-                }
-                if (!txt_email.getText().isEmpty()) {
-                    paciente.setEmail(txt_email.getText());
-                }
-                paciente.setCodestadoCivil(estadoCivilDAO.buscar(cbx_estadoCivil.getSelectedItem().toString()));
-                if (cbx_convenio.getSelectedIndex() != 0) {
-                    paciente.setCodconvenio(convenioDAO.buscar(cbx_convenio.getSelectedItem().toString()));
-                }else{
-                    paciente.setCodconvenio(null);
-                }
-                if (cbx_profissao.getSelectedIndex() != 0) {
-                    paciente.setCodprofissao(profissaoDAO.buscar(cbx_profissao.getSelectedItem().toString()));
-                }else{
-                    paciente.setCodprofissao(null);
-                }
-                if (!txt_naturalidade.getText().isEmpty()) {
-                    paciente.setNaturalidade(txt_naturalidade.getText());
-                }
+                endereco = new Endereco();
+                endereco = paciente.getEnderecoList().get(0);
 
-                //endereco
-                if (!txt_cep.getText().isEmpty()) {
-                    endereco.setCep(txt_cep.getText());
-                }
-                endereco.setCodpaciente(paciente);
-                endereco.setLogradouro(txt_logradouro.getText());
-                endereco.setNumero(Integer.parseInt(txt_numero.getText()));
-                if (!txt_complemento.getText().isEmpty()) {
-                    endereco.setComplemento(txt_complemento.getText());
-                }
-                endereco.setBairro(txt_bairro.getText());
-                endereco.setCodcidade(cidadeDAO.buscar(cbx_cidade.getSelectedItem().toString()));
-                paciente.getEnderecoList().add(endereco);
-                paciente.setTelefoneList(telefones);
-                pacienteDAO = new PacienteDAO();
-                pacienteDAO.salvar(paciente);
-                if (txt_operacao.getText().equals("INCLUSÃO") == true) {
-                    JOptionPane.showMessageDialog(null, "Paciente Salvo com Sucesso!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Paciente Alterado com Sucesso!");
-                    setEnabledFields(false);
-                    setEnabledButtons(true);
-                }
-                abas.setSelectedIndex(0);
-                limpaCampos();
-                cbx_cor.setSelectedIndex(0);
-                cbx_convenio.setSelectedIndex(0);
-                cbx_profissao.setSelectedIndex(0);
-                cbx_estado.setSelectedIndex(0);
-                carregaCidades();
-                cbx_cidade.setSelectedIndex(0);
-                cbx_tipoTelefone.setSelectedIndex(0);
+            }
+            //dados iniciais
+            paciente.setNome(txt_nome.getText());
+            if (!txt_cpf.getText().replace(".", "").replace("-", "").trim().isEmpty()) {
+                paciente.setCpf(txt_cpf.getText());
+            }
+            if (!txt_rg.getText().isEmpty()) {
+                paciente.setRg(txt_rg.getText());
+            }
+            paciente.setDtNascimento(Data.getDataByTexto(txt_dataNascimento.getText(), "dd/MM/yyyy"));
+            if (cbx_cor.getSelectedIndex() != 0) {
+                paciente.setCodcor(corDAO.buscar(cbx_cor.getSelectedItem().toString()));
+            } else {
+                paciente.setCodcor(null);
+            }
+            if (rbt_masculino.getSelectedObjects() != null) {
+                paciente.setSexo('M');
+            } else {
+                paciente.setSexo('F');
+            }
+            if (!txt_plano.getText().isEmpty()) {
+                paciente.setPlano(txt_plano.getText());
+            }
+            if (!txt_numCarteira.getText().isEmpty()) {
+                paciente.setNumCarteira(Integer.parseInt(txt_numCarteira.getText()));
+            }
+            if (!txt_email.getText().isEmpty()) {
+                paciente.setEmail(txt_email.getText());
+            }
+            paciente.setCodestadoCivil(estadoCivilDAO.buscar(cbx_estadoCivil.getSelectedItem().toString()));
+            if (cbx_convenio.getSelectedIndex() != 0) {
+                paciente.setCodconvenio(convenioDAO.buscar(cbx_convenio.getSelectedItem().toString()));
+            } else {
+                paciente.setCodconvenio(null);
+            }
+            if (cbx_profissao.getSelectedIndex() != 0) {
+                paciente.setCodprofissao(profissaoDAO.buscar(cbx_profissao.getSelectedItem().toString()));
+            } else {
+                paciente.setCodprofissao(null);
+            }
+            if (!txt_naturalidade.getText().isEmpty()) {
+                paciente.setNaturalidade(txt_naturalidade.getText());
+            }
+
+            //endereco
+            if (!txt_cep.getText().isEmpty()) {
+                endereco.setCep(txt_cep.getText());
+            }
+            endereco.setCodpaciente(paciente);
+            endereco.setLogradouro(txt_logradouro.getText());
+            endereco.setNumero(Integer.parseInt(txt_numero.getText()));
+            if (!txt_complemento.getText().isEmpty()) {
+                endereco.setComplemento(txt_complemento.getText());
+            }
+            endereco.setBairro(txt_bairro.getText());
+            endereco.setCodcidade(cidadeDAO.buscar(cbx_cidade.getSelectedItem().toString()));
+            paciente.getEnderecoList().add(endereco);
+            paciente.setTelefoneList(telefones);
+            if (!txt_observacao.getText().isEmpty()) {
+                paciente.setObservacao(txt_observacao.getText());
+            }
+            if (chx_ativo.getSelectedObjects() == null) {
+                paciente.setAtivo('N');
+            }else{
+                paciente.setAtivo('S');
+            }
+            pacienteDAO = new PacienteDAO();
+            pacienteDAO.salvar(paciente);
+            if (txt_operacao.getText().equals("INCLUSÃO") == true) {
+                JOptionPane.showMessageDialog(null, "Paciente Salvo com Sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Paciente Alterado com Sucesso!");
+                setEnabledFields(false);
+                setEnabledButtons(true);
+            }
+            abas.setSelectedIndex(0);
+            limpaCampos();
+            cbx_cor.setSelectedIndex(0);
+            cbx_convenio.setSelectedIndex(0);
+            cbx_profissao.setSelectedIndex(0);
+            cbx_estado.setSelectedIndex(0);
+            carregaCidades();
+            cbx_cidade.setSelectedIndex(0);
+            cbx_tipoTelefone.setSelectedIndex(0);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao gravar o Paciente!\n" + e.getMessage());
         }
@@ -1488,6 +1500,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             telefones.add(telefone);
             String[] linha = new String[]{telefone.getCodtipoTelefone().getDescricao(), telefone.getNumero()};
             TableConfig.getModel(tb_telefones).addRow(linha);
+            txt_telefone.setText(null);
+            txt_telefone.requestFocus();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao inserir o telefone " + numero + " na lista!" + e.getMessage());
         }
@@ -1566,6 +1580,53 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         this.paciente = paciente;
     }
 
+    private void getDadosPessoais(Paciente paciente) {
+        try {
+            txt_codigo.setText(paciente.getCodpaciente() + "");
+            txt_nome.setText(paciente.getNome());
+            txt_cpf.setText(paciente.getCpf());
+            txt_rg.setText(paciente.getRg());
+            txt_dataNascimento.setText(Data.getDataByDate(paciente.getDtNascimento(), "dd/MM/yyyy"));
+            if (paciente.getCodcor() != null) {
+                cbx_cor.setSelectedItem(paciente.getCodcor().getDescricao());
+            } else {
+                cbx_cor.setSelectedIndex(0);
+            }
+            if (paciente.getCodprofissao() != null) {
+                cbx_profissao.setSelectedItem(paciente.getCodprofissao().getDescricao());
+            } else {
+                cbx_profissao.setSelectedIndex(0);
+            }
+            if (paciente.getCodconvenio() != null) {
+                cbx_convenio.setSelectedItem(paciente.getCodconvenio().getDescricao());
+            } else {
+                cbx_convenio.setSelectedIndex(0);
+            }
+            if (paciente.getSexo().equals('M') == true) {
+                rbt_masculino.setSelected(true);
+            } else {
+                rbt_feminino.setSelected(true);
+            }
+            if(paciente.getAtivo().equals('S')==true){
+                chx_ativo.setSelected(true);
+            }else{
+                chx_ativo.setSelected(false);
+            }
+            txt_observacao.setText(paciente.getObservacao());
+            txt_plano.setText(paciente.getPlano());
+            if (paciente.getNumCarteira() == null) {
+                txt_numCarteira.setText("");
+            } else {
+                txt_numCarteira.setText(paciente.getNumCarteira() + "");
+            }
+            txt_email.setText(paciente.getEmail());
+            cbx_estadoCivil.setSelectedItem(paciente.getCodestadoCivil().getDescricao());
+            txt_naturalidade.setText(paciente.getNaturalidade());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar os dados pessoais!\n" + e.getMessage());
+        }
+    }
+    
     private void getEndereco(Paciente paciente) {
         try {
             txt_cep.setText(paciente.getEnderecoList().get(0).getCep());
@@ -1610,47 +1671,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         }
     }
 
-    private void getDadosPessoais(Paciente paciente) {
-        try {
-            txt_codigo.setText(paciente.getCodpaciente() + "");
-            txt_nome.setText(paciente.getNome());
-            txt_cpf.setText(paciente.getCpf());
-            txt_rg.setText(paciente.getRg());
-            txt_dataNascimento.setText(Data.getDataByDate(paciente.getDtNascimento(), "dd/MM/yyyy"));
-            if (paciente.getCodcor() != null) {
-                cbx_cor.setSelectedItem(paciente.getCodcor().getDescricao());
-            }else{
-                cbx_cor.setSelectedIndex(0);
-            }
-            if (paciente.getCodprofissao() != null) {
-                cbx_profissao.setSelectedItem(paciente.getCodprofissao().getDescricao());
-            }else{
-                cbx_profissao.setSelectedIndex(0);
-            }
-            if (paciente.getCodconvenio() != null) {
-                cbx_convenio.setSelectedItem(paciente.getCodconvenio().getDescricao());
-            }else{
-                cbx_convenio.setSelectedIndex(0);
-            }
-            if (paciente.getSexo().equals('M') == true) {
-                rbt_masculino.setSelected(true);
-            } else {
-                rbt_feminino.setSelected(true);
-            }
-            txt_plano.setText(paciente.getPlano());
-            if (paciente.getNumCarteira() == null) {
-                txt_numCarteira.setText("");
-            } else {
-                txt_numCarteira.setText(paciente.getNumCarteira() + "");
-            }
-            txt_email.setText(paciente.getEmail());
-            cbx_estadoCivil.setSelectedItem(paciente.getCodestadoCivil().getDescricao());
-            txt_naturalidade.setText(paciente.getNaturalidade());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar os dados pessoais!\n" + e.getMessage());
-        }
-    }
-
     private void trataCampos() {
         //dados iniciais
         txt_nome.setDocument(new FixedLengthDocument(225));
@@ -1659,11 +1679,12 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_naturalidade.setDocument(new FixedLengthDocument(255));
         txt_numCarteira.setDocument(new IntegerDocument(10));
         txt_plano.setDocument(new FixedLengthDocument(100));
-        
+
         //endereco
         txt_logradouro.setDocument(new FixedLengthDocument(255));
         txt_bairro.setDocument(new FixedLengthDocument(255));
         txt_complemento.setDocument(new FixedLengthDocument(160));
         txt_numero.setDocument(new IntegerDocument(10));
+        txt_observacao.setDocument(new FixedLengthDocument(255));
     }
 }
