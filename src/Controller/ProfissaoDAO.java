@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.Profissao;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class ProfissaoDAO extends Manager {
+public class ProfissaoDAO extends Conexao {
 
     public void salvar(Profissao profissao) {
         em.getTransaction().begin();

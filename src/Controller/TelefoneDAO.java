@@ -7,14 +7,14 @@ package Controller;
 
 import Model.Paciente;
 import Model.Telefone;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class TelefoneDAO extends Manager {
+public class TelefoneDAO extends Conexao {
 
     public void remover(Telefone telefone){
         em.getTransaction().begin();

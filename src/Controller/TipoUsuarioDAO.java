@@ -7,14 +7,14 @@ package Controller;
 
 import Model.Cor;
 import Model.TipoUsuario;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class TipoUsuarioDAO extends Manager {
+public class TipoUsuarioDAO extends Conexao {
 
     public void salvar(TipoUsuario cor){
         em.getTransaction().begin();

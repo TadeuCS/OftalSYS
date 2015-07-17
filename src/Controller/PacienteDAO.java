@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.Paciente;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class PacienteDAO extends Manager {
+public class PacienteDAO extends Conexao {
 
     public void salvar(Paciente paciente){
         em.getTransaction().begin();

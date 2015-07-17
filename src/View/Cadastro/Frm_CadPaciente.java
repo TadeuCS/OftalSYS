@@ -34,7 +34,6 @@ import java.awt.Event;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.NoResultException;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 public class Frm_CadPaciente extends javax.swing.JFrame {
@@ -647,6 +646,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_detalhar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/detalhe.png"))); // NOI18N
         btn_detalhar.setText("Detalhar");
 
+        btn_reimprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/imprimir.png"))); // NOI18N
         btn_reimprimir.setText("Reimprimir");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -773,15 +773,16 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             pnl_botoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_botoesLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(pnl_botoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_novo)
-                    .addComponent(btn_editar)
-                    .addComponent(btn_apagar)
-                    .addComponent(btn_buscar)
-                    .addComponent(txt_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnl_botoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_botoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_salvar)
-                        .addComponent(btn_cancelar)))
+                        .addComponent(btn_cancelar))
+                    .addGroup(pnl_botoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_novo)
+                        .addComponent(btn_editar)
+                        .addComponent(btn_apagar)
+                        .addComponent(btn_buscar)
+                        .addComponent(txt_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6))
         );
 
@@ -1160,7 +1161,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void start() {
         grupoSexo.add(rbt_masculino);
         grupoSexo.add(rbt_feminino);
-        abas.setEnabledAt(3, false);
         limpaCampos();
         setEnabledButtons(true);
         setEnabledFields(false);

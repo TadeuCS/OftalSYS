@@ -7,14 +7,14 @@ package Controller;
 
 import Model.Cidade;
 import Model.Uf;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class CidadeDAO extends Manager {
+public class CidadeDAO extends Conexao {
 
     public List<Cidade> listarByEstado(Uf estado) {
         em.getTransaction().begin();

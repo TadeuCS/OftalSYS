@@ -1,4 +1,4 @@
-package Util.Home;
+package View.Home;
 
 import Controller.UsuarioDAO;
 import Model.Usuario;
@@ -98,8 +98,10 @@ public class Frm_Login extends javax.swing.JFrame {
         txt_senha = new javax.swing.JPasswordField();
         btn_entrar = new javax.swing.JButton();
         btn_sair = new javax.swing.JButton();
+        btn_conexao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setUndecorated(true);
 
         pnl_dados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -142,18 +144,31 @@ public class Frm_Login extends javax.swing.JFrame {
             }
         });
 
+        btn_conexao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/bd.png"))); // NOI18N
+        btn_conexao.setToolTipText("Conexão com Banco de dados");
+        btn_conexao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_conexaoMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_dadosLayout = new javax.swing.GroupLayout(pnl_dados);
         pnl_dados.setLayout(pnl_dadosLayout);
         pnl_dadosLayout.setHorizontalGroup(
             pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_dadosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_dadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_sair, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnl_dadosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_conexao, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_dadosLayout.createSequentialGroup()
+                        .addComponent(btn_sair, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(pnl_dadosLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_dadosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnl_dadosLayout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -163,12 +178,14 @@ public class Frm_Login extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
         pnl_dadosLayout.setVerticalGroup(
             pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_dadosLayout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btn_conexao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addGroup(pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -176,7 +193,7 @@ public class Frm_Login extends javax.swing.JFrame {
                 .addGroup(pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
                 .addGroup(pnl_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_sair, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -216,11 +233,11 @@ public class Frm_Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
-        if (txt_usuario.getText().equals("") == true) {
+        if (txt_usuario.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Usuário Inválido!");
             txt_usuario.requestFocus();
         } else {
-            if (txt_senha.getText().equals("") == true) {
+            if (txt_senha.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Senha Inválida!");
                 txt_senha.requestFocus();
             } else {
@@ -245,6 +262,10 @@ public class Frm_Login extends javax.swing.JFrame {
             txt_senha.requestFocus();
         }
     }//GEN-LAST:event_txt_usuarioKeyPressed
+
+    private void btn_conexaoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_conexaoMousePressed
+        valida();
+    }//GEN-LAST:event_btn_conexaoMousePressed
 
     /**
      * @param args the command line arguments
@@ -290,6 +311,7 @@ public class Frm_Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btn_conexao;
     private javax.swing.JButton btn_entrar;
     private javax.swing.JButton btn_sair;
     private javax.swing.JLabel jLabel1;
@@ -304,5 +326,13 @@ public class Frm_Login extends javax.swing.JFrame {
         txt_senha.setText(null);
         txt_usuario.setText(null);
         txt_usuario.requestFocus();
+    }
+
+    private void valida() {
+        if(!txt_usuario.getText().trim().isEmpty()&&txt_usuario.getText().toUpperCase().equals("ADMIN")==true){
+            Frm_Conexao f= new Frm_Conexao();
+        }else{
+            JOptionPane.showMessageDialog(null, "Você não tem permissão de alterar as configurações de conexão!");
+        }
     }
 }

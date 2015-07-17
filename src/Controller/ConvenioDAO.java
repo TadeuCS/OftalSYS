@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.Convenio;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class ConvenioDAO extends Manager {
+public class ConvenioDAO extends Conexao {
 
     public void salvar(Convenio convenio) {
         em.getTransaction().begin();

@@ -7,14 +7,14 @@ package Controller;
 
 import Model.Atendimento;
 import Model.Paciente;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class AtendimentoDAO extends Manager {
+public class AtendimentoDAO extends Conexao {
 
     public List<Atendimento> listar() {
         em.getTransaction().begin();

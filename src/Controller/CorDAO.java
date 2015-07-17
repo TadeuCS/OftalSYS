@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.Cor;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class CorDAO extends Manager {
+public class CorDAO extends Conexao {
 
     public void salvar(Cor cor){
         em.getTransaction().begin();

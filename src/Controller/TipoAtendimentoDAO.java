@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.TipoAtendimento;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class TipoAtendimentoDAO extends Manager {
+public class TipoAtendimentoDAO extends Conexao {
 
     public void salvar(TipoAtendimento tipo){
         em.getTransaction().begin();

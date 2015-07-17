@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.TipoTelefone;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class TipoTelefoneDAO extends Manager {
+public class TipoTelefoneDAO extends Conexao {
 
     public List<TipoTelefone> listar() {
         em.getTransaction().begin();

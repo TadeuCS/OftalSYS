@@ -7,14 +7,14 @@ package Controller;
 
 import Model.Cep;
 import Model.Endereco;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class EnderecoDAO extends Manager {
+public class EnderecoDAO extends Conexao {
 
     public List<Endereco> listar() {
         em.getTransaction().begin();

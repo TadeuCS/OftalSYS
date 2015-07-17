@@ -22,7 +22,7 @@ public class PropertiesManager {
     private String getCaminho() {
         File file = new File(this.file);
         //altere de acordo com o diretorio do seu arquivo properties
-        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").replaceAll("/store", "").concat("src\\Util\\"); //caminho para construir
+        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").replaceAll("/store", "").concat("src\\Util\\Classes\\"); //caminho para construir
 //        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").concat("src\\Util\\"); //caminho para compilar
     }
 

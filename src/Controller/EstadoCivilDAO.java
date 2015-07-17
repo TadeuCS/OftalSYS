@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.EstadoCivil;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class EstadoCivilDAO extends Manager {
+public class EstadoCivilDAO extends Conexao {
 
     public List<EstadoCivil> listar() {
         em.getTransaction().begin();

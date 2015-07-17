@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.Uf;
-import Util.Classes.Manager;
+import Util.Classes.Conexao;
 import java.util.List;
 
 /**
  *
  * @author Tadeu
  */
-public class EstadoDAO extends Manager {
+public class EstadoDAO extends Conexao {
 
     public List<Uf> listar() {
         em.getTransaction().begin();
