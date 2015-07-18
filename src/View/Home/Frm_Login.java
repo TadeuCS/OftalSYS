@@ -68,15 +68,14 @@ public class Frm_Login extends javax.swing.JFrame {
             dispose();
         } else {
             try {
-
-//                if (usuarioDAO.findByUsuarioAndSenha(nome, senha).getCodstatuspessoa().getDescricao().equals("BLOQUEADO") == true) {
-//                    JOptionPane.showMessageDialog(null, "Usuário " + nome + " Bloquado", "Aviso", JOptionPane.ERROR_MESSAGE);
-//                } else {
-//                    usuario=usuarioDAO.findByUsuarioAndSenha(nome, senha);
-//                    p = new Frm_Principal();
-//                    p.setVisible(true);
-//                    dispose();
-//                }
+                if (usuarioDAO.findByUsuarioAndSenha(nome, senha).getCodstatusUsuario().getDescricao().equals("BLOQUEADO") == true) {
+                    JOptionPane.showMessageDialog(null, "Usuário " + nome + " Bloquado", "Aviso", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    usuario=usuarioDAO.findByUsuarioAndSenha(nome, senha);
+                    p = new Frm_Principal();
+                    p.setVisible(true);
+                    dispose();
+                }
             } catch (NoResultException e) {
                 JOptionPane.showMessageDialog(null, "Usuário ou Senha inválidos!", "Aviso", JOptionPane.ERROR_MESSAGE);
             } finally {

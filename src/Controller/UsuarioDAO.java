@@ -14,35 +14,40 @@ import java.util.List;
  *
  * @author Tadeu
  */
-public class UsuarioDAO extends Conexao{
-    
-    public void salvar(Usuario usuario){
+public class UsuarioDAO extends Conexao {
+
+    public void salvar(Usuario usuario) {
         em.getTransaction().begin();
         em.merge(usuario);
         em.getTransaction().commit();
     }
-    
-    public List<Usuario> lista(){
+
+    public List<Usuario> lista() {
         em.getTransaction().begin();
-        query=em.createNamedQuery("Usuario.findAll");
+        query = em.createNamedQuery("Usuario.findAll");
         em.getTransaction().commit();
         return query.getResultList();
     }
-    public List<Usuario> listaByTipo(TipoUsuario tipo){
+
+    public List<Usuario> listaByTipo(TipoUsuario tipo) {
         em.getTransaction().begin();
-        query=em.createNamedQuery("Usuario.findByCodTipoUsuario").setParameter("codtipousuario", tipo);
+        query = em.createNamedQuery("Usuario.findByCodTipoUsuario").setParameter("codtipousuario", tipo);
         em.getTransaction().commit();
         return query.getResultList();
     }
-    
-    public Usuario buscar(String nome){
+
+    public Usuario buscar(String nome) {
         em.getTransaction().begin();
-        query=em.createNamedQuery("Usuario.findByUsuario").setParameter("usuario", nome);
+        query = em.createNamedQuery("Usuario.findByUsuario").setParameter("usuario", nome);
         em.getTransaction().commit();
         return (Usuario) query.getSingleResult();
     }
 
-    public Object findByUsuarioAndSenha(String nome, String senha) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Usuario findByUsuarioAndSenha(String nome, String senha) {
+        em.getTransaction().begin();
+        query = em.createQuery("SELECT u FROM Usuario u where u.usuario = :nome and u.senha = :pass")
+                .setParameter("nome", nome).setParameter("pass", senha);
+        em.getTransaction().commit();
+        return (Usuario) query.getSingleResult();
     }
 }

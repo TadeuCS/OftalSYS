@@ -145,10 +145,7 @@
             <Component class="javax.swing.JComboBox" name="cbx_tipoUsuario">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Atendente"/>
-                    <StringItem index="1" value="Doutor"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
             </Component>

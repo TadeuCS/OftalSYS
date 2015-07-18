@@ -28,6 +28,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     TipoAtendimentoDAO tipoAtendimentoDAO;
     public Frm_AberturaAtendimento() {
         initComponents();
+        setVisible(true);
         start();
     }
 

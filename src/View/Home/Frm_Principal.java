@@ -6,6 +6,13 @@ import Model.Telefone;
 import Model.Usuario;
 import Util.Classes.Criptografia;
 import Util.Classes.GeraRelatorios;
+import View.Atendimento.Frm_AberturaAtendimento;
+import View.Cadastro.Frm_CadConvenio;
+import View.Cadastro.Frm_CadCor;
+import View.Cadastro.Frm_CadPaciente;
+import View.Cadastro.Frm_CadProfissao;
+import View.Cadastro.Frm_CadUsuario;
+import View.Consulta.Frm_ConsPaciente;
 import java.awt.Event;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +38,7 @@ public class Frm_Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnl_fundo = new javax.swing.JPanel();
         pnl_atalhos = new javax.swing.JPanel();
         pnl_cadCliente = new javax.swing.JPanel();
         atalhoCadastroCliente = new javax.swing.JLabel();
@@ -41,26 +49,19 @@ public class Frm_Principal extends javax.swing.JFrame {
         pnl_consClientes = new javax.swing.JPanel();
         atalhoConsultarClientes = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         Menu_barra = new javax.swing.JMenuBar();
-        Menu_Utilitários = new javax.swing.JMenu();
-        item_AlterarSenha = new javax.swing.JMenuItem();
-        item_enviaEmail = new javax.swing.JMenuItem();
-        item_emiteRecibo = new javax.swing.JMenuItem();
-        item_informacao = new javax.swing.JMenuItem();
-        item_tipoInformacao = new javax.swing.JMenuItem();
-        item_trocaUsuario = new javax.swing.JMenuItem();
-        item_Permissoes = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        item_cadPaciente = new javax.swing.JMenuItem();
+        item_cadCor = new javax.swing.JMenuItem();
+        item_cadProfissao = new javax.swing.JMenuItem();
+        item_cadConvenio = new javax.swing.JMenuItem();
+        item_cadUsuario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        item_aberturaAtendimento = new javax.swing.JMenuItem();
+        Menu_Utilitários = new javax.swing.JMenu();
+        item_AlterarSenha = new javax.swing.JMenuItem();
+        item_trocaUsuario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OftalSIS 1.0");
@@ -188,34 +189,93 @@ public class Frm_Principal extends javax.swing.JFrame {
                 .addComponent(pnl_aberturaAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnl_consClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(857, Short.MAX_VALUE))
         );
         pnl_atalhosLayout.setVerticalGroup(
             pnl_atalhosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_atalhosLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 4, Short.MAX_VALUE)
                 .addGroup(pnl_atalhosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnl_cadCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnl_aberturaAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnl_consClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(pnl_consClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        javax.swing.GroupLayout pnl_fundoLayout = new javax.swing.GroupLayout(pnl_fundo);
+        pnl_fundo.setLayout(pnl_fundoLayout);
+        pnl_fundoLayout.setHorizontalGroup(
+            pnl_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnl_atalhos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnl_fundoLayout.setVerticalGroup(
+            pnl_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_fundoLayout.createSequentialGroup()
+                .addComponent(pnl_atalhos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(487, Short.MAX_VALUE))
+        );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1210, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 95, Short.MAX_VALUE))
-        );
+        jMenu1.setText("Cadastros");
+
+        jMenu3.setText("Paciente");
+
+        item_cadPaciente.setText("Paciente");
+        item_cadPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                item_cadPacienteMousePressed(evt);
+            }
+        });
+        jMenu3.add(item_cadPaciente);
+
+        item_cadCor.setText("Cor");
+        item_cadCor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                item_cadCorMousePressed(evt);
+            }
+        });
+        jMenu3.add(item_cadCor);
+
+        item_cadProfissao.setText("Profissão");
+        item_cadProfissao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                item_cadProfissaoMousePressed(evt);
+            }
+        });
+        jMenu3.add(item_cadProfissao);
+
+        item_cadConvenio.setText("Convênio");
+        item_cadConvenio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                item_cadConvenioMousePressed(evt);
+            }
+        });
+        jMenu3.add(item_cadConvenio);
+
+        jMenu1.add(jMenu3);
+
+        item_cadUsuario.setText("Usuário");
+        item_cadUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                item_cadUsuarioMousePressed(evt);
+            }
+        });
+        jMenu1.add(item_cadUsuario);
+
+        Menu_barra.add(jMenu1);
+
+        jMenu2.setText("Atendimento");
+
+        item_aberturaAtendimento.setText("Abertura de Atendimento");
+        item_aberturaAtendimento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                item_aberturaAtendimentoMousePressed(evt);
+            }
+        });
+        jMenu2.add(item_aberturaAtendimento);
+
+        Menu_barra.add(jMenu2);
+
+        Menu_Utilitários.setText("Utilitários");
 
         item_AlterarSenha.setText("Alterar Senha");
         item_AlterarSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -225,38 +285,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         Menu_Utilitários.add(item_AlterarSenha);
 
-        item_enviaEmail.setText("Enviar E-mail");
-        item_enviaEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                item_enviaEmailActionPerformed(evt);
-            }
-        });
-        Menu_Utilitários.add(item_enviaEmail);
-
-        item_emiteRecibo.setText("Emitir Recibo");
-        item_emiteRecibo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                item_emiteReciboActionPerformed(evt);
-            }
-        });
-        Menu_Utilitários.add(item_emiteRecibo);
-
-        item_informacao.setText("Lançar Informação");
-        item_informacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                item_informacaoActionPerformed(evt);
-            }
-        });
-        Menu_Utilitários.add(item_informacao);
-
-        item_tipoInformacao.setText("Tipo Informação");
-        item_tipoInformacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                item_tipoInformacaoActionPerformed(evt);
-            }
-        });
-        Menu_Utilitários.add(item_tipoInformacao);
-
         item_trocaUsuario.setText("Trocar de Usuário");
         item_trocaUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,45 +293,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         Menu_Utilitários.add(item_trocaUsuario);
 
-        item_Permissoes.setText("Permissões");
-        item_Permissoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                item_PermissoesActionPerformed(evt);
-            }
-        });
-        Menu_Utilitários.add(item_Permissoes);
-
         Menu_barra.add(Menu_Utilitários);
-
-        jMenu1.setText("Cadastros");
-
-        jMenu3.setText("Paciente");
-
-        jMenuItem4.setText("Paciente");
-        jMenu3.add(jMenuItem4);
-
-        jMenuItem5.setText("Cor");
-        jMenu3.add(jMenuItem5);
-
-        jMenuItem6.setText("Profissão");
-        jMenu3.add(jMenuItem6);
-
-        jMenuItem7.setText("Convênio");
-        jMenu3.add(jMenuItem7);
-
-        jMenu1.add(jMenu3);
-
-        jMenuItem8.setText("Usuário");
-        jMenu1.add(jMenuItem8);
-
-        Menu_barra.add(jMenu1);
-
-        jMenu2.setText("Atendimento");
-
-        jMenuItem2.setText("Abertura de Atendimento");
-        jMenu2.add(jMenuItem2);
-
-        Menu_barra.add(jMenu2);
 
         setJMenuBar(Menu_barra);
 
@@ -311,22 +301,14 @@ public class Frm_Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnl_atalhos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(3, 3, 3))
+            .addComponent(pnl_fundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnl_atalhos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(pnl_fundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1223, 581));
+        setSize(new java.awt.Dimension(1269, 676));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -335,12 +317,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         f.setVisible(true);
         dispose();
     }//GEN-LAST:event_item_trocaUsuarioActionPerformed
-
-    private void item_informacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_informacaoActionPerformed
-    }//GEN-LAST:event_item_informacaoActionPerformed
-
-    private void item_tipoInformacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_tipoInformacaoActionPerformed
-    }//GEN-LAST:event_item_tipoInformacaoActionPerformed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode() == Event.ESCAPE) {
@@ -352,26 +328,45 @@ public class Frm_Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formKeyPressed
 
-    private void item_emiteReciboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_emiteReciboActionPerformed
-    }//GEN-LAST:event_item_emiteReciboActionPerformed
-
-    private void item_enviaEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_enviaEmailActionPerformed
-    }//GEN-LAST:event_item_enviaEmailActionPerformed
-
-    private void item_PermissoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_PermissoesActionPerformed
-    }//GEN-LAST:event_item_PermissoesActionPerformed
-
     private void item_AlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_AlterarSenhaActionPerformed
+        Frm_alteraSenha f= new Frm_alteraSenha();
     }//GEN-LAST:event_item_AlterarSenhaActionPerformed
 
     private void atalhoCadastroClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atalhoCadastroClienteMousePressed
+        Frm_CadPaciente f = new Frm_CadPaciente();
     }//GEN-LAST:event_atalhoCadastroClienteMousePressed
 
     private void atalhoAbrirAtendimentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atalhoAbrirAtendimentoMousePressed
+        Frm_AberturaAtendimento f = new Frm_AberturaAtendimento();
     }//GEN-LAST:event_atalhoAbrirAtendimentoMousePressed
 
     private void atalhoConsultarClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atalhoConsultarClientesMousePressed
+        Frm_ConsPaciente f = new Frm_ConsPaciente();
     }//GEN-LAST:event_atalhoConsultarClientesMousePressed
+
+    private void item_cadUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadUsuarioMousePressed
+        Frm_CadUsuario f= new Frm_CadUsuario();
+    }//GEN-LAST:event_item_cadUsuarioMousePressed
+
+    private void item_cadPacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadPacienteMousePressed
+        Frm_CadPaciente f = new Frm_CadPaciente();
+    }//GEN-LAST:event_item_cadPacienteMousePressed
+
+    private void item_cadCorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadCorMousePressed
+        Frm_CadCor f= new Frm_CadCor();
+    }//GEN-LAST:event_item_cadCorMousePressed
+
+    private void item_cadProfissaoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadProfissaoMousePressed
+        Frm_CadProfissao f = new Frm_CadProfissao();
+    }//GEN-LAST:event_item_cadProfissaoMousePressed
+
+    private void item_cadConvenioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadConvenioMousePressed
+        Frm_CadConvenio f = new Frm_CadConvenio();
+    }//GEN-LAST:event_item_cadConvenioMousePressed
+
+    private void item_aberturaAtendimentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_aberturaAtendimentoMousePressed
+        Frm_AberturaAtendimento f= new Frm_AberturaAtendimento();
+    }//GEN-LAST:event_item_aberturaAtendimentoMousePressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -417,30 +412,24 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel atalhoCadastroCliente;
     private javax.swing.JLabel atalhoConsultarClientes;
     private javax.swing.JMenuItem item_AlterarSenha;
-    private javax.swing.JMenuItem item_Permissoes;
-    private javax.swing.JMenuItem item_emiteRecibo;
-    private javax.swing.JMenuItem item_enviaEmail;
-    private javax.swing.JMenuItem item_informacao;
-    private javax.swing.JMenuItem item_tipoInformacao;
+    private javax.swing.JMenuItem item_aberturaAtendimento;
+    private javax.swing.JMenuItem item_cadConvenio;
+    private javax.swing.JMenuItem item_cadCor;
+    private javax.swing.JMenuItem item_cadPaciente;
+    private javax.swing.JMenuItem item_cadProfissao;
+    private javax.swing.JMenuItem item_cadUsuario;
     private javax.swing.JMenuItem item_trocaUsuario;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel pnl_aberturaAtendimento;
     private javax.swing.JPanel pnl_atalhos;
     private javax.swing.JPanel pnl_cadCliente;
     private javax.swing.JPanel pnl_consClientes;
+    private javax.swing.JPanel pnl_fundo;
     // End of variables declaration//GEN-END:variables
 
 }

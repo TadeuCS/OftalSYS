@@ -47,8 +47,6 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
 
         jLabel2.setText("Senha *:");
 
-        cbx_tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Atendente", "Doutor" }));
-
         jLabel3.setText("Tipo *:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
