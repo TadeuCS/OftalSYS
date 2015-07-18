@@ -15,6 +15,8 @@ import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -22,8 +24,11 @@ import javax.swing.JOptionPane;
 public class Frm_Anexo extends javax.swing.JFrame {
 
     String diretorio = null;
+    List<String> lista;
+
     public Frm_Anexo() {
         initComponents();
+        limpaAnexos();
     }
 
     @SuppressWarnings("unchecked")
@@ -218,17 +223,19 @@ public class Frm_Anexo extends javax.swing.JFrame {
         JFileChooser c = new JFileChooser();
         c.showOpenDialog(this);//abre o arquivo  
         File file = c.getSelectedFile();//abre o arquivo selecionado  
-        try {
-            Path path = Paths.get(file.getAbsolutePath());
-            diretorio = path.toString();
-            if (diretorio.endsWith("png") || diretorio.endsWith("jpg")) {
+        Path path = Paths.get(file.getAbsolutePath());
+        diretorio = path.toString();
+        if (diretorio.endsWith("png") || diretorio.endsWith("jpg")) {
+            try {
+                lista.add(diretorio);
                 carregaImagem(diretorio);
-            } else {
-                JOptionPane.showMessageDialog(this, "Extenção do arquivo selecionado inválido!\n "
-                        + "Tente imagens com extenção: PNG ou JPG");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao inserir imagem na lista!\n"+e.getMessage());
             }
-        } catch (Exception e1) {
-            JOptionPane.showMessageDialog(this, "Não carregou nenhuma Imagem");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Extenção do arquivo selecionado inválido!\n "
+                    + "Tente imagens com extenção: PNG ou JPG");
         }
     }
 
@@ -269,7 +276,7 @@ public class Frm_Anexo extends javax.swing.JFrame {
 
     private void carregaImagem(String caminho) {
         try {
-            foto.setIcon(new ImageIcon(alteraTamanhoImagem(getImagemByCaminho(caminho.replace("\\", "/")).getImage(), 120)));
+            foto.setIcon(new ImageIcon(alteraTamanhoImagem(getImagemByCaminho(caminho.replace("\\", "/")).getImage(), 500)));
             foto.revalidate();
             foto.repaint();
         } catch (Exception e) {
@@ -292,5 +299,13 @@ public class Frm_Anexo extends javax.swing.JFrame {
         g2d.dispose();
 
         return newImage;
+    }
+
+    private void limpaAnexos() {
+        try {
+            lista = new ArrayList<>();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao limpar os anexos!\n" + e.getMessage());
+        }
     }
 }

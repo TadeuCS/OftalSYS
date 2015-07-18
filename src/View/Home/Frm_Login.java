@@ -62,27 +62,21 @@ public class Frm_Login extends javax.swing.JFrame {
     }
 
     public void logar(String nome, String senha) {
-        if (isAdministrador(nome, senha) == true) {
-            p = new Frm_Principal();
-            p.setVisible(true);
-            dispose();
-        } else {
-            try {
-                if (usuarioDAO.findByUsuarioAndSenha(nome, senha).getCodstatusUsuario().getDescricao().equals("BLOQUEADO") == true) {
-                    JOptionPane.showMessageDialog(null, "Usuário " + nome + " Bloquado", "Aviso", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    usuario=usuarioDAO.findByUsuarioAndSenha(nome, senha);
-                    p = new Frm_Principal();
-                    p.setVisible(true);
-                    dispose();
-                }
-            } catch (NoResultException e) {
-                JOptionPane.showMessageDialog(null, "Usuário ou Senha inválidos!", "Aviso", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                limpaCampos();
+        try {
+            if (usuarioDAO.findByUsuarioAndSenha(nome, senha).getCodstatusUsuario().getDescricao().equals("BLOQUEADO") == true) {
+                JOptionPane.showMessageDialog(null, "Usuário " + nome + " Bloquado", "Aviso", JOptionPane.ERROR_MESSAGE);
+            } else {
+                usuario = usuarioDAO.findByUsuarioAndSenha(nome, senha);
+                p = new Frm_Principal();
+                p.setVisible(true);
+                dispose();
             }
-
+        } catch (NoResultException e) {
+            JOptionPane.showMessageDialog(null, "Usuário ou Senha inválidos!", "Aviso", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            limpaCampos();
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -328,9 +322,9 @@ public class Frm_Login extends javax.swing.JFrame {
     }
 
     private void valida() {
-        if(!txt_usuario.getText().trim().isEmpty()&&txt_usuario.getText().toUpperCase().equals("ADMIN")==true){
-            Frm_Conexao f= new Frm_Conexao();
-        }else{
+        if (!txt_usuario.getText().trim().isEmpty() && txt_usuario.getText().toUpperCase().equals("ADMIN") == true) {
+            Frm_Conexao f = new Frm_Conexao();
+        } else {
             JOptionPane.showMessageDialog(null, "Você não tem permissão de alterar as configurações de conexão!");
         }
     }

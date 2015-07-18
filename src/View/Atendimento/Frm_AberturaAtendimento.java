@@ -14,6 +14,7 @@ import Model.TipoAtendimento;
 import Model.Usuario;
 import Util.Classes.Data;
 import java.awt.Event;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +27,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     UsuarioDAO usuarioDAO;
     TipoUsuarioDAO tipoUsuarioDAO;
     TipoAtendimentoDAO tipoAtendimentoDAO;
+
     public Frm_AberturaAtendimento() {
         initComponents();
         setVisible(true);
@@ -249,8 +251,9 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Abertura de Atendimento");
+        setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -434,6 +437,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_anexarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_anexarActionPerformed
@@ -450,7 +454,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
     private void txt_dataAtendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dataAtendimentoKeyPressed
         if (evt.getKeyCode() == Event.ENTER) {
-            Data data= new Data();
+            Data data = new Data();
             txt_dataAtendimento.setText(data.completaData(txt_dataAtendimento.getText(), "dd/MM/yyyy"));
         }
     }//GEN-LAST:event_txt_dataAtendimentoKeyPressed
@@ -530,38 +534,38 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
     private void carregaPacientes() {
         try {
-            pacienteDAO=new PacienteDAO();
+            pacienteDAO = new PacienteDAO();
             cbx_paciente.removeAllItems();
             for (Paciente lista : pacienteDAO.listar()) {
                 cbx_paciente.addItem(lista.getNome());
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar os pacientes!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao carregar os pacientes!\n" + e.getMessage());
         }
     }
-    
+
     private void carregaDoutores() {
         try {
-            usuarioDAO=new UsuarioDAO();
-            tipoUsuarioDAO=new TipoUsuarioDAO();
+            usuarioDAO = new UsuarioDAO();
+            tipoUsuarioDAO = new TipoUsuarioDAO();
             cbx_doutor.removeAllItems();
             for (Usuario lista : usuarioDAO.listaByTipo(tipoUsuarioDAO.buscar("Doutor"))) {
                 cbx_doutor.addItem(lista.getUsuario());
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar os Doutores!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao carregar os Doutores!\n" + e.getMessage());
         }
     }
-    
+
     private void carregaTipoAtendimentos() {
         try {
-            tipoAtendimentoDAO=new TipoAtendimentoDAO();
+            tipoAtendimentoDAO = new TipoAtendimentoDAO();
             cbx_tipoAtendimento.removeAllItems();
             for (TipoAtendimento lista : tipoAtendimentoDAO.listar()) {
                 cbx_tipoAtendimento.addItem(lista.getDescricao());
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar os tipos de atendimento!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao carregar os tipos de atendimento!\n" + e.getMessage());
         }
     }
 
@@ -574,10 +578,29 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
     private void calculaIdade() {
         try {
-            pacienteDAO=new PacienteDAO();
-            txt_idade.setText(Data.getIdade(pacienteDAO.findByNome(cbx_paciente.getSelectedItem().toString()).getDtNascimento()));
+            pacienteDAO = new PacienteDAO();
+            Paciente paciente = new Paciente();
+            paciente = pacienteDAO.findByNome(cbx_paciente.getSelectedItem().toString());
+            Date data = new Date();
+            if (paciente.getDtNascimento().getMonth() == data.getMonth()) {
+                if (paciente.getDtNascimento().getDate() < data.getDate()) {
+                    txt_idade.setText(Data.getIdade(paciente.getDtNascimento()));
+                } else {
+                    if (paciente.getDtNascimento().getDate() == data.getDate()) {
+                        txt_idade.setText(Data.getIdade(paciente.getDtNascimento()));
+                    } else {
+                        txt_idade.setText(Integer.parseInt(Data.getIdade(paciente.getDtNascimento())) - 1 + "");
+                    }
+                }
+            } else {
+                if (paciente.getDtNascimento().getMonth() < data.getMonth()) {
+                    txt_idade.setText(Data.getIdade(paciente.getDtNascimento()));
+                } else {
+                    txt_idade.setText(Integer.parseInt(Data.getIdade(paciente.getDtNascimento())) - 1 + "");
+                }
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao calcular a idade!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao calcular a idade!\n" + e.getMessage());
         }
     }
 

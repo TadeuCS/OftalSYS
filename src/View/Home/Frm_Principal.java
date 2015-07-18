@@ -2,10 +2,7 @@ package View.Home;
 
 import Controller.AtendimentoDAO;
 import Controller.UsuarioDAO;
-import Model.Telefone;
 import Model.Usuario;
-import Util.Classes.Criptografia;
-import Util.Classes.GeraRelatorios;
 import View.Atendimento.Frm_AberturaAtendimento;
 import View.Cadastro.Frm_CadConvenio;
 import View.Cadastro.Frm_CadCor;
@@ -14,8 +11,6 @@ import View.Cadastro.Frm_CadProfissao;
 import View.Cadastro.Frm_CadUsuario;
 import View.Consulta.Frm_ConsPaciente;
 import java.awt.Event;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 

@@ -921,7 +921,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             if (txt_cep.getText().replaceAll("-", "").trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "CEP Inválido!");
             } else {
-                buscaCEP(txt_cep.getText());
+                buscaCEP(txt_cep.getText().replace("-", ""));
             }
         }
     }//GEN-LAST:event_txt_cepKeyPressed
@@ -1129,7 +1129,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_observacao.setEnabled(tipo);
         chx_ativo.setEnabled(tipo);
         txt_nome.requestFocus();
-        
 
         //endereco
         txt_cep.setEnabled(tipo);
@@ -1171,6 +1170,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         carregaEstados();
         carregaTipoTelefones();
         carregaCidades();
+        btn_novo.requestFocus();
     }
 
     private void carregaEstadoCivis() {
@@ -1470,7 +1470,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
             if (chx_ativo.getSelectedObjects() == null) {
                 paciente.setAtivo('N');
-            }else{
+            } else {
                 paciente.setAtivo('S');
             }
             pacienteDAO = new PacienteDAO();
@@ -1487,8 +1487,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             cbx_cor.setSelectedIndex(0);
             cbx_convenio.setSelectedIndex(0);
             cbx_profissao.setSelectedIndex(0);
-            cbx_estado.setSelectedIndex(0);
-            carregaCidades();
+            cbx_estado.setSelectedItem("MG");
             cbx_cidade.setSelectedIndex(0);
             cbx_tipoTelefone.setSelectedIndex(0);
         } catch (Exception e) {
@@ -1559,14 +1558,12 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         this.cep = new Cep();
         try {
             this.cep = enderecoDAO.findByCEP(cep);
-            if (endereco.getCep() != null) {
-                txt_logradouro.setText(this.cep.getLogradouro());
-                txt_bairro.setText(this.cep.getBairro());
-                cbx_cidade.setSelectedItem(this.cep.getCodcidade().getDescricao());
-                cbx_estado.setSelectedItem(this.cep.getCodcidade().getCodestado().getSigla());
-                txt_numero.requestFocus();
-            }
-        } catch (Exception e) {
+            txt_logradouro.setText(this.cep.getLogradouro());
+            txt_bairro.setText(this.cep.getBairro());
+            cbx_cidade.setSelectedItem(this.cep.getCodcidade().getDescricao());
+            cbx_estado.setSelectedItem(this.cep.getCodcidade().getCodestado().getSigla());
+            txt_numero.requestFocus();
+        } catch (NoResultException e) {
             JOptionPane.showMessageDialog(null, "CEP não Encontrado, Preencha os campos obrigatórios!");
             txt_logradouro.requestFocus();
         }
@@ -1613,9 +1610,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             } else {
                 rbt_feminino.setSelected(true);
             }
-            if(paciente.getAtivo().equals('S')==true){
+            if (paciente.getAtivo().equals('S') == true) {
                 chx_ativo.setSelected(true);
-            }else{
+            } else {
                 chx_ativo.setSelected(false);
             }
             txt_observacao.setText(paciente.getObservacao());
@@ -1632,7 +1629,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao carregar os dados pessoais!\n" + e.getMessage());
         }
     }
-    
+
     private void getEndereco(Paciente paciente) {
         try {
             txt_cep.setText(paciente.getEnderecoList().get(0).getCep());
@@ -1692,5 +1689,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_complemento.setDocument(new FixedLengthDocument(160));
         txt_numero.setDocument(new IntegerDocument(10));
         txt_observacao.setDocument(new FixedLengthDocument(255));
+        cbx_cidade.setSelectedItem("MG");
     }
 }
