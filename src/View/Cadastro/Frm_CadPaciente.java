@@ -974,11 +974,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_apagarActionPerformed
 
     private void btn_detalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_detalharActionPerformed
-        if(tb_atendimentos.getSelectedRowCount()!=1){
+        if (tb_atendimentos.getSelectedRowCount() != 1) {
             JOptionPane.showMessageDialog(null, "Selecione 1 linha para detalhar por vez!");
-        }else{
-            atendimentoDAO=new AtendimentoDAO();
-            Frm_DetalhamentoAtendimento f= new Frm_DetalhamentoAtendimento(atendimentoDAO.buscar(Integer.parseInt(tb_atendimentos.getValueAt(tb_atendimentos.getSelectedRow(), 0).toString())));
+        } else {
+            atendimentoDAO = new AtendimentoDAO();
+            Frm_DetalhamentoAtendimento f = new Frm_DetalhamentoAtendimento(atendimentoDAO.buscar(Integer.parseInt(tb_atendimentos.getValueAt(tb_atendimentos.getSelectedRow(), 0).toString())));
         }
     }//GEN-LAST:event_btn_detalharActionPerformed
 
@@ -1672,15 +1672,17 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
     private void getAtendimentos(Paciente paciente) {
         try {
-            for (Atendimento atendimentos : paciente.getAtendimentoList()) {
+            for (Atendimento att : paciente.getAtendimentoList()) {
                 String[] linha = new String[]{
-                    atendimentos.getCodatendimento() + "",
-                    Data.getDataByDate(atendimentos.getDtAtendimento(), "dd/MM/yyyy"),
-                    Data.getDataByDate(atendimentos.getDtAtendimento(), "HH:mm"),
-                    atendimentos.getQueixa()
+                    att.getCodatendimento() + "",
+                    Data.getDataByDate(att.getDtAtendimento(), "dd/MM/yyyy"),
+                    Data.getDataByDate(att.getDtAtendimento(), "HH:mm"),
+                    att.getQueixa(),
+                    temAnexo(att)
                 };
                 TableConfig.getModel(tb_atendimentos).addRow(linha);
             }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar os atendimentos!" + e.getMessage());
         }
@@ -1703,5 +1705,13 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_observacao.setDocument(new FixedLengthDocument(255));
         cbx_estado.setSelectedItem("MG");
         cbx_cidade.setSelectedItem("PATOS DE MINAS");
+    }
+
+    private String temAnexo(Atendimento att) {
+        if(att.getAnexoList().size()>0){
+            return "S";
+        }else{
+            return "N";
+        }
     }
 }
