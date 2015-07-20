@@ -22,18 +22,18 @@ public class PropertiesManager {
     private String getCaminho() {
         File file = new File(this.file);
         //altere de acordo com o diretorio do seu arquivo properties
-        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").replaceAll("/store", "").concat("src\\Util\\Classes\\"); //caminho para construir
-//        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").concat("src\\Util\\"); //caminho para compilar
+//        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").replaceAll("/store", "").concat("src\\Util\\Classes\\"); //caminho pra ide
+        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "");//caminho pro executavel
     }
 
     private void cria() {
         try {
             //Criamos um objeto FileOutputStream
             //Setamos o arquivo que será lido
-            fis = new FileInputStream(getCaminho()+file);
+            fis = new FileInputStream(getCaminho() + file);
             properties.load(fis);
         } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao localizar o arquivo.\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao localizar o arquivo.\n" + ex.getMessage());
         }
     }
 
