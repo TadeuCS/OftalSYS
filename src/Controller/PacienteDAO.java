@@ -32,7 +32,6 @@ public class PacienteDAO extends Conexao {
         em.getTransaction().commit();
         return query.getResultList();
     }
-
     
     public Paciente findByNome(String nome) {
         em.getTransaction().begin();

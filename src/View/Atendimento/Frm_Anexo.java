@@ -5,14 +5,15 @@
  */
 package View.Atendimento;
 
+import Model.Anexo;
+import Model.Atendimento;
+import Util.Classes.PropertiesManager;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -24,10 +25,16 @@ import javax.swing.JOptionPane;
 public class Frm_Anexo extends javax.swing.JFrame {
 
     String diretorio = null;
-    List<String> lista;
+    List<Anexo> lista;
+    PropertiesManager prop;
+    int codigo;
+    Anexo anexo;
+    Atendimento atendimento;
 
-    public Frm_Anexo() {
+    public Frm_Anexo(Atendimento att) {
         initComponents();
+        atendimento = att;
+        setVisible(true);
         limpaAnexos();
     }
 
@@ -36,54 +43,17 @@ public class Frm_Anexo extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        foto = new javax.swing.JLabel();
-        btn_proximo = new javax.swing.JButton();
-        btn_anterior = new javax.swing.JButton();
         btn_gravar = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
         btn_limpar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txt_qtdeAnexos = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        foto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Anexar Imagens");
         setResizable(false);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        foto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        btn_proximo.setText(">");
-
-        btn_anterior.setText("<");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(210, 210, 210)
-                .addComponent(btn_anterior)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_proximo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_proximo)
-                    .addComponent(btn_anterior))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         btn_gravar.setText("Gravar");
         btn_gravar.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +62,7 @@ public class Frm_Anexo extends javax.swing.JFrame {
             }
         });
 
-        btn_buscar.setText("Buscar");
+        btn_buscar.setText("Adicionar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
@@ -112,15 +82,18 @@ public class Frm_Anexo extends javax.swing.JFrame {
         txt_qtdeAnexos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_qtdeAnexos.setText("0");
 
+        foto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPane1.setViewportView(foto);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,7 +101,7 @@ public class Frm_Anexo extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_qtdeAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1113, Short.MAX_VALUE)
                         .addComponent(btn_gravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -136,8 +109,8 @@ public class Frm_Anexo extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_gravar)
                     .addComponent(btn_buscar)
@@ -167,11 +140,13 @@ public class Frm_Anexo extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limparActionPerformed
-
+        lista = new ArrayList<>();
+        txt_qtdeAnexos.setText("0");
+        foto.setIcon(null);
     }//GEN-LAST:event_btn_limparActionPerformed
 
     private void btn_gravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gravarActionPerformed
-
+        gravarAnexos();
     }//GEN-LAST:event_btn_gravarActionPerformed
 
     public static void main(String args[]) {
@@ -201,21 +176,19 @@ public class Frm_Anexo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frm_Anexo().setVisible(true);
+//                new Frm_Anexo().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_anterior;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_gravar;
     private javax.swing.JButton btn_limpar;
-    private javax.swing.JButton btn_proximo;
     private javax.swing.JLabel foto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel txt_qtdeAnexos;
     // End of variables declaration//GEN-END:variables
 
@@ -227,40 +200,23 @@ public class Frm_Anexo extends javax.swing.JFrame {
         diretorio = path.toString();
         if (diretorio.endsWith("png") || diretorio.endsWith("jpg")) {
             try {
-                lista.add(diretorio);
+                anexo = new Anexo();
+                byte[] bFile = new byte[(int) file.length()];
+                anexo.setCodatendimento(atendimento);
+                FileInputStream fis = new FileInputStream(file);
+                fis.read(bFile);
+                fis.close();
+                anexo.setImagem(bFile);
+                lista.add(anexo);
                 carregaImagem(diretorio);
+                txt_qtdeAnexos.setText(Integer.parseInt(txt_qtdeAnexos.getText()) + 1 + "");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao inserir imagem na lista!\n"+e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro ao inserir imagem na lista!\n" + e.getMessage());
             }
 
         } else {
             JOptionPane.showMessageDialog(this, "Extenção do arquivo selecionado inválido!\n "
                     + "Tente imagens com extenção: PNG ou JPG");
-        }
-    }
-
-    private void upaImagemByDiretorio(String caminho, String nome) {
-        FileInputStream origem;
-        FileOutputStream destino;
-
-        FileChannel fcOrigem;
-        FileChannel fcDestino;
-
-        try {
-            origem = new FileInputStream(caminho);//arquivo que você quer copiar  
-            File file = new File("Frm_principal.java");
-            String caminhoDestino = file.getAbsolutePath().replaceAll(file.getPath(), "").replace("\\", "/");
-            destino = new FileOutputStream(caminhoDestino + "src/Fotos/" + nome + ".png");//onde irá ficar a copia do aquivo (ide)
-//            destino = new FileOutputStream(caminhoDestino + "Fotos/" + nome + ".png");//onde irá ficar a copia do aquivo  (compilado)
-
-            fcOrigem = origem.getChannel();
-            fcDestino = destino.getChannel();
-            fcOrigem.transferTo(0, fcOrigem.size(), fcDestino);//copiando o arquivo e salvando no diretório que você escolheu  
-            origem.close();
-            destino.close();
-            foto.setIcon(null);
-        } catch (Exception e) {
-            System.out.println(e);
         }
     }
 
@@ -276,7 +232,7 @@ public class Frm_Anexo extends javax.swing.JFrame {
 
     private void carregaImagem(String caminho) {
         try {
-            foto.setIcon(new ImageIcon(alteraTamanhoImagem(getImagemByCaminho(caminho.replace("\\", "/")).getImage(), 500)));
+            foto.setIcon(new ImageIcon(alteraTamanhoImagem(getImagemByCaminho(caminho.replace("\\", "/")).getImage(), this.getWidth() - 50)));
             foto.revalidate();
             foto.repaint();
         } catch (Exception e) {
@@ -307,5 +263,15 @@ public class Frm_Anexo extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao limpar os anexos!\n" + e.getMessage());
         }
+    }
+
+    private void gravarAnexos() {
+        try {
+            atendimento.setAnexoList(lista);
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao anexar as imagens!\n" + e.getMessage());
+        }
+        dispose();
     }
 }

@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Statement;
 import Util.Classes.PropertiesManager;
+import java.sql.DriverManager;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -193,7 +194,7 @@ public class Frm_Conexao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_testarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_testarActionPerformed
-        testaConexao();
+        validaCampos();
     }//GEN-LAST:event_btn_testarActionPerformed
 
     private void btn_gravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gravarActionPerformed
@@ -274,38 +275,7 @@ public class Frm_Conexao extends javax.swing.JFrame {
         }
     }
 
-//    public void testaConexão() {
-//        txt_diretorio.setText(txt_diretorio.getText().replace("\\", "/"));
-//        if ((cbx_tipo.getSelectedIndex() != 0) && (txt_ip.getText().compareTo("") == 0)) {
-//            JOptionPane.showMessageDialog(null, "IP é Obrigatorio se Tipo de conexão é REMOTO");
-//            txt_ip.requestFocus();
-//        } else {
-//            if (txt_diretorio.getText().compareTo("") == 0) {
-//                JOptionPane.showMessageDialog(null, "Campo Diretorio é Obrigatorio");
-//                txt_diretorio.requestFocus();
-//            } else {
-//                if (txt_user.getText().compareTo("") == 0) {
-//                    JOptionPane.showMessageDialog(null, "Campo User é Obrigatorio");
-//                    txt_user.requestFocus();
-//                } else {
-//                    if (txt_password.getText().compareTo("") == 0) {
-//                        JOptionPane.showMessageDialog(null, "Campo Password é Obrigatorio");
-//                        txt_password.requestFocus();
-//                    } else {
-//                        conexao = new Conexao();
-//                        if (conexao.getConexao(getIP(), txt_diretorio.getText(), txt_user.getText(), txt_password.getText()) != null) {
-//                            status.setText("Conexão Bem Sucedida!");
-//                        } else {
-//                            status.setText("Sem Conexão!");
-//                            JOptionPane.showMessageDialog(null, "Erro ao conectar no banco de dados neste diretório!\n" + txt_diretorio.getText());
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    
-    private void testaConexao() {
+    private void validaCampos() {
         props = new PropertiesManager();
         if ((cbx_tipo.getSelectedIndex() == 0 && !txt_ip.getText().equals("localhost") == true)
                 || (cbx_tipo.getSelectedIndex() == 1 && txt_ip.getText().trim().isEmpty())) {
@@ -320,8 +290,7 @@ public class Frm_Conexao extends javax.swing.JFrame {
                     if (txt_password.getText().trim().isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Senha inválida!");
                     } else {
-                        conexao = new Conexao();
-                        if (conexao.getConexao(txt_ip.getText(), txt_banco.getText(), txt_user.getText(), txt_password.getText()) != null) {
+                        if (testaConexao(txt_ip.getText(), txt_banco.getText(), txt_user.getText(), txt_password.getText()) != null) {
                             status.setText("Conexão bem Sucedida!");
                         } else {
                             status.setText("Sem Conexão!");
@@ -346,8 +315,7 @@ public class Frm_Conexao extends javax.swing.JFrame {
     }
 
     private void gravaDadosConexao() {
-        conexao=new Conexao();
-        if (conexao.getConexao(txt_ip.getText(), txt_banco.getText(), txt_user.getText(), txt_password.getText()) != null) {
+        if (testaConexao(txt_ip.getText(), txt_banco.getText(), txt_user.getText(), txt_password.getText()) != null) {
             try {
                 props = new PropertiesManager();
                 props.altera("ip", txt_ip.getText());
@@ -363,5 +331,20 @@ public class Frm_Conexao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Antes de gravar você precisa conseguir estabelecer conexão com o banco de dados!");
         }
 
+    }
+
+    private Statement testaConexao(String ip, String banco, String usuario, String senha) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://"
+                    + ip + ":3306/" + banco + "?zeroDateTimeBehavior=convertToNull",
+                    usuario,
+                    senha);
+            st = con.createStatement();
+            return st;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

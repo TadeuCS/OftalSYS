@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Anexo.findAll", query = "SELECT a FROM Anexo a"),
     @NamedQuery(name = "Anexo.findByCodanexo", query = "SELECT a FROM Anexo a WHERE a.codanexo = :codanexo"),
-    @NamedQuery(name = "Anexo.findByDescricao", query = "SELECT a FROM Anexo a WHERE a.descricao = :descricao")})
+    })
 public class Anexo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,8 +38,9 @@ public class Anexo implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODANEXO")
     private Integer codanexo;
-    @Column(name = "DESCRICAO")
-    private String descricao;
+    @Lob
+    @Column(name="IMAGEM", nullable=false, columnDefinition="mediumblob")
+    private byte[] imagem;
     @JoinColumn(name = "CODATENDIMENTO", referencedColumnName = "CODATENDIMENTO")
     @ManyToOne(optional = false)
     private Atendimento codatendimento;
@@ -58,16 +60,16 @@ public class Anexo implements Serializable {
         this.codanexo = codanexo;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Atendimento getCodatendimento() {
+      public Atendimento getCodatendimento() {
         return codatendimento;
+    }
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 
     public void setCodatendimento(Atendimento codatendimento) {

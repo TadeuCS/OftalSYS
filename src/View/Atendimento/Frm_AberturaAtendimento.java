@@ -5,16 +5,22 @@
  */
 package View.Atendimento;
 
+import Controller.AtendimentoDAO;
 import Controller.PacienteDAO;
+import Controller.StatusAtendimentoDAO;
 import Controller.TipoAtendimentoDAO;
 import Controller.TipoUsuarioDAO;
 import Controller.UsuarioDAO;
+import Model.Anexo;
+import Model.Atendimento;
 import Model.Paciente;
 import Model.TipoAtendimento;
 import Model.Usuario;
 import Util.Classes.Data;
 import java.awt.Event;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,9 +33,16 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     UsuarioDAO usuarioDAO;
     TipoUsuarioDAO tipoUsuarioDAO;
     TipoAtendimentoDAO tipoAtendimentoDAO;
+    List<Paciente> pacientes;
+    List<Anexo> anexos;
+    Atendimento atendimento;
+    AtendimentoDAO atendimentoDAO;
+    StatusAtendimentoDAO statusAtendimentoDAO;
 
     public Frm_AberturaAtendimento() {
         initComponents();
+        atendimento = new Atendimento();
+        pacientes = new ArrayList<>();
         setVisible(true);
         start();
     }
@@ -73,7 +86,6 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         txt_idade = new javax.swing.JLabel();
         pnl_botoes = new javax.swing.JPanel();
         btn_salvar = new javax.swing.JButton();
-        btn_cancelar = new javax.swing.JButton();
         btn_anexar = new javax.swing.JButton();
 
         jInternalFrame1.setTitle("Consulta Agenda de Atendimentos");
@@ -365,11 +377,9 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         pnl_botoes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btn_salvar.setText("Salvar");
-
-        btn_cancelar.setText("Cancelar");
-        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cancelarActionPerformed(evt);
+                btn_salvarActionPerformed(evt);
             }
         });
 
@@ -388,8 +398,6 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btn_anexar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
         );
@@ -399,7 +407,6 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(pnl_botoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_salvar)
-                    .addComponent(btn_cancelar)
                     .addComponent(btn_anexar))
                 .addGap(6, 6, 6))
         );
@@ -441,16 +448,17 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_anexarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_anexarActionPerformed
-        Frm_Anexo f = new Frm_Anexo();
+        if (txt_idade.getText().replace("/", "").trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Data Inválida!");
+            txt_dataAtendimento.requestFocus();
+        } else {
+            Frm_Anexo f = new Frm_Anexo(atendimento);
+        }
     }//GEN-LAST:event_btn_anexarActionPerformed
 
     private void cbx_pacienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_pacienteFocusLost
         calculaIdade();
     }//GEN-LAST:event_cbx_pacienteFocusLost
-
-    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        limpaCampos();
-    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void txt_dataAtendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dataAtendimentoKeyPressed
         if (evt.getKeyCode() == Event.ENTER) {
@@ -458,6 +466,10 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
             txt_dataAtendimento.setText(data.completaData(txt_dataAtendimento.getText(), "dd/MM/yyyy"));
         }
     }//GEN-LAST:event_txt_dataAtendimentoKeyPressed
+
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        validaCampos();
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -495,7 +507,6 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agenda;
     private javax.swing.JButton btn_anexar;
-    private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_salvar;
     private javax.swing.JComboBox cbx_doutor;
     private javax.swing.JComboBox cbx_paciente;
@@ -536,7 +547,8 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         try {
             pacienteDAO = new PacienteDAO();
             cbx_paciente.removeAllItems();
-            for (Paciente lista : pacienteDAO.listar()) {
+            pacientes = pacienteDAO.listar();
+            for (Paciente lista : pacientes) {
                 cbx_paciente.addItem(lista.getNome());
             }
         } catch (Exception e) {
@@ -610,5 +622,41 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         cbx_tipoAtendimento.setSelectedIndex(0);
         txt_queixa.setText(null);
         txt_dataAtendimento.setText(null);
+    }
+
+    private void salvar() {
+        try {
+            usuarioDAO = new UsuarioDAO();
+            statusAtendimentoDAO = new StatusAtendimentoDAO();
+            tipoAtendimentoDAO = new TipoAtendimentoDAO();
+            atendimentoDAO = new AtendimentoDAO();
+            atendimento.setCodmedico(usuarioDAO.buscar(cbx_doutor.getSelectedItem().toString()));
+            atendimento.setCodpaciente(pacientes.get(cbx_paciente.getSelectedIndex()));
+            atendimento.setCodreceitaOculos(null);
+            atendimento.setCodstatusAtendimento(statusAtendimentoDAO.buscar("CONCLUIDO"));
+            atendimento.setCodtipoAtendimento(tipoAtendimentoDAO.buscar(cbx_tipoAtendimento.getSelectedItem().toString()));
+            atendimento.setDtAtendimento(Data.getDataByTexto(txt_dataAtendimento.getText(), "dd/MM/yyyy"));
+            atendimento.setQueixa(txt_queixa.getText());
+            atendimentoDAO.salvar(atendimento);
+            JOptionPane.showMessageDialog(null, "Atendimento salvo com sucesso!");
+            atendimento=new Atendimento();
+            limpaCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar o atendimento!\n" + e.getMessage());
+        }
+    }
+
+    private void validaCampos() {
+        if (txt_dataAtendimento.getText().replace("/", "").trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Data de agendamento inválida!");
+            txt_dataAtendimento.requestFocus();
+        } else {
+            if (txt_queixa.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Queixa inválida!");
+                txt_queixa.requestFocus();
+            }else{
+                salvar();
+            }
+        }
     }
 }

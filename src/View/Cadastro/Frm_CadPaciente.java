@@ -29,6 +29,7 @@ import Util.Classes.IntegerDocument;
 import Util.Classes.TableConfig;
 import Util.Classes.ValidaEmail;
 import Util.Classes.ValidarCGCCPF;
+import View.Atendimento.Frm_DetalhamentoAtendimento;
 import View.Consulta.Frm_ConsPaciente;
 import java.awt.Event;
 import java.util.ArrayList;
@@ -645,9 +646,15 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         btn_detalhar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/detalhe.png"))); // NOI18N
         btn_detalhar.setText("Detalhar");
+        btn_detalhar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_detalharActionPerformed(evt);
+            }
+        });
 
         btn_reimprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/imprimir.png"))); // NOI18N
         btn_reimprimir.setText("Reimprimir");
+        btn_reimprimir.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -854,6 +861,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         limpaCampos();
+        abas.setSelectedIndex(0);
+        cbx_cor.setSelectedIndex(0);
+        cbx_convenio.setSelectedIndex(0);
+        cbx_profissao.setSelectedIndex(0);
+        cbx_tipoTelefone.setSelectedIndex(0);
         setEnabledButtons(true);
         setEnabledFields(false);
     }//GEN-LAST:event_btn_cancelarActionPerformed
@@ -960,6 +972,15 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btn_apagarActionPerformed
+
+    private void btn_detalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_detalharActionPerformed
+        if(tb_atendimentos.getSelectedRowCount()!=1){
+            JOptionPane.showMessageDialog(null, "Selecione 1 linha para detalhar por vez!");
+        }else{
+            atendimentoDAO=new AtendimentoDAO();
+            Frm_DetalhamentoAtendimento f= new Frm_DetalhamentoAtendimento(atendimentoDAO.buscar(Integer.parseInt(tb_atendimentos.getValueAt(tb_atendimentos.getSelectedRow(), 0).toString())));
+        }
+    }//GEN-LAST:event_btn_detalharActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1145,7 +1166,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_inserirTelefone.setEnabled(tipo);
         btn_removerTelefone.setEnabled(tipo);
 
-        tb_atendimentos.setEnabled(tipo);
     }
 
     private void setEnabledButtons(boolean valor) {
@@ -1167,8 +1187,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         carregaCores();
         carregaConvenios();
         carregaProfissoes();
-        carregaEstados();
         carregaTipoTelefones();
+        carregaEstados();
+        cbx_estado.setSelectedItem("MG");
         carregaCidades();
         btn_novo.requestFocus();
     }
@@ -1479,17 +1500,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Paciente Salvo com Sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, "Paciente Alterado com Sucesso!");
-                setEnabledFields(false);
-                setEnabledButtons(true);
             }
-            abas.setSelectedIndex(0);
-            limpaCampos();
-            cbx_cor.setSelectedIndex(0);
-            cbx_convenio.setSelectedIndex(0);
-            cbx_profissao.setSelectedIndex(0);
-            cbx_estado.setSelectedItem("MG");
-            cbx_cidade.setSelectedIndex(0);
-            cbx_tipoTelefone.setSelectedIndex(0);
+            btn_cancelar.doClick();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao gravar o Paciente!\n" + e.getMessage());
         }
@@ -1578,7 +1590,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_novo.setEnabled(false);
         btn_buscar.setEnabled(false);
         btn_cancelar.setEnabled(true);
-        btn_salvar.setEnabled(true);
+        btn_salvar.setEnabled(false);
         txt_operacao.setText("PESQUISA");
         this.paciente = paciente;
     }
@@ -1689,6 +1701,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_complemento.setDocument(new FixedLengthDocument(160));
         txt_numero.setDocument(new IntegerDocument(10));
         txt_observacao.setDocument(new FixedLengthDocument(255));
-        cbx_cidade.setSelectedItem("MG");
+        cbx_estado.setSelectedItem("MG");
+        cbx_cidade.setSelectedItem("PATOS DE MINAS");
     }
 }

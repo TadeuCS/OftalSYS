@@ -16,6 +16,12 @@ import java.util.List;
  */
 public class AtendimentoDAO extends Conexao {
 
+    public void salvar(Atendimento att) {
+        em.getTransaction().begin();
+        em.merge(att);
+        em.getTransaction().commit();
+    }
+
     public List<Atendimento> listar() {
         em.getTransaction().begin();
         query = em.createNamedQuery("Atendimento.findAll");
@@ -25,13 +31,14 @@ public class AtendimentoDAO extends Conexao {
 
     public Atendimento buscar(int codigo) {
         em.getTransaction().begin();
-        query=em.createNamedQuery("Atendimento.findByCodatendimento").setParameter("codatendimento", codigo);
+        query = em.createNamedQuery("Atendimento.findByCodatendimento").setParameter("codatendimento", codigo);
         em.getTransaction().commit();
         return (Atendimento) query.getSingleResult();
     }
+
     public List<Atendimento> listarByPaciente(Paciente paciente) {
         em.getTransaction().begin();
-        query=em.createNamedQuery("Atendimento.findByCodpaciente").setParameter("codpaciente", paciente);
+        query = em.createNamedQuery("Atendimento.findByCodpaciente").setParameter("codpaciente", paciente);
         em.getTransaction().commit();
         return query.getResultList();
     }

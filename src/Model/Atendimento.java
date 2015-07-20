@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Atendimento.findAll", query = "SELECT a FROM Atendimento a"),
     @NamedQuery(name = "Atendimento.findByCodatendimento", query = "SELECT a FROM Atendimento a WHERE a.codatendimento = :codatendimento"),
+    @NamedQuery(name = "Atendimento.findByCodpaciente", query = "SELECT a FROM Atendimento a WHERE a.codpaciente = :codpaciente"),
     @NamedQuery(name = "Atendimento.findByDtAtendimento", query = "SELECT a FROM Atendimento a WHERE a.dtAtendimento = :dtAtendimento"),
     @NamedQuery(name = "Atendimento.findByHoraInicio", query = "SELECT a FROM Atendimento a WHERE a.horaInicio = :horaInicio"),
     @NamedQuery(name = "Atendimento.findByHoraFim", query = "SELECT a FROM Atendimento a WHERE a.horaFim = :horaFim"),
@@ -43,14 +44,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Atendimento.findByQueixa", query = "SELECT a FROM Atendimento a WHERE a.queixa = :queixa")})
 public class Atendimento implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codatendimento")
-    private List<Anexo> anexoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CODATENDIMENTO")
     private Integer codatendimento;
-    @Basic(optional = false)
     @Column(name = "DT_ATENDIMENTO")
     @Temporal(TemporalType.DATE)
     private Date dtAtendimento;
@@ -80,6 +79,8 @@ public class Atendimento implements Serializable {
     @JoinColumn(name = "CODSTATUS_ATENDIMENTO", referencedColumnName = "CODSTATUS_ATENDIMENTO")
     @ManyToOne(optional = false)
     private StatusAtendimento codstatusAtendimento;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "codatendimento")
+    private List<Anexo> anexoList;
 
     public Atendimento() {
     }

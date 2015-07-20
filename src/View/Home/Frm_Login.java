@@ -1,9 +1,10 @@
 package View.Home;
 
 import Controller.UsuarioDAO;
-import Model.Usuario;
+import Util.Classes.Conexao;
 import Util.Classes.Criptografia;
 import Util.Classes.FixedLengthDocument;
+import Util.Classes.PropertiesManager;
 import java.awt.Color;
 import java.awt.Event;
 import java.awt.GradientPaint;
@@ -18,22 +19,12 @@ public class Frm_Login extends javax.swing.JFrame {
 
     Frm_Principal p;
     UsuarioDAO usuarioDAO;
-    private static Usuario usuario;
-
-    public static Usuario getUsuario() {
-        return usuario;
-    }
-
-    public static void setUsuario(Usuario usuario) {
-        Frm_Login.usuario = usuario;
-    }
+    PropertiesManager prop;
+    Conexao conexao;
 
     public Frm_Login() {
         initComponents();
         txt_usuario.setDocument(new FixedLengthDocument(20));
-        novo();
-        usuario.setUsuario("ADMIN");
-        usuario.setSenha(Criptografia.criptografar("80177534a0c99a7e3645b52f2027a48b"));
     }
 
     protected void paintComponent(Graphics g) {
@@ -48,31 +39,21 @@ public class Frm_Login extends javax.swing.JFrame {
         g2d.fillRect(0, 0, w, h);
     }
 
-    public void novo() {
-        usuario = new Usuario();
-        usuarioDAO = new UsuarioDAO();
-    }
-
-    public boolean isAdministrador(String user, String password) {
-        if ((usuario.getUsuario().equals(user) == true) && (usuario.getSenha().equals(Criptografia.criptografar(password)) == true)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void logar(String nome, String senha) {
+        usuarioDAO = new UsuarioDAO();
         try {
             if (usuarioDAO.findByUsuarioAndSenha(nome, senha).getCodstatusUsuario().getDescricao().equals("BLOQUEADO") == true) {
                 JOptionPane.showMessageDialog(null, "Usuário " + nome + " Bloquado", "Aviso", JOptionPane.ERROR_MESSAGE);
             } else {
-                usuario = usuarioDAO.findByUsuarioAndSenha(nome, senha);
+                usuarioDAO.findByUsuarioAndSenha(nome, senha);
                 p = new Frm_Principal();
                 p.setVisible(true);
                 dispose();
             }
         } catch (NoResultException e) {
             JOptionPane.showMessageDialog(null, "Usuário ou Senha inválidos!", "Aviso", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro de conexão com o banco de dados!\n" + e.getMessage());
         } finally {
             limpaCampos();
         }
@@ -234,7 +215,7 @@ public class Frm_Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Senha Inválida!");
                 txt_senha.requestFocus();
             } else {
-                logar(txt_usuario.getText().toUpperCase(), Criptografia.criptografar(txt_senha.getText()));
+                logar(txt_usuario.getText(), Criptografia.criptografar(txt_senha.getText()));
             }
         }
 

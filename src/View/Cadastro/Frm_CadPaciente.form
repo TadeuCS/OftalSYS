@@ -901,6 +901,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Detalhar"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_detalharActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btn_reimprimir">
                       <Properties>
@@ -908,6 +911,7 @@
                           <Image iconType="3" name="/Util/Img/imprimir.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Reimprimir"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </Component>
                   </SubComponents>
