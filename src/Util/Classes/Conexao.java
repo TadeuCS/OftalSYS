@@ -28,6 +28,8 @@ public class Conexao {
     private Map getParametros() {
         Map map = new HashMap();
         map.put("javax.persistence.jdbc.url", "jdbc:mysql://" + prop.ler("ip") + ":3306/" + prop.ler("banco") + "?zeroDateTimeBehavior=convertToNull");
+        map.put("javax.persistence.jdbc.user", prop.ler("usuario"));
+        map.put("javax.persistence.jdbc.password", prop.ler("senha"));
         return map;
     }
 
@@ -35,8 +37,7 @@ public class Conexao {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://"
-                    + ip + ":3306/" + banco + "?zeroDateTimeBehavior=convertToNull",
+                    "jdbc:mysql://" + ip + ":3306/" + banco + "?zeroDateTimeBehavior=convertToNull",
                     usuario,
                     senha);
             st = con.createStatement();
