@@ -33,14 +33,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EstadoCivil.findByCodestadoCivil", query = "SELECT e FROM EstadoCivil e WHERE e.codestadoCivil = :codestadoCivil"),
     @NamedQuery(name = "EstadoCivil.findByDescricao", query = "SELECT e FROM EstadoCivil e WHERE e.descricao = :descricao")})
 public class EstadoCivil implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "CODESTADO_CIVIL")
     private Integer codestadoCivil;
-    @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", unique = true, nullable = false)
     private String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codestadoCivil")
     private List<Paciente> pacienteList;
@@ -106,5 +105,5 @@ public class EstadoCivil implements Serializable {
     public String toString() {
         return "Model.EstadoCivil[ codestadoCivil=" + codestadoCivil + " ]";
     }
-    
+
 }

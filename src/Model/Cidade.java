@@ -44,8 +44,7 @@ public class Cidade implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODCIDADE")
     private Integer codcidade;
-    @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO",unique = true, nullable = false, length = 255)
     private String descricao;
     @JoinColumn(name = "CODESTADO", referencedColumnName = "CODESTADO")
     @ManyToOne(optional = false)

@@ -38,8 +38,7 @@ public class Convenio implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODCONVENIO")
     private Integer codconvenio;
-    @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO",unique = true,nullable = false,length = 255)
     private String descricao;
     @OneToMany(mappedBy = "codconvenio")
     private List<Paciente> pacienteList;

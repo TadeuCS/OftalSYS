@@ -47,22 +47,21 @@ public class Atendimento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "CODATENDIMENTO")
     private Integer codatendimento;
     @Column(name = "DT_ATENDIMENTO")
     @Temporal(TemporalType.DATE)
     private Date dtAtendimento;
-    @Column(name = "HORA_INICIO")
+    @Column(name = "HORA_INICIO",nullable = true)
     @Temporal(TemporalType.TIME)
     private Date horaInicio;
-    @Column(name = "HORA_FIM")
+    @Column(name = "HORA_FIM",nullable = true)
     @Temporal(TemporalType.TIME)
     private Date horaFim;
-    @Column(name = "DT_RETORNO")
+    @Column(name = "DT_RETORNO",nullable = true)
     @Temporal(TemporalType.DATE)
     private Date dtRetorno;
-    @Column(name = "QUEIXA")
+    @Column(name = "QUEIXA",nullable = false)
     private String queixa;
     @JoinColumn(name = "CODRECEITA_OCULOS", referencedColumnName = "CODRECEITA_OCULOS")
     @ManyToOne

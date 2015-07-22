@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class Frm_CadConvenio extends javax.swing.JFrame {
 
     ConvenioDAO convenioDAO;
+
     public Frm_CadConvenio() {
         initComponents();
         setVisible(true);
@@ -121,9 +122,9 @@ public class Frm_CadConvenio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-        if(txt_convenio.getText().isEmpty()){
+        if (txt_convenio.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Convênio inválido!");
-        }else{
+        } else {
             salvar(txt_convenio.getText());
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
@@ -179,10 +180,14 @@ public class Frm_CadConvenio extends javax.swing.JFrame {
         try {
             Convenio c = new Convenio();
             convenioDAO = new ConvenioDAO();
-            c.setDescricao(convenio);
-            convenioDAO.salvar(c);
+            if (convenioDAO.buscar(convenio) != null) {
+                JOptionPane.showMessageDialog(null, convenio+" já está cadastrado!");
+            } else {
+                c.setDescricao(convenio);
+                convenioDAO.salvar(c);
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar a convenio!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao salvar a convenio!\n" + e.getMessage());
         }
     }
 }

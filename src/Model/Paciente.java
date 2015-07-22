@@ -52,22 +52,18 @@ public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "CODPACIENTE")
     private Integer codpaciente;
-    @Basic(optional = false)
-    @Column(name = "NOME")
+    @Column(name = "NOME",nullable = false)
     private String nome;
-    @Basic(optional = false)
-    @Column(name = "DT_NASCIMENTO")
+    @Column(name = "DT_NASCIMENTO",nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dtNascimento;
     @Column(name = "CPF")
     private String cpf;
-    @Column(name = "RG")
+    @Column(name = "RG",nullable = false)
     private String rg;
-    @Basic(optional = false)
-    @Column(name = "SEXO")
+    @Column(name = "SEXO",nullable = true)
     private Character sexo;
     @Column(name = "EMAIL")
     private String email;
@@ -79,8 +75,7 @@ public class Paciente implements Serializable {
     private Integer numCarteira;
     @Column(name = "OBSERVACAO")
     private String observacao;
-    @Basic(optional = false)
-    @Column(name = "ATIVO")
+    @Column(name = "ATIVO",nullable = false)
     private Character ativo;
     @JoinColumn(name = "CODCONVENIO", referencedColumnName = "CODCONVENIO")
     @ManyToOne

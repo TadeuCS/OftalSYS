@@ -36,11 +36,9 @@ public class Uf implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "CODESTADO")
     private Integer codestado;
-    @Basic(optional = false)
-    @Column(name = "SIGLA")
+    @Column(name = "SIGLA",unique = true,length = 2)
     private String sigla;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codestado")
     private List<Cidade> cidadeList;

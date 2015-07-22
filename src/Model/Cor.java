@@ -38,8 +38,7 @@ public class Cor implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODCOR")
     private Integer codcor;
-    @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO",unique = true,nullable = false,length = 150)
     private String descricao;
     @OneToMany(mappedBy = "codcor")
     private List<Paciente> pacienteList;

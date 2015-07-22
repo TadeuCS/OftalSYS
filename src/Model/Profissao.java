@@ -38,8 +38,7 @@ public class Profissao implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODPROFISSAO")
     private Integer codprofissao;
-    @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO",unique = true,length = 255)
     private String descricao;
     @OneToMany(mappedBy = "codprofissao")
     private List<Paciente> pacienteList;

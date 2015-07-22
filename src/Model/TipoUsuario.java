@@ -36,11 +36,9 @@ public class TipoUsuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "CODTIPO_USUARIO")
     private Integer codtipoUsuario;
-    @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO",unique = true,length = 100)
     private String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codtipoUsuario")
     private List<Usuario> usuarioList;

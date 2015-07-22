@@ -39,8 +39,7 @@ public class StatusAtendimento implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODSTATUS_ATENDIMENTO")
     private Integer codstatusAtendimento;
-    @Basic(optional = false)
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO",unique = true,length = 150)
     private String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codstatusAtendimento")
     private List<Atendimento> atendimentoList;

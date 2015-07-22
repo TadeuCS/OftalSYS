@@ -186,10 +186,15 @@ public class Frm_CadCor extends javax.swing.JFrame {
         try {
             Cor c = new Cor();
             corDAO = new CorDAO();
-            c.setDescricao(cor);
-            corDAO.salvar(c);
+            if (corDAO.buscar(cor) != null) {
+                JOptionPane.showMessageDialog(null, cor + " já está cadastrada!");
+            } else {
+                c.setDescricao(cor);
+                corDAO.salvar(c);
+            }
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar a cor!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao salvar a cor!\n" + e.getMessage());
         }
     }
 }

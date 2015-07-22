@@ -36,13 +36,11 @@ public class Fornecedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "CODFORNECEDOR")
     private Integer codfornecedor;
-    @Basic(optional = false)
     @Column(name = "NOME")
     private String nome;
-    @Column(name = "CPF_CNPJ")
+    @Column(name = "CPF_CNPJ",unique = true,length = 255)
     private String cpfCnpj;
     @OneToMany(mappedBy = "codfornecedor")
     private List<Telefone> telefoneList;

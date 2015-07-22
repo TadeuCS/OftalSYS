@@ -37,17 +37,15 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario"),
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "CODUSUARIO")
     private Integer codusuario;
-    @Basic(optional = false)
-    @Column(name = "USUARIO")
+    @Column(name = "USUARIO", unique = true, nullable = false, length = 20)
     private String usuario;
-    @Basic(optional = false)
-    @Column(name = "SENHA")
+    @Column(name = "SENHA", nullable = false)
     private String senha;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codmedico")
     private List<Atendimento> atendimentoList;
@@ -144,5 +142,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "Model.Usuario[ codusuario=" + codusuario + " ]";
     }
-    
+
 }

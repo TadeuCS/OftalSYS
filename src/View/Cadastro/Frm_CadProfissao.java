@@ -192,8 +192,12 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
          try {
              Profissao p= new Profissao();
             profissaoDAO=new ProfissaoDAO();
-            p.setDescricao(text);
+            if (profissaoDAO.buscar(text) != null) {
+                JOptionPane.showMessageDialog(null, text + " já está cadastrada!");
+            } else {
+                p.setDescricao(text);
             profissaoDAO.salvar(p);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar a cor!\n"+e.getMessage());
         }

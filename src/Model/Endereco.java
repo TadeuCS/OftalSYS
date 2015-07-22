@@ -38,21 +38,17 @@ public class Endereco implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "CODENDERECO")
     private Integer codendereco;
     @Column(name = "CEP")
     private String cep;
-    @Basic(optional = false)
     @Column(name = "LOGRADOURO")
     private String logradouro;
-    @Basic(optional = false)
     @Column(name = "NUMERO")
     private int numero;
-    @Basic(optional = false)
     @Column(name = "BAIRRO")
     private String bairro;
-    @Column(name = "COMPLEMENTO")
+    @Column(name = "COMPLEMENTO",nullable = true)
     private String complemento;
     @JoinColumn(name = "CODFORNECEDOR", referencedColumnName = "CODFORNECEDOR")
     @ManyToOne
