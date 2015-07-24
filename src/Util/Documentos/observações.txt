@@ -1,3 +1,7 @@
+fazer extract dos cadastros de paciente(sem o convenio, numero de carteira, e plano), cor, profissao, convenio.
+
+inserir corretamente no novo padrão de banco de dados.
+
 testar backup e restauração com aplicativo.
 
 criar cadastro de usuário.
