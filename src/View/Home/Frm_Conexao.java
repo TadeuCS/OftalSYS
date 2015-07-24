@@ -309,7 +309,6 @@ public class Frm_Conexao extends javax.swing.JFrame {
             txt_banco.requestFocus();
         } else {
             txt_ip.setEnabled(true);
-            txt_ip.setText(null);
             txt_ip.requestFocus();
         }
     }

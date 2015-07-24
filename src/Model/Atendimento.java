@@ -8,7 +8,6 @@ package Model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Atendimento.findByDtRetorno", query = "SELECT a FROM Atendimento a WHERE a.dtRetorno = :dtRetorno"),
     @NamedQuery(name = "Atendimento.findByQueixa", query = "SELECT a FROM Atendimento a WHERE a.queixa = :queixa")})
 public class Atendimento implements Serializable {
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codatendimento")
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,17 +52,24 @@ public class Atendimento implements Serializable {
     @Column(name = "DT_ATENDIMENTO")
     @Temporal(TemporalType.DATE)
     private Date dtAtendimento;
-    @Column(name = "HORA_INICIO",nullable = true)
+    @Column(name = "HORA_INICIO", nullable = true)
     @Temporal(TemporalType.TIME)
     private Date horaInicio;
-    @Column(name = "HORA_FIM",nullable = true)
+    @Column(name = "HORA_FIM", nullable = true)
     @Temporal(TemporalType.TIME)
     private Date horaFim;
-    @Column(name = "DT_RETORNO",nullable = true)
+    @Column(name = "DT_RETORNO", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date dtRetorno;
-    @Column(name = "QUEIXA",nullable = false)
+    @Column(name = "QUEIXA", nullable = false)
     private String queixa;
+    @Column(name = "PLANO")
+    private String plano;
+    @Column(name = "NUM_CARTEIRA")
+    private Integer numCarteira;
+    @JoinColumn(name = "CODCONVENIO", referencedColumnName = "CODCONVENIO")
+    @ManyToOne
+    private Convenio codconvenio;
     @JoinColumn(name = "CODRECEITA_OCULOS", referencedColumnName = "CODRECEITA_OCULOS")
     @ManyToOne
     private ReceitaOculos codreceitaOculos;
@@ -78,7 +85,7 @@ public class Atendimento implements Serializable {
     @JoinColumn(name = "CODSTATUS_ATENDIMENTO", referencedColumnName = "CODSTATUS_ATENDIMENTO")
     @ManyToOne(optional = false)
     private StatusAtendimento codstatusAtendimento;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "codatendimento")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codatendimento")
     private List<Anexo> anexoList;
 
     public Atendimento() {
@@ -91,6 +98,30 @@ public class Atendimento implements Serializable {
     public Atendimento(Integer codatendimento, Date dtAtendimento) {
         this.codatendimento = codatendimento;
         this.dtAtendimento = dtAtendimento;
+    }
+
+    public String getPlano() {
+        return plano;
+    }
+
+    public void setPlano(String plano) {
+        this.plano = plano;
+    }
+
+    public Integer getNumCarteira() {
+        return numCarteira;
+    }
+
+    public void setNumCarteira(Integer numCarteira) {
+        this.numCarteira = numCarteira;
+    }
+
+    public Convenio getCodconvenio() {
+        return codconvenio;
+    }
+
+    public void setCodconvenio(Convenio codconvenio) {
+        this.codconvenio = codconvenio;
     }
 
     public Integer getCodatendimento() {
@@ -214,5 +245,5 @@ public class Atendimento implements Serializable {
     public void setAnexoList(List<Anexo> anexoList) {
         this.anexoList = anexoList;
     }
-    
+
 }

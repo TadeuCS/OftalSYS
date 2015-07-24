@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class Frm_CadProfissao extends javax.swing.JFrame {
 
     ProfissaoDAO profissaoDAO;
+
     public Frm_CadProfissao() {
         initComponents();
         setVisible(true);
@@ -122,9 +123,9 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-        if(txt_profissao.getText().isEmpty()){
+        if (txt_profissao.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Profissão inválida!");
-        }else{
+        } else {
             salvar(txt_profissao.getText());
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
@@ -189,17 +190,19 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void salvar(String text) {
-         try {
-             Profissao p= new Profissao();
-            profissaoDAO=new ProfissaoDAO();
+        try {
+            Profissao p = new Profissao();
+            profissaoDAO = new ProfissaoDAO();
             if (profissaoDAO.buscar(text) != null) {
                 JOptionPane.showMessageDialog(null, text + " já está cadastrada!");
             } else {
                 p.setDescricao(text);
-            profissaoDAO.salvar(p);
+                profissaoDAO.salvar(p);
+                txt_profissao.requestFocus();
+                JOptionPane.showMessageDialog(null, "Profissão salva com sucesso!");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar a cor!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao salvar a profissão!\n" + e.getMessage());
         }
     }
 }

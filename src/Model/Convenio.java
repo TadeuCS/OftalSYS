@@ -32,16 +32,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Convenio.findByCodconvenio", query = "SELECT c FROM Convenio c WHERE c.codconvenio = :codconvenio"),
     @NamedQuery(name = "Convenio.findByDescricao", query = "SELECT c FROM Convenio c WHERE c.descricao = :descricao")})
 public class Convenio implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CODCONVENIO")
     private Integer codconvenio;
-    @Column(name = "DESCRICAO",unique = true,nullable = false,length = 255)
+    @Column(name = "DESCRICAO", unique = true, nullable = false, length = 255)
     private String descricao;
     @OneToMany(mappedBy = "codconvenio")
-    private List<Paciente> pacienteList;
+    private List<Atendimento> atendimentosList;
 
     public Convenio() {
     }
@@ -72,12 +73,12 @@ public class Convenio implements Serializable {
     }
 
     @XmlTransient
-    public List<Paciente> getPacienteList() {
-        return pacienteList;
+    public List<Atendimento> getAtendimentosList() {
+        return atendimentosList;
     }
 
-    public void setPacienteList(List<Paciente> pacienteList) {
-        this.pacienteList = pacienteList;
+    public void setAtendimentosList(List<Atendimento> atendimentosList) {
+        this.atendimentosList = atendimentosList;
     }
 
     @Override
@@ -104,5 +105,5 @@ public class Convenio implements Serializable {
     public String toString() {
         return "Model.Convenio[ codconvenio=" + codconvenio + " ]";
     }
-    
+
 }

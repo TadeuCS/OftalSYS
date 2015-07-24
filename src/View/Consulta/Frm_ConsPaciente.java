@@ -25,7 +25,7 @@ public class Frm_ConsPaciente extends javax.swing.JFrame {
     public Frm_ConsPaciente() {
         initComponents();
         setVisible(true);
-        listaPacientes();
+        carregaPacientes();
     }
 
     @SuppressWarnings("unchecked")
@@ -59,14 +59,14 @@ public class Frm_ConsPaciente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Logradouro", "Numero", "Bairro", "Cidade", "UF"
+                "Código", "Nome", "CPF", "RG", "email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -88,12 +88,12 @@ public class Frm_ConsPaciente extends javax.swing.JFrame {
             tb_pacientes.getColumnModel().getColumn(0).setMinWidth(60);
             tb_pacientes.getColumnModel().getColumn(0).setPreferredWidth(60);
             tb_pacientes.getColumnModel().getColumn(0).setMaxWidth(60);
-            tb_pacientes.getColumnModel().getColumn(3).setMinWidth(60);
-            tb_pacientes.getColumnModel().getColumn(3).setPreferredWidth(60);
-            tb_pacientes.getColumnModel().getColumn(3).setMaxWidth(60);
-            tb_pacientes.getColumnModel().getColumn(6).setMinWidth(60);
-            tb_pacientes.getColumnModel().getColumn(6).setPreferredWidth(60);
-            tb_pacientes.getColumnModel().getColumn(6).setMaxWidth(60);
+            tb_pacientes.getColumnModel().getColumn(2).setMinWidth(150);
+            tb_pacientes.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tb_pacientes.getColumnModel().getColumn(2).setMaxWidth(150);
+            tb_pacientes.getColumnModel().getColumn(3).setMinWidth(100);
+            tb_pacientes.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tb_pacientes.getColumnModel().getColumn(3).setMaxWidth(100);
         }
 
         tb_telefonesPesquisa.setModel(new javax.swing.table.DefaultTableModel(
@@ -296,17 +296,15 @@ public class Frm_ConsPaciente extends javax.swing.JFrame {
     private javax.swing.JTextField txt_filtro;
     // End of variables declaration//GEN-END:variables
 
-    private void listaPacientes() {
+    private void carregaPacientes() {
         try {
             pacienteDAO = new PacienteDAO();
             for (Paciente lista : pacienteDAO.listar()) {
                 String[] linha = new String[]{lista.getCodpaciente().toString(),
                     lista.getNome(),
-                    lista.getEnderecoList().get(0).getLogradouro(),
-                    lista.getEnderecoList().get(0).getNumero() + "",
-                    lista.getEnderecoList().get(0).getBairro(),
-                    lista.getEnderecoList().get(0).getCodcidade().getDescricao(),
-                    lista.getEnderecoList().get(0).getCodcidade().getCodestado().getSigla()
+                    lista.getCpf(),
+                    lista.getRg(),
+                    lista.getEmail()
                 };
                 TableConfig.getModel(tb_pacientes).addRow(linha);
             }

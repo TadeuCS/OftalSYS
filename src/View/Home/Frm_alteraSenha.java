@@ -20,9 +20,10 @@ public class Frm_alteraSenha extends javax.swing.JFrame {
     String usuarioLogado;
     UsuarioDAO usuarioDAO;
     Usuario usuario;
-    public Frm_alteraSenha() {
+    public Frm_alteraSenha(String usuario) {
         initComponents();
         setVisible(true);
+        usuarioLogado=usuario;
     }
 
     @SuppressWarnings("unchecked")
@@ -39,7 +40,8 @@ public class Frm_alteraSenha extends javax.swing.JFrame {
         btn_salvar = new javax.swing.JButton();
         btn_fechar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Alteração de senha");
 
         pnl_alteraSenha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -147,6 +149,7 @@ public class Frm_alteraSenha extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_antigaSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_antigaSenhaKeyPressed
@@ -172,7 +175,7 @@ public class Frm_alteraSenha extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_salvarActionPerformed
 
     private void btn_fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fecharActionPerformed
-        pnl_alteraSenha.setVisible(false);
+        dispose();
     }//GEN-LAST:event_btn_fecharActionPerformed
 
     /**
@@ -205,7 +208,7 @@ public class Frm_alteraSenha extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frm_alteraSenha().setVisible(true);
+//                new Frm_alteraSenha().setVisible(true);
             }
         });
     }
@@ -241,10 +244,26 @@ public class Frm_alteraSenha extends javax.swing.JFrame {
                         txt_confirmaSenha.setText(null);
                         txt_novaSenha.requestFocus();
                     } else {
-//                        validaAntigaSenha(antigaSenha, novaSenha);
+                        validaAntigaSenha(antigaSenha, novaSenha);
                     }
                 }
             }
+        }
+    }
+
+    private void validaAntigaSenha(String antigaSenha, String novaSenha) {
+        try {
+            usuarioDAO=new UsuarioDAO();
+            usuario=new Usuario();
+            usuario=usuarioDAO.buscar(usuarioLogado);
+            if(usuario.getSenha().equals(antigaSenha)==true){
+                usuario.setSenha(novaSenha);
+                usuarioDAO.salvar(usuario);
+            }else{
+                JOptionPane.showMessageDialog(null, "Senha inválida para o usuário "+usuarioLogado+"!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a senha!\n"+e.getMessage());
         }
     }
 }

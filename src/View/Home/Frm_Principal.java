@@ -16,17 +16,18 @@ import javax.swing.JOptionPane;
 
 public class Frm_Principal extends javax.swing.JFrame {
 
-    private String usuarioLogado;
     UsuarioDAO usuarioDAO;
     Usuario usuario;
     AtendimentoDAO atendimentoDAO;
     public static Frm_Principal j = null;
     int tentativas;
 
-    public Frm_Principal() {
+    public Frm_Principal(Usuario usuario) {
         initComponents();
+        setVisible(true);
         tentativas = 0;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        alteraUsuarioLogado(usuario);
     }
 
     @SuppressWarnings("unchecked")
@@ -44,6 +45,9 @@ public class Frm_Principal extends javax.swing.JFrame {
         pnl_consClientes = new javax.swing.JPanel();
         atalhoConsultarClientes = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lb_usuarioLogado = new javax.swing.JLabel();
+        txt_usuarioLogado = new javax.swing.JLabel();
         Menu_barra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -197,17 +201,44 @@ public class Frm_Principal extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
+        lb_usuarioLogado.setText("Bem vindo (a):");
+
+        txt_usuarioLogado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lb_usuarioLogado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_usuarioLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_usuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lb_usuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout pnl_fundoLayout = new javax.swing.GroupLayout(pnl_fundo);
         pnl_fundo.setLayout(pnl_fundoLayout);
         pnl_fundoLayout.setHorizontalGroup(
             pnl_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnl_atalhos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnl_fundoLayout.setVerticalGroup(
             pnl_fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_fundoLayout.createSequentialGroup()
                 .addComponent(pnl_atalhos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(487, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 451, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jMenu1.setText("Cadastros");
@@ -324,7 +355,7 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formKeyPressed
 
     private void item_AlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_AlterarSenhaActionPerformed
-        Frm_alteraSenha f= new Frm_alteraSenha();
+        Frm_alteraSenha f= new Frm_alteraSenha(txt_usuarioLogado.getText());
     }//GEN-LAST:event_item_AlterarSenhaActionPerformed
 
     private void atalhoCadastroClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atalhoCadastroClienteMousePressed
@@ -393,7 +424,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frm_Principal();
+//                new Frm_Principal();
             }
         });
         //Listener que capitura o evento "minimizar"
@@ -420,11 +451,18 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lb_usuarioLogado;
     private javax.swing.JPanel pnl_aberturaAtendimento;
     private javax.swing.JPanel pnl_atalhos;
     private javax.swing.JPanel pnl_cadCliente;
     private javax.swing.JPanel pnl_consClientes;
     private javax.swing.JPanel pnl_fundo;
+    private javax.swing.JLabel txt_usuarioLogado;
     // End of variables declaration//GEN-END:variables
+
+    private void alteraUsuarioLogado(Usuario usuario) {
+        txt_usuarioLogado.setText(usuario.getUsuario());
+    }
 
 }

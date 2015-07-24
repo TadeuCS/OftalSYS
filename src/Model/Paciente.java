@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "paciente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p ORDER BY p.nome"),
+    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p where p.ativo like 'S' ORDER BY p.nome"),
     @NamedQuery(name = "Paciente.findByCodpaciente", query = "SELECT p FROM Paciente p WHERE p.codpaciente = :codpaciente"),
     @NamedQuery(name = "Paciente.findByNome", query = "SELECT p FROM Paciente p WHERE p.nome = :nome"),
     @NamedQuery(name = "Paciente.findByDtNascimento", query = "SELECT p FROM Paciente p WHERE p.dtNascimento = :dtNascimento"),
@@ -44,8 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Paciente.findBySexo", query = "SELECT p FROM Paciente p WHERE p.sexo = :sexo"),
     @NamedQuery(name = "Paciente.findByEmail", query = "SELECT p FROM Paciente p WHERE p.email = :email"),
     @NamedQuery(name = "Paciente.findByNaturalidade", query = "SELECT p FROM Paciente p WHERE p.naturalidade = :naturalidade"),
-    @NamedQuery(name = "Paciente.findByPlano", query = "SELECT p FROM Paciente p WHERE p.plano = :plano"),
-    @NamedQuery(name = "Paciente.findByNumCarteira", query = "SELECT p FROM Paciente p WHERE p.numCarteira = :numCarteira"),
     @NamedQuery(name = "Paciente.findByObservacao", query = "SELECT p FROM Paciente p WHERE p.observacao = :observacao"),
     @NamedQuery(name = "Paciente.findByAtivo", query = "SELECT p FROM Paciente p WHERE p.ativo = :ativo")})
 public class Paciente implements Serializable {
@@ -69,17 +66,10 @@ public class Paciente implements Serializable {
     private String email;
     @Column(name = "NATURALIDADE")
     private String naturalidade;
-    @Column(name = "PLANO")
-    private String plano;
-    @Column(name = "NUM_CARTEIRA")
-    private Integer numCarteira;
     @Column(name = "OBSERVACAO")
     private String observacao;
     @Column(name = "ATIVO",nullable = false)
     private Character ativo;
-    @JoinColumn(name = "CODCONVENIO", referencedColumnName = "CODCONVENIO")
-    @ManyToOne
-    private Convenio codconvenio;
     @JoinColumn(name = "CODCOR", referencedColumnName = "CODCOR")
     @ManyToOne
     private Cor codcor;
@@ -191,22 +181,6 @@ public class Paciente implements Serializable {
         this.naturalidade = naturalidade;
     }
 
-    public String getPlano() {
-        return plano;
-    }
-
-    public void setPlano(String plano) {
-        this.plano = plano;
-    }
-
-    public Integer getNumCarteira() {
-        return numCarteira;
-    }
-
-    public void setNumCarteira(Integer numCarteira) {
-        this.numCarteira = numCarteira;
-    }
-
     public String getObservacao() {
         return observacao;
     }
@@ -221,14 +195,6 @@ public class Paciente implements Serializable {
 
     public void setAtivo(Character ativo) {
         this.ativo = ativo;
-    }
-
-    public Convenio getCodconvenio() {
-        return codconvenio;
-    }
-
-    public void setCodconvenio(Convenio codconvenio) {
-        this.codconvenio = codconvenio;
     }
 
     public Cor getCodcor() {

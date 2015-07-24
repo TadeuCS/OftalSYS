@@ -191,6 +191,9 @@ public class Frm_CadCor extends javax.swing.JFrame {
             } else {
                 c.setDescricao(cor);
                 corDAO.salvar(c);
+                txt_cor.setText(null);
+                txt_cor.requestFocus();
+                JOptionPane.showMessageDialog(null,"Cor salva com sucesso!");
             }
 
         } catch (Exception e) {

@@ -38,7 +38,7 @@ public class Telefone implements Serializable {
     @Basic(optional = false)
     @Column(name = "CODTELEFONE")
     private Integer codtelefone;
-    @Column(name = "NUMERO",unique = true,nullable = false)
+    @Column(name = "NUMERO",nullable = false)
     private String numero;
     @JoinColumn(name = "CODPACIENTE", referencedColumnName = "CODPACIENTE")
     @ManyToOne

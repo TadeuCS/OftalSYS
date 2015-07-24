@@ -14,32 +14,43 @@ public class PropertiesManager {
     FileOutputStream fos;
     FileInputStream fis;
     Properties properties = new Properties();
+    String tipo;
 
     public PropertiesManager() {
-        cria();
+        carregaProperties();
     }
 
-    private String getCaminho() {
+    private String getCaminho(String tipo) {
         File file = new File(this.file);
         //altere de acordo com o diretorio do seu arquivo properties
-//        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").replaceAll("/store", "").concat("src\\Util\\Classes\\"); //caminho pra ide
-        return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "");//caminho pro executavel
+        if (tipo.equals("IDE") == true) {
+            return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "").replaceAll("/store", "").concat("src\\Util\\Classes\\" + this.file); //caminho pra ide    
+        } else {
+            return file.getAbsolutePath().replace(File.separatorChar, '/').replaceAll(this.file, "") + this.file; //caminho pro compilador
+        }
     }
 
-    private void cria() {
+    private void carregaProperties() {
         try {
             //Criamos um objeto FileOutputStream
             //Setamos o arquivo que será lido
-            fis = new FileInputStream(getCaminho() + file);
+            fis = new FileInputStream(getCaminho("IDE"));
             properties.load(fis);
+            tipo = "IDE";
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao localizar o arquivo.\n" + ex.getMessage());
+            try {
+                fis = new FileInputStream(getCaminho("COMPILADOR"));
+                properties.load(fis);
+                tipo = "COMPILADOR";
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao localizar o arquivo.\n" + ex.getMessage());
+            }
         }
     }
 
     public void altera(String campo, String valor) {
         try {
-            fos = new FileOutputStream(getCaminho() + file);
+            fos = new FileOutputStream(getCaminho(tipo));
             //altera do campo
             properties.setProperty(campo, valor);
             //grava os dados no arquivo
@@ -51,14 +62,6 @@ public class PropertiesManager {
     }
 
     public String ler(String campo) {
-        try {
-            //método load faz a leitura através do objeto fis
-            properties.load(fis);
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Ler o arquivo." + e.getMessage());
-        }
-
         //Captura o valor da propriedade, através do nome da propriedade(Key)
         return properties.getProperty(campo);
     }

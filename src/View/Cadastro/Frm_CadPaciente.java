@@ -96,20 +96,13 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cbx_profissao = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        txt_plano = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        txt_numCarteira = new javax.swing.JTextField();
-        cbx_convenio = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
-        txt_naturalidade = new javax.swing.JTextField();
-        btn_cadConvenio = new javax.swing.JButton();
         btn_cadProfissao = new javax.swing.JButton();
         btn_cadCor = new javax.swing.JButton();
         chx_ativo = new javax.swing.JCheckBox();
         txt_observacao = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
+        cbx_naturalidade = new javax.swing.JComboBox();
         pnl_endereco = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txt_cep = new javax.swing.JFormattedTextField();
@@ -125,6 +118,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         cbx_cidade = new javax.swing.JComboBox();
         cbx_estado = new javax.swing.JComboBox();
         jLabel23 = new javax.swing.JLabel();
+        btn_cadCidade = new javax.swing.JButton();
         pnl_telefones = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_telefones = new javax.swing.JTable();
@@ -202,12 +196,34 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         rbt_feminino.setText("Feminino");
 
+        cbx_cor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbx_corFocusGained(evt);
+            }
+        });
+
+        cbx_estadoCivil.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbx_estadoCivilFocusGained(evt);
+            }
+        });
+        cbx_estadoCivil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_estadoCivilActionPerformed(evt);
+            }
+        });
+
         jLabel8.setText("Estado Civil:");
 
         jLabel9.setText("Email:");
 
         jLabel10.setText("Cor:");
 
+        cbx_profissao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbx_profissaoFocusGained(evt);
+            }
+        });
         cbx_profissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbx_profissaoActionPerformed(evt);
@@ -216,20 +232,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         jLabel11.setText("Profissão:");
 
-        jLabel12.setText("Convênio:");
-
-        jLabel13.setText("Plano:");
-
-        jLabel14.setText("Num. Carteira:");
-
         jLabel15.setText("Naturalidade:");
-
-        btn_cadConvenio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cadastro.png"))); // NOI18N
-        btn_cadConvenio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadConvenioActionPerformed(evt);
-            }
-        });
 
         btn_cadProfissao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cadastro.png"))); // NOI18N
         btn_cadProfissao.addActionListener(new java.awt.event.ActionListener() {
@@ -250,34 +253,28 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         jLabel24.setText("Observação:");
 
+        cbx_naturalidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbx_naturalidadeFocusGained(evt);
+            }
+        });
+        cbx_naturalidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_naturalidadeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_dadosPessoaisLayout = new javax.swing.GroupLayout(pnl_dadosPessoais);
         pnl_dadosPessoais.setLayout(pnl_dadosPessoaisLayout);
         pnl_dadosPessoaisLayout.setHorizontalGroup(
             pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(32, 32, 32)
                 .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                        .addComponent(cbx_profissao, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_cadProfissao)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_observacao)
-                        .addGap(18, 18, 18)
-                        .addComponent(chx_ativo))
                     .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
                         .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -285,49 +282,56 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txt_nome))
                     .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                        .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                .addComponent(txt_plano, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                                .addGap(11, 11, 11)
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_numCarteira, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(11, 11, 11)
-                        .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9))
+                        .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
-                                .addComponent(cbx_cor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_cadCor)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rbt_masculino)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbt_feminino))
-                            .addComponent(txt_email)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_dadosPessoaisLayout.createSequentialGroup()
-                        .addComponent(cbx_estadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12)
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbx_convenio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_cadConvenio)))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbx_cor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_cadCor)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbt_masculino)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbt_feminino)))
                 .addGap(11, 11, 11))
+            .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
+                        .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_observacao)
+                        .addGap(18, 18, 18)
+                        .addComponent(chx_ativo))
+                    .addGroup(pnl_dadosPessoaisLayout.createSequentialGroup()
+                        .addComponent(cbx_estadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbx_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbx_profissao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_cadProfissao)))
+                .addContainerGap())
         );
         pnl_dadosPessoaisLayout.setVerticalGroup(
             pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,33 +357,23 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addComponent(rbt_masculino)
                     .addComponent(rbt_feminino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(txt_plano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(txt_numCarteira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cbx_estadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(cbx_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cadConvenio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbx_profissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11))
-                    .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(cbx_estadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)
-                        .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_cadProfissao)
-                        .addComponent(chx_ativo)
-                        .addComponent(txt_observacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel24)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addComponent(cbx_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11))
+                    .addComponent(cbx_profissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cadProfissao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnl_dadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chx_ativo)
+                    .addComponent(txt_observacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel9)
+                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         abas.addTab("Dados Pessoais", pnl_dadosPessoais);
@@ -432,44 +426,51 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         jLabel23.setText("Estado *:");
 
+        btn_cadCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cadastro.png"))); // NOI18N
+        btn_cadCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadCidadeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnl_enderecoLayout = new javax.swing.GroupLayout(pnl_endereco);
         pnl_endereco.setLayout(pnl_enderecoLayout);
         pnl_enderecoLayout.setHorizontalGroup(
             pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_enderecoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_enderecoLayout.createSequentialGroup()
+                .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_enderecoLayout.createSequentialGroup()
                         .addComponent(jLabel23)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbx_cidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnl_enderecoLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel7))
+                        .addComponent(cbx_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(btn_cadCidade))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_enderecoLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnl_enderecoLayout.createSequentialGroup()
-                                .addComponent(txt_cep, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_logradouro)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnl_enderecoLayout.createSequentialGroup()
-                                .addComponent(txt_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)))))
+                        .addComponent(txt_cep, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_logradouro)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_enderecoLayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_complemento)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnl_enderecoLayout.setVerticalGroup(
@@ -485,17 +486,19 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addComponent(txt_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(txt_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
-                    .addComponent(txt_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22)
-                    .addComponent(cbx_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_enderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbx_cidade)
+                        .addComponent(btn_cadCidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbx_estado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(128, 128, 128))
         );
 
         abas.addTab("Endereço", pnl_endereco);
@@ -580,7 +583,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addGroup(pnl_telefonesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnl_telefonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1074, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnl_telefonesLayout.createSequentialGroup()
                         .addComponent(btn_removerTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -663,7 +666,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1074, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_reimprimir)
@@ -830,7 +833,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbx_profissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_profissaoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_cbx_profissaoActionPerformed
 
     private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
@@ -840,10 +843,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void btn_cadCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadCorActionPerformed
         Frm_CadCor f = new Frm_CadCor();
     }//GEN-LAST:event_btn_cadCorActionPerformed
-
-    private void btn_cadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadConvenioActionPerformed
-        Frm_CadConvenio f = new Frm_CadConvenio();
-    }//GEN-LAST:event_btn_cadConvenioActionPerformed
 
     private void btn_cadProfissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadProfissaoActionPerformed
         Frm_CadProfissao f = new Frm_CadProfissao();
@@ -863,7 +862,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         limpaCampos();
         abas.setSelectedIndex(0);
         cbx_cor.setSelectedIndex(0);
-        cbx_convenio.setSelectedIndex(0);
         cbx_profissao.setSelectedIndex(0);
         cbx_tipoTelefone.setSelectedIndex(0);
         setEnabledButtons(true);
@@ -902,14 +900,10 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void btn_inserirTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inserirTelefoneActionPerformed
         if (!txt_telefone.getText().replace("(", "").replace(")", "").replace("-", "").trim().isEmpty()) {
             try {
-                if (validaTelefoneExisteNoBanco(txt_telefone.getText()) != null) {
-                    JOptionPane.showMessageDialog(null, "Telefone utilizado por outro paciente!");
+                if (validaTelefoneExiteNalista(txt_telefone.getText()) == true) {
+                    JOptionPane.showMessageDialog(null, "Telefone já existe na Lista abaixo!");
                 } else {
-                    if (validaTelefoneExiteNalista(txt_telefone.getText()) == true) {
-                        JOptionPane.showMessageDialog(null, "Telefone já existe na Lista abaixo!");
-                    } else {
-                        insereTelefone(txt_telefone.getText());
-                    }
+                    insereTelefone(txt_telefone.getText());
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro ao Inserir o Telefone " + txt_telefone.getText() + "!\n" + e.getMessage());
@@ -982,6 +976,33 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_detalharActionPerformed
 
+    private void btn_cadCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadCidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_cadCidadeActionPerformed
+
+    private void cbx_estadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_estadoCivilActionPerformed
+    }//GEN-LAST:event_cbx_estadoCivilActionPerformed
+
+    private void cbx_naturalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_naturalidadeActionPerformed
+
+    }//GEN-LAST:event_cbx_naturalidadeActionPerformed
+
+    private void cbx_estadoCivilFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_estadoCivilFocusGained
+        carregaEstadoCivis();
+    }//GEN-LAST:event_cbx_estadoCivilFocusGained
+
+    private void cbx_naturalidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_naturalidadeFocusGained
+        carregaCidades();
+    }//GEN-LAST:event_cbx_naturalidadeFocusGained
+
+    private void cbx_profissaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_profissaoFocusGained
+        carregaCidades();
+    }//GEN-LAST:event_cbx_profissaoFocusGained
+
+    private void cbx_corFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_corFocusGained
+        carregaCores();
+    }//GEN-LAST:event_cbx_corFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -1022,7 +1043,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JTabbedPane abas;
     private javax.swing.JButton btn_apagar;
     private javax.swing.JButton btn_buscar;
-    private javax.swing.JButton btn_cadConvenio;
+    private javax.swing.JButton btn_cadCidade;
     private javax.swing.JButton btn_cadCor;
     private javax.swing.JButton btn_cadProfissao;
     private javax.swing.JButton btn_cancelar;
@@ -1034,10 +1055,10 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JButton btn_removerTelefone;
     private javax.swing.JButton btn_salvar;
     private javax.swing.JComboBox cbx_cidade;
-    private javax.swing.JComboBox cbx_convenio;
     private javax.swing.JComboBox cbx_cor;
     private javax.swing.JComboBox cbx_estado;
     private javax.swing.JComboBox cbx_estadoCivil;
+    private javax.swing.JComboBox cbx_naturalidade;
     private javax.swing.JComboBox cbx_profissao;
     private javax.swing.JComboBox cbx_tipoTelefone;
     private javax.swing.JCheckBox chx_ativo;
@@ -1046,9 +1067,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -1088,13 +1106,10 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txt_dataNascimento;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_logradouro;
-    private javax.swing.JTextField txt_naturalidade;
     private javax.swing.JTextField txt_nome;
-    private javax.swing.JTextField txt_numCarteira;
     private javax.swing.JTextField txt_numero;
     private javax.swing.JTextField txt_observacao;
     private javax.swing.JTextField txt_operacao;
-    private javax.swing.JTextField txt_plano;
     private javax.swing.JTextField txt_rg;
     private javax.swing.JFormattedTextField txt_telefone;
     // End of variables declaration//GEN-END:variables
@@ -1107,10 +1122,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_cpf.setText(null);
         txt_rg.setText(null);
         txt_dataNascimento.setText(null);
-        txt_plano.setText(null);
-        txt_numCarteira.setText(null);
         txt_email.setText(null);
-        txt_naturalidade.setText(null);
         rbt_masculino.setSelected(true);
 
         //endereco
@@ -1136,19 +1148,15 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         txt_dataNascimento.setEnabled(tipo);
         rbt_masculino.setEnabled(tipo);
         rbt_feminino.setEnabled(tipo);
-        txt_plano.setEnabled(tipo);
-        txt_numCarteira.setEnabled(tipo);
         txt_email.setEnabled(tipo);
-        txt_naturalidade.setEnabled(tipo);
         cbx_estadoCivil.setEnabled(tipo);
-        cbx_convenio.setEnabled(tipo);
         cbx_profissao.setEnabled(tipo);
         cbx_cor.setEnabled(tipo);
-        btn_cadConvenio.setEnabled(tipo);
         btn_cadCor.setEnabled(tipo);
         btn_cadProfissao.setEnabled(tipo);
         txt_observacao.setEnabled(tipo);
         chx_ativo.setEnabled(tipo);
+        cbx_naturalidade.setEnabled(tipo);
         txt_nome.requestFocus();
 
         //endereco
@@ -1185,7 +1193,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         setEnabledFields(false);
         carregaEstadoCivis();
         carregaCores();
-        carregaConvenios();
         carregaProfissoes();
         carregaTipoTelefones();
         carregaEstados();
@@ -1197,6 +1204,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void carregaEstadoCivis() {
         try {
             cbx_estadoCivil.removeAllItems();
+            cbx_estadoCivil.addItem("Selecione um estado Civil");
             estadoCivilDAO = new EstadoCivilDAO();
             for (EstadoCivil estadoCivis : estadoCivilDAO.listar()) {
                 cbx_estadoCivil.addItem(estadoCivis.getDescricao());
@@ -1216,19 +1224,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao Carregar as Cores!\n" + e.getMessage());
-        }
-    }
-
-    private void carregaConvenios() {
-        try {
-            cbx_convenio.removeAllItems();
-            cbx_convenio.addItem("Selecione um Convênio");
-            convenioDAO = new ConvenioDAO();
-            for (Convenio convenios : convenioDAO.listar()) {
-                cbx_convenio.addItem(convenios.getDescricao());
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Carregar os Convenios!\n" + e.getMessage());
         }
     }
 
@@ -1260,12 +1255,14 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void carregaCidades() {
         try {
             cbx_cidade.removeAllItems();
+            cbx_naturalidade.removeAllItems();
             cidadeDAO = new CidadeDAO();
             estadoDAO = new EstadoDAO();
             List<Cidade> cidades = new ArrayList<>();
             cidades = cidadeDAO.listarByEstado(estadoDAO.buscar(cbx_estado.getSelectedItem().toString()));
             for (Cidade listaCidades : cidades) {
                 cbx_cidade.addItem(listaCidades.getDescricao());
+                cbx_naturalidade.addItem(listaCidades.getDescricao());
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao Carregar as cidades!\n" + e.getMessage());
@@ -1388,8 +1385,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                                                                 JOptionPane.showMessageDialog(null, "CPF Inválido!");
                                                                 txt_cpf.requestFocus();
                                                             } else {
-                                                                if (!txt_email.getText().isEmpty()
-                                                                        && ValidaEmail.validarEmail(txt_email.getText()) == true) {
+                                                                if (!txt_email.getText().trim().isEmpty() && ValidaEmail.validarEmail(txt_email.getText()) == false) {
                                                                     abas.setSelectedIndex(0);
                                                                     JOptionPane.showMessageDialog(null, "Email Inválido!");
                                                                     txt_email.requestFocus();
@@ -1448,28 +1444,14 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             } else {
                 paciente.setSexo('F');
             }
-            if (!txt_plano.getText().isEmpty()) {
-                paciente.setPlano(txt_plano.getText());
-            }
-            if (!txt_numCarteira.getText().isEmpty()) {
-                paciente.setNumCarteira(Integer.parseInt(txt_numCarteira.getText()));
-            }
-            if (!txt_email.getText().isEmpty()) {
-                paciente.setEmail(txt_email.getText());
-            }
-            paciente.setCodestadoCivil(estadoCivilDAO.buscar(cbx_estadoCivil.getSelectedItem().toString()));
-            if (cbx_convenio.getSelectedIndex() != 0) {
-                paciente.setCodconvenio(convenioDAO.buscar(cbx_convenio.getSelectedItem().toString()));
-            } else {
-                paciente.setCodconvenio(null);
-            }
+
             if (cbx_profissao.getSelectedIndex() != 0) {
                 paciente.setCodprofissao(profissaoDAO.buscar(cbx_profissao.getSelectedItem().toString()));
             } else {
                 paciente.setCodprofissao(null);
             }
-            if (!txt_naturalidade.getText().isEmpty()) {
-                paciente.setNaturalidade(txt_naturalidade.getText());
+            if (!cbx_naturalidade.getSelectedItem().toString().isEmpty()) {
+                paciente.setNaturalidade(cbx_naturalidade.getSelectedItem().toString());
             }
 
             //endereco
@@ -1494,6 +1476,10 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             } else {
                 paciente.setAtivo('S');
             }
+            if (cbx_estadoCivil.getSelectedIndex() > 0) {
+                paciente.setCodestadoCivil(estadoCivilDAO.buscar(cbx_estadoCivil.getSelectedItem().toString()));
+            }
+            paciente.setEmail(txt_email.getText());
             pacienteDAO = new PacienteDAO();
             pacienteDAO.salvar(paciente);
             if (txt_operacao.getText().equals("INCLUSÃO") == true) {
@@ -1612,11 +1598,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             } else {
                 cbx_profissao.setSelectedIndex(0);
             }
-            if (paciente.getCodconvenio() != null) {
-                cbx_convenio.setSelectedItem(paciente.getCodconvenio().getDescricao());
-            } else {
-                cbx_convenio.setSelectedIndex(0);
-            }
             if (paciente.getSexo().equals('M') == true) {
                 rbt_masculino.setSelected(true);
             } else {
@@ -1628,15 +1609,13 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 chx_ativo.setSelected(false);
             }
             txt_observacao.setText(paciente.getObservacao());
-            txt_plano.setText(paciente.getPlano());
-            if (paciente.getNumCarteira() == null) {
-                txt_numCarteira.setText("");
-            } else {
-                txt_numCarteira.setText(paciente.getNumCarteira() + "");
-            }
             txt_email.setText(paciente.getEmail());
-            cbx_estadoCivil.setSelectedItem(paciente.getCodestadoCivil().getDescricao());
-            txt_naturalidade.setText(paciente.getNaturalidade());
+            if (paciente.getCodestadoCivil() != null) {
+                cbx_estadoCivil.setSelectedItem(paciente.getCodestadoCivil().getDescricao());
+            } else {
+                cbx_estadoCivil.setSelectedIndex(0);
+            }
+            cbx_naturalidade.setSelectedItem(paciente.getNaturalidade());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar os dados pessoais!\n" + e.getMessage());
         }
@@ -1672,19 +1651,20 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
     private void getAtendimentos(Paciente paciente) {
         try {
-            for (Atendimento att : paciente.getAtendimentoList()) {
-                String[] linha = new String[]{
-                    att.getCodatendimento() + "",
-                    Data.getDataByDate(att.getDtAtendimento(), "dd/MM/yyyy"),
-                    Data.getDataByDate(att.getDtAtendimento(), "HH:mm"),
-                    att.getQueixa(),
-                    temAnexo(att)
-                };
-                TableConfig.getModel(tb_atendimentos).addRow(linha);
+            for (int i = 0; i < paciente.getAtendimentoList().size(); i++) {
+                if (paciente.getAtendimentoList().get(i).getCodstatusAtendimento().getDescricao().equals("CONCLUIDO") == true) {
+                    String[] linha = new String[]{
+                        paciente.getAtendimentoList().get(i).getCodatendimento() + "",
+                        Data.getDataByDate(paciente.getAtendimentoList().get(i).getDtAtendimento(), "dd/MM/yyyy"),
+                        Data.getDataByDate(paciente.getAtendimentoList().get(i).getDtAtendimento(), "HH:mm"),
+                        paciente.getAtendimentoList().get(i).getQueixa(),
+                        temAnexo(paciente.getAtendimentoList().get(i))
+                    };
+                    TableConfig.getModel(tb_atendimentos).addRow(linha);
+                }
             }
-
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar os atendimentos!" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao carregar os atendimentos!\n" + e.getMessage());
         }
     }
 
@@ -1692,10 +1672,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         //dados iniciais
         txt_nome.setDocument(new FixedLengthDocument(225));
         txt_rg.setDocument(new FixedLengthDocument(20));
-        txt_email.setDocument(new FixedLengthDocument(255));
-        txt_naturalidade.setDocument(new FixedLengthDocument(255));
-        txt_numCarteira.setDocument(new IntegerDocument(10));
-        txt_plano.setDocument(new FixedLengthDocument(100));
 
         //endereco
         txt_logradouro.setDocument(new FixedLengthDocument(255));
@@ -1708,9 +1684,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     }
 
     private String temAnexo(Atendimento att) {
-        if(att.getAnexoList().size()>0){
+        if (att.getAnexoList().size() > 0) {
             return "S";
-        }else{
+        } else {
             return "N";
         }
     }
