@@ -7,6 +7,7 @@ package View.Atendimento;
 
 import Controller.AtendimentoDAO;
 import Controller.ConvenioDAO;
+import Controller.ExamesDAO;
 import Controller.PacienteDAO;
 import Controller.StatusAtendimentoDAO;
 import Controller.TipoAtendimentoDAO;
@@ -15,6 +16,7 @@ import Controller.UsuarioDAO;
 import Model.Anexo;
 import Model.Atendimento;
 import Model.Convenio;
+import Model.Exame;
 import Model.Paciente;
 import Model.TipoAtendimento;
 import Model.Usuario;
@@ -24,10 +26,14 @@ import Util.Classes.FixedLengthDocument;
 import Util.Classes.IntegerDocument;
 import View.Cadastro.Frm_CadConvenio;
 import java.awt.Event;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionListener;
+import org.w3c.dom.ls.LSException;
 
 /**
  *
@@ -45,6 +51,8 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     AtendimentoDAO atendimentoDAO;
     StatusAtendimentoDAO statusAtendimentoDAO;
     ConvenioDAO convenioDAO;
+    ExamesDAO examesDAO;
+
     public Frm_AberturaAtendimento() {
         initComponents();
         txt_numCarteira.setDocument(new IntegerDocument(10));
@@ -100,6 +108,8 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         txt_numCarteira = new javax.swing.JTextField();
         txt_plano = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ls_exames = new javax.swing.JList();
         pnl_botoes = new javax.swing.JPanel();
         btn_salvar = new javax.swing.JButton();
         btn_anexar = new javax.swing.JButton();
@@ -354,6 +364,9 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
         jLabel13.setText("Plano:");
 
+        ls_exames.setBorder(javax.swing.BorderFactory.createTitledBorder("Exames"));
+        jScrollPane3.setViewportView(ls_exames);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -366,9 +379,9 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
                             .addComponent(jLabel13)
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cbx_convenio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbx_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btn_cadConvenio))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -376,7 +389,8 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_numCarteira))))
+                                .addComponent(txt_numCarteira)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -388,19 +402,26 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbx_paciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txt_dataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btn_agenda))
-                                    .addComponent(cbx_doutor, javax.swing.GroupLayout.Alignment.LEADING, 0, 247, Short.MAX_VALUE)
-                                    .addComponent(cbx_tipoAtendimento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_idade, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                                .addComponent(txt_dataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btn_agenda))
+                                            .addComponent(cbx_doutor, javax.swing.GroupLayout.Alignment.LEADING, 0, 247, Short.MAX_VALUE)
+                                            .addComponent(cbx_tipoAtendimento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1)
+                                        .addGap(4, 4, 4)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_idade, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -416,35 +437,43 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
                     .addComponent(txt_dataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_agenda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_idade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_idade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_cadConvenio)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel12)
+                                        .addComponent(cbx_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(txt_plano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14)
+                                    .addComponent(txt_numCarteira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jScrollPane3))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(cbx_doutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(cbx_tipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_cadConvenio)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(cbx_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(txt_plano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(txt_numCarteira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(cbx_tipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 169, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -471,7 +500,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
             .addGroup(pnl_botoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_anexar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 530, Short.MAX_VALUE)
                 .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
         );
@@ -630,8 +659,10 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JList ls_exames;
     private javax.swing.JPanel pnl_botoes;
     private javax.swing.JPanel pnl_botoes1;
     private javax.swing.JFormattedTextField txt_dataAtendimento;
@@ -680,10 +711,11 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     }
 
     private void start() {
-        carregaPacientes();
-        carregaDoutores();
-        carregaTipoAtendimentos();
-        calculaIdade();
+//        carregaPacientes();
+//        carregaDoutores();
+//        carregaTipoAtendimentos();
+//        calculaIdade();
+        carregaExames();
     }
 
     private void calculaIdade() {
@@ -737,7 +769,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
             atendimento.setQueixa(txt_queixa.getText());
             atendimentoDAO.salvar(atendimento);
             JOptionPane.showMessageDialog(null, "Atendimento salvo com sucesso!");
-            atendimento=new Atendimento();
+            atendimento = new Atendimento();
             limpaCampos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar o atendimento!\n" + e.getMessage());
@@ -752,12 +784,13 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
             if (txt_queixa.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Queixa inválida!");
                 txt_queixa.requestFocus();
-            }else{
+            } else {
                 salvar();
             }
         }
     }
-     private void carregaConvenios() {
+
+    private void carregaConvenios() {
         try {
             cbx_convenio.removeAllItems();
             cbx_convenio.addItem("Selecione um Convênio");
@@ -767,6 +800,19 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao Carregar os Convenios!\n" + e.getMessage());
+        }
+    }
+
+    private void carregaExames() {
+        try {
+            examesDAO = new ExamesDAO();
+            DefaultListModel model = new DefaultListModel();
+            for (Exame exame : examesDAO.listar()) {
+                model.addElement(exame.getDescricao()); // <-- Add item to model
+            }
+            ls_exames.setModel(model); // <-- Set the model to make it visible
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
     }
 }

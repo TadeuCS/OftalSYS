@@ -10,6 +10,7 @@
     <class>Model.Cor</class>
     <class>Model.Endereco</class>
     <class>Model.EstadoCivil</class>
+    <class>Model.Exame</class>
     <class>Model.Fornecedor</class>
     <class>Model.Paciente</class>
     <class>Model.Profissao</class>

@@ -7,7 +7,6 @@ package Model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +41,7 @@ public class TipoAtendimento implements Serializable {
     private String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codtipoAtendimento")
     private List<Atendimento> atendimentoList;
-
+        
     public TipoAtendimento() {
     }
 
