@@ -5,8 +5,7 @@
  */
 package Controller;
 
-import Model.Cidade;
-import Model.Uf;
+import Model.StatusUsuario;
 import Util.Classes.Conexao;
 import java.util.List;
 
@@ -14,25 +13,24 @@ import java.util.List;
  *
  * @author Tadeu
  */
-public class CidadeDAO extends Conexao {
+public class StatusUsuarioDAO extends Conexao {
 
-    public void salvar(Cidade cidade) {
+    public void salvar(StatusUsuario status){
         em.getTransaction().begin();
-        em.merge(cidade);
+        em.merge(status);
         em.getTransaction().commit();
     }
-
-    public List<Cidade> listarByEstado(Uf estado) {
+    public List<StatusUsuario> listar() {
         em.getTransaction().begin();
-        query = em.createNamedQuery("Cidade.findByCodEstado").setParameter("codestado", estado);
+        query = em.createNamedQuery("StatusUsuario.findAll");
         em.getTransaction().commit();
         return query.getResultList();
     }
 
-    public Cidade buscar(String descricao) {
+    public StatusUsuario buscar(String descricao) {
         em.getTransaction().begin();
-        query = em.createNamedQuery("Cidade.findByDescricao").setParameter("descricao", descricao);
+        query=em.createNamedQuery("StatusUsuario.findByDescricao").setParameter("descricao", descricao);
         em.getTransaction().commit();
-        return (Cidade) query.getSingleResult();
+        return (StatusUsuario) query.getSingleResult();
     }
 }

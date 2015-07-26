@@ -6,6 +6,7 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -50,7 +51,7 @@ public class Cidade implements Serializable {
     @ManyToOne(optional = false)
     private Uf codestado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codcidade")
-    private List<Endereco> enderecoList;
+    private List<Endereco> enderecoList=new ArrayList<>();
 
     public Cidade() {
     }

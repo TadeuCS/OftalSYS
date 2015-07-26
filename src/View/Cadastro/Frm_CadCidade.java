@@ -5,29 +5,26 @@
  */
 package View.Cadastro;
 
-import Controller.StatusUsuarioDAO;
-import Controller.TipoUsuarioDAO;
-import Controller.UsuarioDAO;
-import Model.TipoUsuario;
-import Model.Usuario;
+import Controller.CidadeDAO;
+import Controller.EstadoDAO;
+import Model.Cidade;
+import Model.Uf;
 import Util.Classes.FixedLengthDocument;
-import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tadeu
  */
-public class Frm_CadUsuario extends javax.swing.JFrame {
+public class Frm_CadCidade extends javax.swing.JFrame {
 
-    UsuarioDAO usuarioDAO;
-    TipoUsuarioDAO tipoUsuarioDAO;
-    StatusUsuarioDAO statusUsuarioDAO;
-    public Frm_CadUsuario() {
+    EstadoDAO estadoDAO;
+    CidadeDAO cidadeDAO;
+
+    public Frm_CadCidade() {
         initComponents();
-        setVisible(true);
-        txt_usuario.setDocument(new FixedLengthDocument(20));
-        carregaTipoUsuario();
+        carregaEstados();
+        txt_cidade.setDocument(new FixedLengthDocument(255));
     }
 
     /**
@@ -42,25 +39,21 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txt_usuario = new javax.swing.JTextField();
+        txt_cidade = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txt_senha = new javax.swing.JTextField();
-        cbx_tipoUsuario = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
+        cbx_estado = new javax.swing.JComboBox();
         btn_salvar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Usuário");
+        setTitle("Cadastro de Cidade");
         setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText("Usuário *:");
+        jLabel1.setText("Cidade*:");
 
-        jLabel2.setText("Senha *:");
-
-        jLabel3.setText("Tipo *:");
+        jLabel2.setText("Estado*:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -68,18 +61,16 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbx_tipoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 1, Short.MAX_VALUE)))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_cidade))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -88,19 +79,14 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbx_tipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap())
+                    .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/salvar.png"))); // NOI18N
         btn_salvar.setText("Salvar");
         btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +94,6 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
             }
         });
 
-        btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cancelar.png"))); // NOI18N
         btn_cancelar.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -120,18 +105,18 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 202, Short.MAX_VALUE)
+                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_salvar)
                     .addComponent(btn_cancelar))
@@ -154,20 +139,15 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-        if (txt_usuario.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Usuário inválido!");
-            txt_usuario.requestFocus();
+        if (txt_cidade.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Cidade inválida!");
+            txt_cidade.requestFocus();
         } else {
-            if (txt_senha.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Senha inválida!");
-                txt_senha.requestFocus();
+            if (cbx_estado.getSelectedItem().toString().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Estado inválido!");
+                cbx_estado.requestFocus();
             }else{
-                usuarioDAO=new UsuarioDAO();
-                try {
-                    usuarioDAO.buscar(txt_usuario.getText());
-                } catch (NoResultException e) {
-                    salvar();
-                }
+                salvar();
             }
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
@@ -189,18 +169,20 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Frm_CadUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frm_CadCidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Frm_CadUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frm_CadCidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Frm_CadUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frm_CadCidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Frm_CadUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frm_CadCidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frm_CadUsuario().setVisible(true);
+                new Frm_CadCidade().setVisible(true);
             }
         });
     }
@@ -208,45 +190,39 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_salvar;
-    private javax.swing.JComboBox cbx_tipoUsuario;
+    private javax.swing.JComboBox cbx_estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txt_senha;
-    private javax.swing.JTextField txt_usuario;
+    private javax.swing.JTextField txt_cidade;
     // End of variables declaration//GEN-END:variables
 
-    private void salvar() {
+    private void carregaEstados() {
         try {
-            usuarioDAO=new UsuarioDAO();
-            statusUsuarioDAO=new StatusUsuarioDAO();
-            tipoUsuarioDAO=new TipoUsuarioDAO();
-            Usuario usuario=new Usuario();
-            usuario.setUsuario(txt_usuario.getText());
-            usuario.setSenha(txt_senha.getText());
-            usuario.setCodstatusUsuario(statusUsuarioDAO.buscar("DESBLOQUEADO"));
-            usuario.setCodtipoUsuario(tipoUsuarioDAO.buscar(cbx_tipoUsuario.getSelectedItem().toString()));
-            usuarioDAO.salvar(usuario);
-            JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso!");
-            txt_usuario.setText(null);
-            txt_senha.setText(null);
-            txt_usuario.requestFocus();
+            estadoDAO = new EstadoDAO();
+            cbx_estado.removeAllItems();
+            for (Uf estado : estadoDAO.listar()) {
+                cbx_estado.addItem(estado.getSigla());
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar o Usuário!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao carregar estados!\n" + e.getMessage());
         }
     }
 
-    private void carregaTipoUsuario() {
+    private void salvar() {
         try {
-            tipoUsuarioDAO=new TipoUsuarioDAO();
-            cbx_tipoUsuario.removeAllItems();
-            for (TipoUsuario tipo : tipoUsuarioDAO.listar()) {
-                cbx_tipoUsuario.addItem(tipo.getDescricao());
-            }
+            estadoDAO = new EstadoDAO();
+            cidadeDAO = new CidadeDAO();
+            Cidade cidade = new Cidade();
+            cidade.setCodestado(estadoDAO.buscar(cbx_estado.getSelectedItem().toString()));
+            cidade.setDescricao(txt_cidade.getText());
+            cidadeDAO.salvar(cidade);
+            JOptionPane.showMessageDialog(null, "Cidade Salva com sucesso!");
+            txt_cidade.setText(null);
+            txt_cidade.requestFocus();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar os tipos de Usuário!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao salvar a cidade!\n" + e.getMessage());
         }
     }
 }

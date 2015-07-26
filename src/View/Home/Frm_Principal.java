@@ -4,11 +4,14 @@ import Controller.AtendimentoDAO;
 import Controller.UsuarioDAO;
 import Model.Usuario;
 import View.Atendimento.Frm_AberturaAtendimento;
+import View.Cadastro.Frm_CadCidade;
 import View.Cadastro.Frm_CadConvenio;
 import View.Cadastro.Frm_CadCor;
+import View.Cadastro.Frm_CadEstadoCivil;
 import View.Cadastro.Frm_CadPaciente;
 import View.Cadastro.Frm_CadProfissao;
 import View.Cadastro.Frm_CadUsuario;
+import View.Cadastro.Frm_cadTipoAtendimento;
 import View.Consulta.Frm_ConsPaciente;
 import java.awt.Event;
 import javax.swing.JFrame;
@@ -54,8 +57,11 @@ public class Frm_Principal extends javax.swing.JFrame {
         item_cadPaciente = new javax.swing.JMenuItem();
         item_cadCor = new javax.swing.JMenuItem();
         item_cadProfissao = new javax.swing.JMenuItem();
-        item_cadConvenio = new javax.swing.JMenuItem();
+        item_cadProfissao1 = new javax.swing.JMenuItem();
         item_cadUsuario = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        item_cadConvenio = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         item_aberturaAtendimento = new javax.swing.JMenuItem();
         Menu_Utilitários = new javax.swing.JMenu();
@@ -269,13 +275,18 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu3.add(item_cadProfissao);
 
-        item_cadConvenio.setText("Convênio");
-        item_cadConvenio.addMouseListener(new java.awt.event.MouseAdapter() {
+        item_cadProfissao1.setText("Estado Civil");
+        item_cadProfissao1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                item_cadConvenioMousePressed(evt);
+                item_cadProfissao1MousePressed(evt);
             }
         });
-        jMenu3.add(item_cadConvenio);
+        item_cadProfissao1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_cadProfissao1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(item_cadProfissao1);
 
         jMenu1.add(jMenu3);
 
@@ -285,7 +296,36 @@ public class Frm_Principal extends javax.swing.JFrame {
                 item_cadUsuarioMousePressed(evt);
             }
         });
+        item_cadUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_cadUsuarioActionPerformed(evt);
+            }
+        });
         jMenu1.add(item_cadUsuario);
+
+        jMenuItem1.setText("Cidade");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Tipo Atendimento");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        item_cadConvenio.setText("Convênio");
+        item_cadConvenio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                item_cadConvenioMousePressed(evt);
+            }
+        });
+        jMenu1.add(item_cadConvenio);
 
         Menu_barra.add(jMenu1);
 
@@ -355,7 +395,7 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formKeyPressed
 
     private void item_AlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_AlterarSenhaActionPerformed
-        Frm_alteraSenha f= new Frm_alteraSenha(txt_usuarioLogado.getText());
+        Frm_alteraSenha f = new Frm_alteraSenha(txt_usuarioLogado.getText());
     }//GEN-LAST:event_item_AlterarSenhaActionPerformed
 
     private void atalhoCadastroClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atalhoCadastroClienteMousePressed
@@ -371,7 +411,7 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_atalhoConsultarClientesMousePressed
 
     private void item_cadUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadUsuarioMousePressed
-        Frm_CadUsuario f= new Frm_CadUsuario();
+        Frm_CadUsuario f = new Frm_CadUsuario();
     }//GEN-LAST:event_item_cadUsuarioMousePressed
 
     private void item_cadPacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadPacienteMousePressed
@@ -379,7 +419,7 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_cadPacienteMousePressed
 
     private void item_cadCorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadCorMousePressed
-        Frm_CadCor f= new Frm_CadCor();
+        Frm_CadCor f = new Frm_CadCor();
     }//GEN-LAST:event_item_cadCorMousePressed
 
     private void item_cadProfissaoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadProfissaoMousePressed
@@ -391,8 +431,28 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_cadConvenioMousePressed
 
     private void item_aberturaAtendimentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_aberturaAtendimentoMousePressed
-        Frm_AberturaAtendimento f= new Frm_AberturaAtendimento();
+        Frm_AberturaAtendimento f = new Frm_AberturaAtendimento();
     }//GEN-LAST:event_item_aberturaAtendimentoMousePressed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Frm_CadCidade f = new Frm_CadCidade();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        Frm_cadTipoAtendimento f =new Frm_cadTipoAtendimento();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void item_cadProfissao1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadProfissao1MousePressed
+        Frm_CadProfissao f= new Frm_CadProfissao();
+    }//GEN-LAST:event_item_cadProfissao1MousePressed
+
+    private void item_cadProfissao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadProfissao1ActionPerformed
+        Frm_CadEstadoCivil f = new Frm_CadEstadoCivil();
+    }//GEN-LAST:event_item_cadProfissao1ActionPerformed
+
+    private void item_cadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadUsuarioActionPerformed
+        Frm_CadUsuario f= new Frm_CadUsuario();
+    }//GEN-LAST:event_item_cadUsuarioActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -443,6 +503,7 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem item_cadCor;
     private javax.swing.JMenuItem item_cadPaciente;
     private javax.swing.JMenuItem item_cadProfissao;
+    private javax.swing.JMenuItem item_cadProfissao1;
     private javax.swing.JMenuItem item_cadUsuario;
     private javax.swing.JMenuItem item_trocaUsuario;
     private javax.swing.JLabel jLabel11;
@@ -451,6 +512,8 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lb_usuarioLogado;
     private javax.swing.JPanel pnl_aberturaAtendimento;

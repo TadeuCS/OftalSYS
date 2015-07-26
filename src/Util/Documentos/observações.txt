@@ -1,17 +1,12 @@
-fazer extract dos cadastros de paciente(sem o convenio, numero de carteira, e plano), cor, profissao, convenio.
-
 inserir corretamente no novo padrão de banco de dados.
 
 testar backup e restauração com aplicativo.
 
-criar cadastro de usuário.
-
-Deve ser cadastrado no tipo de atendimento a opção "exame".
-
-Na tela de abertura de atendimento, criar botão para tela de cadastro de tipo de atendimento.
-
-Criar tela de cadastro de cidade de vincular na  endereço do paciente.
-
+ok Deve ser cadastrado no tipo de atendimento a opção "exame".
+ok criar cadastro de usuário.
+ok fazer extract dos cadastros de paciente(sem o convenio, numero de carteira, e plano), cor, profissao.
+ok Na tela de abertura de atendimento, criar botão para tela de cadastro de tipo de atendimento.
+ok Criar tela de cadastro de cidade de vincular na  endereço do paciente.
 ok No computador do dr não consegue acessar o banco de dados no note da Junia.
 ok No aba histórico do paciente não está listado os atendimentos concluídos.
 ok Ao alterar um paciente o campo e-mail não é salvo as alterações.
