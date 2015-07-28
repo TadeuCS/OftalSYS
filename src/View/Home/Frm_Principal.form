@@ -19,7 +19,7 @@
                     <Property name="text" type="java.lang.String" value="Paciente"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="item_cadPacienteMousePressed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_cadPacienteActionPerformed"/>
                   </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="item_cadCor">
@@ -27,7 +27,7 @@
                     <Property name="text" type="java.lang.String" value="Cor"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="item_cadCorMousePressed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_cadCorActionPerformed"/>
                   </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="item_cadProfissao">
@@ -35,16 +35,15 @@
                     <Property name="text" type="java.lang.String" value="Profiss&#xe3;o"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="item_cadProfissaoMousePressed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_cadProfissaoActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="item_cadProfissao1">
+                <MenuItem class="javax.swing.JMenuItem" name="item_cadEstadoCivil">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Estado Civil"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="item_cadProfissao1MousePressed"/>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_cadProfissao1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_cadEstadoCivilActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -79,7 +78,7 @@
                 <Property name="text" type="java.lang.String" value="Conv&#xea;nio"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="item_cadConvenioMousePressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_cadConvenioActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

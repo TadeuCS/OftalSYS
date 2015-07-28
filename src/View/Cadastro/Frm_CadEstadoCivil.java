@@ -21,6 +21,7 @@ public class Frm_CadEstadoCivil extends javax.swing.JFrame {
 
     public Frm_CadEstadoCivil() {
         initComponents();
+        setVisible(true);
         txt_estadoCivil.setDocument(new FixedLengthDocument(255));
     }
 

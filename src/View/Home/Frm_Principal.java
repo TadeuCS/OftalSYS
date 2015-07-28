@@ -57,7 +57,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         item_cadPaciente = new javax.swing.JMenuItem();
         item_cadCor = new javax.swing.JMenuItem();
         item_cadProfissao = new javax.swing.JMenuItem();
-        item_cadProfissao1 = new javax.swing.JMenuItem();
+        item_cadEstadoCivil = new javax.swing.JMenuItem();
         item_cadUsuario = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -252,41 +252,36 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu3.setText("Paciente");
 
         item_cadPaciente.setText("Paciente");
-        item_cadPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                item_cadPacienteMousePressed(evt);
+        item_cadPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_cadPacienteActionPerformed(evt);
             }
         });
         jMenu3.add(item_cadPaciente);
 
         item_cadCor.setText("Cor");
-        item_cadCor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                item_cadCorMousePressed(evt);
+        item_cadCor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_cadCorActionPerformed(evt);
             }
         });
         jMenu3.add(item_cadCor);
 
         item_cadProfissao.setText("Profissão");
-        item_cadProfissao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                item_cadProfissaoMousePressed(evt);
+        item_cadProfissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_cadProfissaoActionPerformed(evt);
             }
         });
         jMenu3.add(item_cadProfissao);
 
-        item_cadProfissao1.setText("Estado Civil");
-        item_cadProfissao1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                item_cadProfissao1MousePressed(evt);
-            }
-        });
-        item_cadProfissao1.addActionListener(new java.awt.event.ActionListener() {
+        item_cadEstadoCivil.setText("Estado Civil");
+        item_cadEstadoCivil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                item_cadProfissao1ActionPerformed(evt);
+                item_cadEstadoCivilActionPerformed(evt);
             }
         });
-        jMenu3.add(item_cadProfissao1);
+        jMenu3.add(item_cadEstadoCivil);
 
         jMenu1.add(jMenu3);
 
@@ -320,9 +315,9 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         item_cadConvenio.setText("Convênio");
-        item_cadConvenio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                item_cadConvenioMousePressed(evt);
+        item_cadConvenio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_cadConvenioActionPerformed(evt);
             }
         });
         jMenu1.add(item_cadConvenio);
@@ -419,22 +414,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         Frm_CadUsuario f = new Frm_CadUsuario();
     }//GEN-LAST:event_item_cadUsuarioMousePressed
 
-    private void item_cadPacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadPacienteMousePressed
-        Frm_CadPaciente f = new Frm_CadPaciente();
-    }//GEN-LAST:event_item_cadPacienteMousePressed
-
-    private void item_cadCorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadCorMousePressed
-        Frm_CadCor f = new Frm_CadCor();
-    }//GEN-LAST:event_item_cadCorMousePressed
-
-    private void item_cadProfissaoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadProfissaoMousePressed
-        Frm_CadProfissao f = new Frm_CadProfissao();
-    }//GEN-LAST:event_item_cadProfissaoMousePressed
-
-    private void item_cadConvenioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadConvenioMousePressed
-        Frm_CadConvenio f = new Frm_CadConvenio();
-    }//GEN-LAST:event_item_cadConvenioMousePressed
-
     private void item_aberturaAtendimentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_aberturaAtendimentoMousePressed
         Frm_AberturaAtendimento f = new Frm_AberturaAtendimento();
     }//GEN-LAST:event_item_aberturaAtendimentoMousePressed
@@ -447,14 +426,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         Frm_cadTipoAtendimento f =new Frm_cadTipoAtendimento();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void item_cadProfissao1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_item_cadProfissao1MousePressed
-        Frm_CadProfissao f= new Frm_CadProfissao();
-    }//GEN-LAST:event_item_cadProfissao1MousePressed
-
-    private void item_cadProfissao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadProfissao1ActionPerformed
-        Frm_CadEstadoCivil f = new Frm_CadEstadoCivil();
-    }//GEN-LAST:event_item_cadProfissao1ActionPerformed
-
     private void item_cadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadUsuarioActionPerformed
         Frm_CadUsuario f= new Frm_CadUsuario();
     }//GEN-LAST:event_item_cadUsuarioActionPerformed
@@ -462,6 +433,26 @@ public class Frm_Principal extends javax.swing.JFrame {
     private void item_aberturaAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_aberturaAtendimentoActionPerformed
         Frm_AberturaAtendimento f= new Frm_AberturaAtendimento();
     }//GEN-LAST:event_item_aberturaAtendimentoActionPerformed
+
+    private void item_cadEstadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadEstadoCivilActionPerformed
+        Frm_CadEstadoCivil f = new Frm_CadEstadoCivil();
+    }//GEN-LAST:event_item_cadEstadoCivilActionPerformed
+
+    private void item_cadCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadCorActionPerformed
+        Frm_CadCor f= new Frm_CadCor();
+    }//GEN-LAST:event_item_cadCorActionPerformed
+
+    private void item_cadPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadPacienteActionPerformed
+        Frm_CadPaciente f= new Frm_CadPaciente();
+    }//GEN-LAST:event_item_cadPacienteActionPerformed
+
+    private void item_cadProfissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadProfissaoActionPerformed
+        Frm_CadProfissao f= new Frm_CadProfissao();
+    }//GEN-LAST:event_item_cadProfissaoActionPerformed
+
+    private void item_cadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadConvenioActionPerformed
+        Frm_CadConvenio f= new Frm_CadConvenio();
+    }//GEN-LAST:event_item_cadConvenioActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -510,9 +501,9 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem item_aberturaAtendimento;
     private javax.swing.JMenuItem item_cadConvenio;
     private javax.swing.JMenuItem item_cadCor;
+    private javax.swing.JMenuItem item_cadEstadoCivil;
     private javax.swing.JMenuItem item_cadPaciente;
     private javax.swing.JMenuItem item_cadProfissao;
-    private javax.swing.JMenuItem item_cadProfissao1;
     private javax.swing.JMenuItem item_cadUsuario;
     private javax.swing.JMenuItem item_trocaUsuario;
     private javax.swing.JLabel jLabel11;

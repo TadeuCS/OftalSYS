@@ -23,6 +23,7 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
     UsuarioDAO usuarioDAO;
     TipoUsuarioDAO tipoUsuarioDAO;
     StatusUsuarioDAO statusUsuarioDAO;
+
     public Frm_CadUsuario() {
         initComponents();
         setVisible(true);
@@ -110,6 +111,11 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
 
         btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cancelar.png"))); // NOI18N
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,8 +167,8 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
             if (txt_senha.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Senha inválida!");
                 txt_senha.requestFocus();
-            }else{
-                usuarioDAO=new UsuarioDAO();
+            } else {
+                usuarioDAO = new UsuarioDAO();
                 try {
                     usuarioDAO.buscar(txt_usuario.getText());
                 } catch (NoResultException e) {
@@ -171,6 +177,10 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,10 +230,10 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
 
     private void salvar() {
         try {
-            usuarioDAO=new UsuarioDAO();
-            statusUsuarioDAO=new StatusUsuarioDAO();
-            tipoUsuarioDAO=new TipoUsuarioDAO();
-            Usuario usuario=new Usuario();
+            usuarioDAO = new UsuarioDAO();
+            statusUsuarioDAO = new StatusUsuarioDAO();
+            tipoUsuarioDAO = new TipoUsuarioDAO();
+            Usuario usuario = new Usuario();
             usuario.setUsuario(txt_usuario.getText());
             usuario.setSenha(txt_senha.getText());
             usuario.setCodstatusUsuario(statusUsuarioDAO.buscar("DESBLOQUEADO"));
@@ -234,19 +244,19 @@ public class Frm_CadUsuario extends javax.swing.JFrame {
             txt_senha.setText(null);
             txt_usuario.requestFocus();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar o Usuário!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao salvar o Usuário!\n" + e.getMessage());
         }
     }
 
     private void carregaTipoUsuario() {
         try {
-            tipoUsuarioDAO=new TipoUsuarioDAO();
+            tipoUsuarioDAO = new TipoUsuarioDAO();
             cbx_tipoUsuario.removeAllItems();
             for (TipoUsuario tipo : tipoUsuarioDAO.listar()) {
                 cbx_tipoUsuario.addItem(tipo.getDescricao());
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar os tipos de Usuário!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao carregar os tipos de Usuário!\n" + e.getMessage());
         }
     }
 }
