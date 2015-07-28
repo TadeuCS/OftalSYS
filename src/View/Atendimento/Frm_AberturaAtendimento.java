@@ -53,12 +53,12 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
     public Frm_AberturaAtendimento() {
         initComponents();
+        setVisible(true);
         txt_numCarteira.setDocument(new IntegerDocument(10));
         txt_plano.setDocument(new FixedLengthDocument(100));
         AutoComplete.decorate(cbx_paciente);
         atendimento = new Atendimento();
         pacientes = new ArrayList<>();
-        setVisible(true);
         start();
     }
 
@@ -463,10 +463,11 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
                             .addComponent(btn_cadUsuario)))
                     .addComponent(cbx_doutor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cbx_tipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cadTipoAtendimento))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_cadTipoAtendimento)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(cbx_tipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel12)
@@ -736,6 +737,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         carregaDoutores();
         carregaTipoAtendimentos();
         calculaIdade();
+        carregaConvenios();
     }
 
     private void calculaIdade() {

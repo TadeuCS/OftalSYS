@@ -199,19 +199,24 @@ public class Frm_Anexo extends javax.swing.JFrame {
         Path path = Paths.get(file.getAbsolutePath());
         diretorio = path.toString();
         if (diretorio.endsWith("png") || diretorio.endsWith("jpg")) {
-            try {
-                anexo = new Anexo();
-                byte[] bFile = new byte[(int) file.length()];
-                anexo.setCodatendimento(atendimento);
-                FileInputStream fis = new FileInputStream(file);
-                fis.read(bFile);
-                fis.close();
-                anexo.setImagem(bFile);
-                lista.add(anexo);
-                carregaImagem(diretorio);
-                txt_qtdeAnexos.setText(Integer.parseInt(txt_qtdeAnexos.getText()) + 1 + "");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao inserir imagem na lista!\n" + e.getMessage());
+            byte[] bFile = new byte[(int) file.length()];
+            if (bFile.length <= 1048576) {
+                try {
+                    anexo = new Anexo();
+
+                    anexo.setCodatendimento(atendimento);
+                    FileInputStream fis = new FileInputStream(file);
+                    fis.read(bFile);
+                    fis.close();
+                    anexo.setImagem(bFile);
+                    lista.add(anexo);
+                    carregaImagem(diretorio);
+                    txt_qtdeAnexos.setText(Integer.parseInt(txt_qtdeAnexos.getText()) + 1 + "");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro ao inserir imagem na lista!\n" + e.getMessage());
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Imagem muito grande!\n");
             }
 
         } else {

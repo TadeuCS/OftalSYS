@@ -337,6 +337,11 @@ public class Frm_Principal extends javax.swing.JFrame {
                 item_aberturaAtendimentoMousePressed(evt);
             }
         });
+        item_aberturaAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_aberturaAtendimentoActionPerformed(evt);
+            }
+        });
         jMenu2.add(item_aberturaAtendimento);
 
         Menu_barra.add(jMenu2);
@@ -453,6 +458,10 @@ public class Frm_Principal extends javax.swing.JFrame {
     private void item_cadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cadUsuarioActionPerformed
         Frm_CadUsuario f= new Frm_CadUsuario();
     }//GEN-LAST:event_item_cadUsuarioActionPerformed
+
+    private void item_aberturaAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_aberturaAtendimentoActionPerformed
+        Frm_AberturaAtendimento f= new Frm_AberturaAtendimento();
+    }//GEN-LAST:event_item_aberturaAtendimentoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -1385,7 +1385,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                                                                 JOptionPane.showMessageDialog(null, "CPF Inválido!");
                                                                 txt_cpf.requestFocus();
                                                             } else {
-                                                                if (!txt_email.getText().trim().isEmpty() && ValidaEmail.validarEmail(txt_email.getText()) == false) {
+                                                                if (ValidaEmail.validarEmail(txt_email.getText()) == false) {
                                                                     abas.setSelectedIndex(0);
                                                                     JOptionPane.showMessageDialog(null, "Email Inválido!");
                                                                     txt_email.requestFocus();

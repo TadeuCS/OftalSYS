@@ -79,6 +79,11 @@ public class Frm_CadCor extends javax.swing.JFrame {
 
         btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cancelar.png"))); // NOI18N
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,6 +135,10 @@ public class Frm_CadCor extends javax.swing.JFrame {
             salvar(txt_cor.getText());
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,18 +195,14 @@ public class Frm_CadCor extends javax.swing.JFrame {
         try {
             Cor c = new Cor();
             corDAO = new CorDAO();
-            if (corDAO.buscar(cor) != null) {
-                JOptionPane.showMessageDialog(null, cor + " já está cadastrada!");
-            } else {
-                c.setDescricao(cor);
-                corDAO.salvar(c);
-                txt_cor.setText(null);
-                txt_cor.requestFocus();
-                JOptionPane.showMessageDialog(null,"Cor salva com sucesso!");
-            }
-
+            c.setDescricao(cor);
+            corDAO.salvar(c);
+            JOptionPane.showMessageDialog(null, "Cor salva com sucesso!");
+            txt_cor.setText(null);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar a cor!\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, cor + " já cadastrada!");
+        } finally {
+            txt_cor.requestFocus();
         }
     }
 }

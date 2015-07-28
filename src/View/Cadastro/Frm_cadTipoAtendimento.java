@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class Frm_cadTipoAtendimento extends javax.swing.JFrame {
 
     TipoAtendimentoDAO tipoAtendimentoDAO;
+
     public Frm_cadTipoAtendimento() {
         initComponents();
         setVisible(true);
@@ -41,6 +42,7 @@ public class Frm_cadTipoAtendimento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Tipo de Atendimento");
+        setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -67,6 +69,7 @@ public class Frm_cadTipoAtendimento extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/salvar.png"))); // NOI18N
         btn_salvar.setText("Salvar");
         btn_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,7 +77,13 @@ public class Frm_cadTipoAtendimento extends javax.swing.JFrame {
             }
         });
 
+        btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cancelar.png"))); // NOI18N
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,10 +94,10 @@ public class Frm_cadTipoAtendimento extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 182, Short.MAX_VALUE)
-                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 162, Short.MAX_VALUE)
+                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -119,13 +128,17 @@ public class Frm_cadTipoAtendimento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-        if(txt_tipoAtendimento.getText().trim().isEmpty()){
+        if (txt_tipoAtendimento.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tipo de Atendimento inválido!");
             txt_tipoAtendimento.requestFocus();
-        }else{
+        } else {
             salvar();
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,15 +186,16 @@ public class Frm_cadTipoAtendimento extends javax.swing.JFrame {
 
     private void salvar() {
         try {
-            tipoAtendimentoDAO=new TipoAtendimentoDAO();
-            TipoAtendimento tipo= new TipoAtendimento();
+            tipoAtendimentoDAO = new TipoAtendimentoDAO();
+            TipoAtendimento tipo = new TipoAtendimento();
             tipo.setDescricao(txt_tipoAtendimento.getText());
             tipoAtendimentoDAO.salvar(tipo);
             JOptionPane.showMessageDialog(null, "Tipo de atendimento salvo com sucesso!");
             txt_tipoAtendimento.setText(null);
-            txt_tipoAtendimento.requestFocus();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar o tipo de atendimento!"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Tipo de atendimento já cadastrado!");
+        } finally {
+            txt_tipoAtendimento.requestFocus();
         }
     }
 }

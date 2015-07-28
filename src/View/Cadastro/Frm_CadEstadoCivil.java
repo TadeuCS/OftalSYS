@@ -18,6 +18,7 @@ public class Frm_CadEstadoCivil extends javax.swing.JFrame {
 
     EstadoCivilDAO estadoCivilDAO;
     EstadoCivil estadoCivil;
+
     public Frm_CadEstadoCivil() {
         initComponents();
         txt_estadoCivil.setDocument(new FixedLengthDocument(255));
@@ -33,7 +34,9 @@ public class Frm_CadEstadoCivil extends javax.swing.JFrame {
         btn_salvar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de estado Civil");
+        setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -70,6 +73,11 @@ public class Frm_CadEstadoCivil extends javax.swing.JFrame {
 
         btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cancelar.png"))); // NOI18N
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,6 +107,7 @@ public class Frm_CadEstadoCivil extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
@@ -108,6 +117,10 @@ public class Frm_CadEstadoCivil extends javax.swing.JFrame {
             salvar(txt_estadoCivil.getText());
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,20 +165,19 @@ public class Frm_CadEstadoCivil extends javax.swing.JFrame {
     private javax.swing.JTextField txt_estadoCivil;
     // End of variables declaration//GEN-END:variables
 
-    private void salvar(String text) {
+    private void salvar(String estadoCiv) {
         try {
-            estadoCivil=new EstadoCivil();
-            estadoCivilDAO =new EstadoCivilDAO();
-            if (estadoCivilDAO.buscar(text) != null) {
-                JOptionPane.showMessageDialog(null, text+" já está cadastrado!");
-            } else {
-                estadoCivil.setDescricao(text);
-                estadoCivilDAO.salvar(estadoCivil);
-                txt_estadoCivil.requestFocus();
-                JOptionPane.showMessageDialog(null,"Estado civil salvo com sucesso!");
-            }
+            estadoCivil = new EstadoCivil();
+            estadoCivilDAO = new EstadoCivilDAO();
+            estadoCivil.setDescricao(estadoCiv);
+            estadoCivilDAO.salvar(estadoCivil);
+            txt_estadoCivil.requestFocus();
+            JOptionPane.showMessageDialog(null, "Estado civil salvo com sucesso!");
+            txt_estadoCivil.setText(null);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar a convenio!\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, estadoCiv + " já está cadastrado!");
+        }finally{
+            txt_estadoCivil.requestFocus();
         }
     }
 }

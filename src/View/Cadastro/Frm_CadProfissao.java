@@ -79,6 +79,11 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
 
         btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cancelar.png"))); // NOI18N
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,6 +134,10 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
             salvar(txt_profissao.getText());
         }
     }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btn_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,20 +198,17 @@ public class Frm_CadProfissao extends javax.swing.JFrame {
     private javax.swing.JTextField txt_profissao;
     // End of variables declaration//GEN-END:variables
 
-    private void salvar(String text) {
+    private void salvar(String profissao) {
         try {
             Profissao p = new Profissao();
             profissaoDAO = new ProfissaoDAO();
-            if (profissaoDAO.buscar(text) != null) {
-                JOptionPane.showMessageDialog(null, text + " já está cadastrada!");
-            } else {
-                p.setDescricao(text);
-                profissaoDAO.salvar(p);
-                txt_profissao.requestFocus();
-                JOptionPane.showMessageDialog(null, "Profissão salva com sucesso!");
-            }
+            p.setDescricao(profissao);
+            profissaoDAO.salvar(p);
+            JOptionPane.showMessageDialog(null, "Profissão salva com sucesso!");
+            txt_profissao.requestFocus();
+            txt_profissao.setText(null);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar a profissão!\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, profissao + " já cadastrada!\n");
         }
     }
 }

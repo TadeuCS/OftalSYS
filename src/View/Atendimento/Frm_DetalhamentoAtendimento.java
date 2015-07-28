@@ -403,6 +403,7 @@ public class Frm_DetalhamentoAtendimento extends javax.swing.JFrame {
 //            txt_dataFim.setText(Data.getDataByDate(atendimento.getHoraFim(), "HH:mm"));
 //            txt_dataRetorno.setText(Data.getDataByDate(atendimento.getDtRetorno(), "dd/MM/yyyy"));
             txt_queixa.setText(atendimento.getQueixa());
+            txt_tipoAtendimento.setText(atendimento.getCodtipoAtendimento().getDescricao());
             anexos = atendimento.getAnexoList();
             lb_posicao.setText("1");
             lb_total.setText(anexos.size()+"");

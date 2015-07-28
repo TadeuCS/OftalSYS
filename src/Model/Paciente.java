@@ -58,7 +58,7 @@ public class Paciente implements Serializable {
     private Date dtNascimento;
     @Column(name = "CPF")
     private String cpf;
-    @Column(name = "RG",nullable = false)
+    @Column(name = "RG")
     private String rg;
     @Column(name = "SEXO",nullable = true)
     private Character sexo;
