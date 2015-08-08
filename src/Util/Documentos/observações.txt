@@ -1,7 +1,5 @@
-inserir corretamente no novo padrão de banco de dados.
-
-testar backup e restauração com aplicativo.
-
+ok inserir corretamente no novo padrão de banco de dados.
+ok testar backup e restauração com aplicativo.
 ok Deve ser cadastrado no tipo de atendimento a opção "exame".
 ok criar cadastro de usuário.
 ok fazer extract dos cadastros de paciente(sem o convenio, numero de carteira, e plano), cor, profissao.
