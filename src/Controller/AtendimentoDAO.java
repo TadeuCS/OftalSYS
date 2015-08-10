@@ -22,6 +22,12 @@ public class AtendimentoDAO extends Conexao {
         em.getTransaction().commit();
     }
 
+    public void remove(Atendimento att) {
+        em.getTransaction().begin();
+        em.remove(att);
+        em.getTransaction().commit();
+    }
+
     public List<Atendimento> listar() {
         em.getTransaction().begin();
         query = em.createNamedQuery("Atendimento.findAll");

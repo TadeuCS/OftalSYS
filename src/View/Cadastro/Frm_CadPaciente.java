@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 public class Frm_CadPaciente extends javax.swing.JFrame {
 
@@ -102,7 +104,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         chx_ativo = new javax.swing.JCheckBox();
         txt_observacao = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        cbx_naturalidade = new javax.swing.JComboBox();
+        txt_naturalidade = new javax.swing.JTextField();
         pnl_endereco = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txt_cep = new javax.swing.JFormattedTextField();
@@ -129,11 +131,13 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         cbx_tipoTelefone = new javax.swing.JComboBox();
         jLabel20 = new javax.swing.JLabel();
         txt_telefone = new javax.swing.JFormattedTextField();
+        cbx_nonoDigito = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tb_atendimentos = new javax.swing.JTable();
         btn_detalhar = new javax.swing.JButton();
         btn_reimprimir = new javax.swing.JButton();
+        btn_atualizar = new javax.swing.JButton();
         pnl_botoes = new javax.swing.JPanel();
         btn_novo = new javax.swing.JButton();
         btn_editar = new javax.swing.JButton();
@@ -253,17 +257,6 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
 
         jLabel24.setText("Observação:");
 
-        cbx_naturalidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                cbx_naturalidadeFocusGained(evt);
-            }
-        });
-        cbx_naturalidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbx_naturalidadeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnl_dadosPessoaisLayout = new javax.swing.GroupLayout(pnl_dadosPessoais);
         pnl_dadosPessoais.setLayout(pnl_dadosPessoaisLayout);
         pnl_dadosPessoaisLayout.setHorizontalGroup(
@@ -324,7 +317,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbx_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -362,8 +355,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addComponent(cbx_estadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)
-                        .addComponent(cbx_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11))
+                        .addComponent(jLabel11)
+                        .addComponent(txt_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cbx_profissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cadProfissao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -549,6 +542,13 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         }
         txt_telefone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        cbx_nonoDigito.setText("com 9 digitos");
+        cbx_nonoDigito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbx_nonoDigitoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -562,6 +562,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbx_nonoDigito)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -572,7 +574,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(cbx_tipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20)
-                    .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_nonoDigito))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -631,6 +634,11 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             }
         });
         tb_atendimentos.getTableHeader().setReorderingAllowed(false);
+        tb_atendimentos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tb_atendimentosKeyPressed(evt);
+            }
+        });
         jScrollPane4.setViewportView(tb_atendimentos);
         if (tb_atendimentos.getColumnModel().getColumnCount() > 0) {
             tb_atendimentos.getColumnModel().getColumn(0).setMinWidth(100);
@@ -659,6 +667,14 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_reimprimir.setText("Reimprimir");
         btn_reimprimir.setEnabled(false);
 
+        btn_atualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/carregar.png"))); // NOI18N
+        btn_atualizar.setText("Atualizar");
+        btn_atualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_atualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -668,7 +684,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_reimprimir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_detalhar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -682,7 +699,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_detalhar)
-                    .addComponent(btn_reimprimir))
+                    .addComponent(btn_reimprimir)
+                    .addComponent(btn_atualizar))
                 .addContainerGap())
         );
 
@@ -977,23 +995,15 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_detalharActionPerformed
 
     private void btn_cadCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadCidadeActionPerformed
-        // TODO add your handling code here:
+        Frm_CadCidade f = new Frm_CadCidade();
     }//GEN-LAST:event_btn_cadCidadeActionPerformed
 
     private void cbx_estadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_estadoCivilActionPerformed
     }//GEN-LAST:event_cbx_estadoCivilActionPerformed
 
-    private void cbx_naturalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_naturalidadeActionPerformed
-
-    }//GEN-LAST:event_cbx_naturalidadeActionPerformed
-
     private void cbx_estadoCivilFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_estadoCivilFocusGained
         carregaEstadoCivis();
     }//GEN-LAST:event_cbx_estadoCivilFocusGained
-
-    private void cbx_naturalidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_naturalidadeFocusGained
-        carregaCidades();
-    }//GEN-LAST:event_cbx_naturalidadeFocusGained
 
     private void cbx_profissaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_profissaoFocusGained
         carregaCidades();
@@ -1002,6 +1012,46 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void cbx_corFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_corFocusGained
         carregaCores();
     }//GEN-LAST:event_cbx_corFocusGained
+
+    private void tb_atendimentosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tb_atendimentosKeyPressed
+        if (evt.getKeyCode() == Event.DELETE) {
+            try {
+                if (JOptionPane.showConfirmDialog(null, "Deseja realmente apagar o atendimento: " + tb_atendimentos.getValueAt(tb_atendimentos.getSelectedRow(), 0), "Alerta", 0) == 0) {
+                    removeAtendimento();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Impossível remover este atendimento!\n" + e);
+            }
+        }
+    }//GEN-LAST:event_tb_atendimentosKeyPressed
+
+    private void cbx_nonoDigitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_nonoDigitoActionPerformed
+        if (cbx_nonoDigito.isSelected()) {
+            try {
+                txt_telefone.setValue(null);
+                MaskFormatter cpf = new MaskFormatter("(##) #####-####");
+                txt_telefone.setFormatterFactory(
+                        new DefaultFormatterFactory(cpf));
+                txt_telefone.requestFocus();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao inserir o nono digito!\n" + e);
+            }
+        } else {
+            try {
+                txt_telefone.setValue(null);
+                MaskFormatter cpf = new MaskFormatter("(##) ####-####");
+                txt_telefone.setFormatterFactory(
+                        new DefaultFormatterFactory(cpf));
+                txt_telefone.requestFocus();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao inserir o nono digito!\n" + e);
+            }
+        }
+    }//GEN-LAST:event_cbx_nonoDigitoActionPerformed
+
+    private void btn_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atualizarActionPerformed
+        carregarAtendimentoByPaciente(Integer.parseInt(txt_codigo.getText()));
+    }//GEN-LAST:event_btn_atualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1042,6 +1092,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane abas;
     private javax.swing.JButton btn_apagar;
+    private javax.swing.JButton btn_atualizar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cadCidade;
     private javax.swing.JButton btn_cadCor;
@@ -1058,7 +1109,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JComboBox cbx_cor;
     private javax.swing.JComboBox cbx_estado;
     private javax.swing.JComboBox cbx_estadoCivil;
-    private javax.swing.JComboBox cbx_naturalidade;
+    private javax.swing.JCheckBox cbx_nonoDigito;
     private javax.swing.JComboBox cbx_profissao;
     private javax.swing.JComboBox cbx_tipoTelefone;
     private javax.swing.JCheckBox chx_ativo;
@@ -1106,6 +1157,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txt_dataNascimento;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_logradouro;
+    private javax.swing.JTextField txt_naturalidade;
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_numero;
     private javax.swing.JTextField txt_observacao;
@@ -1156,7 +1208,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
         btn_cadProfissao.setEnabled(tipo);
         txt_observacao.setEnabled(tipo);
         chx_ativo.setEnabled(tipo);
-        cbx_naturalidade.setEnabled(tipo);
+        txt_naturalidade.setEnabled(tipo);
         txt_nome.requestFocus();
 
         //endereco
@@ -1255,14 +1307,12 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
     private void carregaCidades() {
         try {
             cbx_cidade.removeAllItems();
-            cbx_naturalidade.removeAllItems();
             cidadeDAO = new CidadeDAO();
             estadoDAO = new EstadoDAO();
             List<Cidade> cidades = new ArrayList<>();
             cidades = cidadeDAO.listarByEstado(estadoDAO.buscar(cbx_estado.getSelectedItem().toString()));
             for (Cidade listaCidades : cidades) {
                 cbx_cidade.addItem(listaCidades.getDescricao());
-                cbx_naturalidade.addItem(listaCidades.getDescricao());
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao Carregar as cidades!\n" + e.getMessage());
@@ -1385,13 +1435,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
                                                                 JOptionPane.showMessageDialog(null, "CPF Inválido!");
                                                                 txt_cpf.requestFocus();
                                                             } else {
-                                                                if (ValidaEmail.validarEmail(txt_email.getText()) == false) {
-                                                                    abas.setSelectedIndex(0);
-                                                                    JOptionPane.showMessageDialog(null, "Email Inválido!");
-                                                                    txt_email.requestFocus();
-                                                                } else {
-                                                                    salvar();
-                                                                }
+                                                                salvar();
                                                             }
                                                         }
                                                     }
@@ -1450,8 +1494,8 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             } else {
                 paciente.setCodprofissao(null);
             }
-            if (!cbx_naturalidade.getSelectedItem().toString().isEmpty()) {
-                paciente.setNaturalidade(cbx_naturalidade.getSelectedItem().toString());
+            if (!txt_naturalidade.getText().isEmpty()) {
+                paciente.setNaturalidade(txt_naturalidade.getText());
             }
 
             //endereco
@@ -1479,7 +1523,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             if (cbx_estadoCivil.getSelectedIndex() > 0) {
                 paciente.setCodestadoCivil(estadoCivilDAO.buscar(cbx_estadoCivil.getSelectedItem().toString()));
             }
-            paciente.setEmail(txt_email.getText());
+            if (!txt_email.getText().isEmpty()) {
+                paciente.setEmail(txt_email.getText());
+            }
             pacienteDAO = new PacienteDAO();
             pacienteDAO.salvar(paciente);
             if (txt_operacao.getText().equals("INCLUSÃO") == true) {
@@ -1615,7 +1661,7 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             } else {
                 cbx_estadoCivil.setSelectedIndex(0);
             }
-            cbx_naturalidade.setSelectedItem(paciente.getNaturalidade());
+            txt_naturalidade.setText(paciente.getNaturalidade());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar os dados pessoais!\n" + e.getMessage());
         }
@@ -1628,8 +1674,9 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             txt_numero.setText(paciente.getEnderecoList().get(0).getNumero() + "");
             txt_bairro.setText(paciente.getEnderecoList().get(0).getBairro());
             txt_complemento.setText(paciente.getEnderecoList().get(0).getComplemento());
-            cbx_cidade.setSelectedItem(paciente.getEnderecoList().get(0).getCodcidade().getDescricao());
             cbx_estado.setSelectedItem(paciente.getEnderecoList().get(0).getCodcidade().getCodestado().getSigla());
+            carregaCidades();
+            cbx_cidade.setSelectedItem(paciente.getEnderecoList().get(0).getCodcidade().getDescricao());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao carregar o endereco!\n" + e.getMessage());
         }
@@ -1688,6 +1735,35 @@ public class Frm_CadPaciente extends javax.swing.JFrame {
             return "S";
         } else {
             return "N";
+        }
+    }
+
+    private void removeAtendimento() {
+        try {
+            atendimentoDAO = new AtendimentoDAO();
+            atendimentoDAO.remove(atendimentoDAO.buscar(Integer.parseInt(tb_atendimentos.getValueAt(tb_atendimentos.getSelectedRow(), 0).toString())));
+            JOptionPane.showMessageDialog(null, "Atendimento removido com sucesso!");
+            TableConfig.getModel(tb_atendimentos).removeRow(tb_atendimentos.getSelectedRow());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao remover o atendimento!\n" + e);
+        }
+    }
+
+    private void carregarAtendimentoByPaciente(int codpaciente) {
+        try {
+            atendimentoDAO = new AtendimentoDAO();
+            pacienteDAO = new PacienteDAO();
+            TableConfig.limpaTabela(tb_atendimentos);
+            for (Atendimento att : atendimentoDAO.listarByPaciente(pacienteDAO.buscar(codpaciente))) {
+                String[] linha = new String[]{att.getCodatendimento().toString(),
+                    Data.getDataByDate(att.getDtAtendimento(), "dd/MM/yyyy"),
+                    Data.getDataByDate(att.getDtAtendimento(), "HH:mm"),
+                    att.getQueixa(), temAnexo(att)};
+                TableConfig.getModel(tb_atendimentos).addRow(linha);
+            }
+            JOptionPane.showMessageDialog(null, "Atendimentos atualizados com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao carregar os atendimentos do paciente: " + codpaciente + " !\n" + e);
         }
     }
 }

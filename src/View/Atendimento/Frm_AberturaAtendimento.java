@@ -297,21 +297,8 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
         cbx_paciente.setEditable(true);
         cbx_paciente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                cbx_pacienteFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cbx_pacienteFocusLost(evt);
-            }
-        });
-        cbx_paciente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                cbx_pacienteMousePressed(evt);
-            }
-        });
-        cbx_paciente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cbx_pacienteKeyPressed(evt);
             }
         });
 
@@ -323,13 +310,30 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txt_dataAtendimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_dataAtendimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_dataAtendimentoFocusGained(evt);
+            }
+        });
         txt_dataAtendimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_dataAtendimentoKeyPressed(evt);
             }
         });
 
+        cbx_doutor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbx_doutorFocusGained(evt);
+            }
+        });
+
         jLabel4.setText("Doutor*:");
+
+        cbx_tipoAtendimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbx_tipoAtendimentoFocusGained(evt);
+            }
+        });
 
         jLabel5.setText("Tipo Atendimento*:");
 
@@ -337,6 +341,11 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
         txt_queixa.setColumns(20);
         txt_queixa.setRows(5);
+        txt_queixa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_queixaFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(txt_queixa);
 
         btn_agenda.setText("Agenda");
@@ -351,6 +360,12 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
         jLabel12.setText("Convênio:");
 
+        cbx_convenio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbx_convenioFocusGained(evt);
+            }
+        });
+
         btn_cadConvenio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Util/Img/cadastro.png"))); // NOI18N
         btn_cadConvenio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +375,17 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
         jLabel14.setText("Num. Carteira:");
 
+        txt_numCarteira.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_numCarteiraFocusGained(evt);
+            }
+        });
+
+        txt_plano.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_planoFocusGained(evt);
+            }
+        });
         txt_plano.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_planoActionPerformed(evt);
@@ -570,10 +596,6 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_anexarActionPerformed
 
-    private void cbx_pacienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_pacienteFocusLost
-        calculaIdade();
-    }//GEN-LAST:event_cbx_pacienteFocusLost
-
     private void txt_dataAtendimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dataAtendimentoKeyPressed
         if (evt.getKeyCode() == Event.ENTER) {
             Data data = new Data();
@@ -585,22 +607,9 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
         validaCampos();
     }//GEN-LAST:event_btn_salvarActionPerformed
 
-    private void cbx_pacienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbx_pacienteKeyPressed
-        if (evt.getKeyCode() == Event.ENTER) {
-            txt_dataAtendimento.requestFocus();
-        }
-    }//GEN-LAST:event_cbx_pacienteKeyPressed
-
     private void btn_cadConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadConvenioActionPerformed
         Frm_CadConvenio f = new Frm_CadConvenio();
     }//GEN-LAST:event_btn_cadConvenioActionPerformed
-
-    private void cbx_pacienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_pacienteFocusGained
-    }//GEN-LAST:event_cbx_pacienteFocusGained
-
-    private void cbx_pacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbx_pacienteMousePressed
-        carregaPacientes();
-    }//GEN-LAST:event_cbx_pacienteMousePressed
 
     private void btn_cadTipoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadTipoAtendimentoActionPerformed
         Frm_cadTipoAtendimento f = new Frm_cadTipoAtendimento();
@@ -612,6 +621,37 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
 
     private void txt_planoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_planoActionPerformed
     }//GEN-LAST:event_txt_planoActionPerformed
+
+    private void cbx_pacienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_pacienteFocusLost
+    }//GEN-LAST:event_cbx_pacienteFocusLost
+
+    private void txt_dataAtendimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_dataAtendimentoFocusGained
+        calculaIdade();
+    }//GEN-LAST:event_txt_dataAtendimentoFocusGained
+
+    private void cbx_doutorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_doutorFocusGained
+        calculaIdade();
+    }//GEN-LAST:event_cbx_doutorFocusGained
+
+    private void cbx_tipoAtendimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_tipoAtendimentoFocusGained
+        calculaIdade();
+    }//GEN-LAST:event_cbx_tipoAtendimentoFocusGained
+
+    private void cbx_convenioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbx_convenioFocusGained
+        calculaIdade();
+    }//GEN-LAST:event_cbx_convenioFocusGained
+
+    private void txt_planoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_planoFocusGained
+        calculaIdade();
+    }//GEN-LAST:event_txt_planoFocusGained
+
+    private void txt_numCarteiraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_numCarteiraFocusGained
+        calculaIdade();
+    }//GEN-LAST:event_txt_numCarteiraFocusGained
+
+    private void txt_queixaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_queixaFocusGained
+        calculaIdade();
+    }//GEN-LAST:event_txt_queixaFocusGained
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -743,7 +783,7 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
     private void calculaIdade() {
         try {
             pacienteDAO = new PacienteDAO();
-             paciente = new Paciente();
+            paciente = new Paciente();
             paciente = pacienteDAO.findByNome(cbx_paciente.getSelectedItem().toString());
             Date data = new Date();
             if (paciente.getDtNascimento().getMonth() == data.getMonth()) {
@@ -785,13 +825,13 @@ public class Frm_AberturaAtendimento extends javax.swing.JFrame {
             statusAtendimentoDAO = new StatusAtendimentoDAO();
             tipoAtendimentoDAO = new TipoAtendimentoDAO();
             atendimentoDAO = new AtendimentoDAO();
-            if(cbx_convenio.getSelectedIndex()>0){
+            if (cbx_convenio.getSelectedIndex() > 0) {
                 atendimento.setCodconvenio(convenioDAO.buscar(cbx_convenio.getSelectedItem().toString()));
             }
-            if(!txt_numCarteira.getText().isEmpty()){
+            if (!txt_numCarteira.getText().isEmpty()) {
                 atendimento.setNumCarteira(Integer.parseInt(txt_numCarteira.getText()));
             }
-            if(!txt_plano.getText().isEmpty()){
+            if (!txt_plano.getText().isEmpty()) {
                 atendimento.setPlano(txt_plano.getText());
             }
             atendimento.setCodmedico(usuarioDAO.buscar(cbx_doutor.getSelectedItem().toString()));

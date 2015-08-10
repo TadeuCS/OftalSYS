@@ -79,11 +79,11 @@ public class Paciente implements Serializable {
     @JoinColumn(name = "CODESTADO_CIVIL", referencedColumnName = "CODESTADO_CIVIL")
     @ManyToOne(optional = false)
     private EstadoCivil codestadoCivil;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "codpaciente")
     private List<Atendimento> atendimentoList=new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "codpaciente")
     private List<Endereco> enderecoList=new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codpaciente")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "codpaciente")
     private List<Telefone> telefoneList=new ArrayList<>();
 
     public Paciente() {
